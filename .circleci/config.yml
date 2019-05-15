@@ -5,22 +5,25 @@ jobs:
       - image: circleci/python:3.6.8
 
     working_directory: ~/cimr-d
+    resource_class: xlarge
 
     steps:
       - checkout
 
       - run:
-          name: install dependencies
+          name: Install dependencies
+          working_directory: ~/cimr-d/.circleci
           command: |
-            .travis/install_cimr.sh
-      
-      - run:
-          name: process new pr
-          command: | 
-            python3 .travis/process_submitted_data.py
-            
-      - run:
-          name: push output
-          command: |
-            .travis/push_processed_data.sh
+            bash install_cimr.sh
 
+      - run:
+          name: Process new PR
+          working_directory: ~/cimr-d/.circleci
+          command: |
+            python3 process_submitted_data.py
+
+      - run:
+          name: Push output
+          working_directory: ~/cimr-d/.circleci
+          command: |
+            bash push_processed_data.sh
