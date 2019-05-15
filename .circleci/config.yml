@@ -12,18 +12,15 @@ jobs:
 
       - run:
           name: Install dependencies
-          working_directory: ~/cimr-d/.circleci
           command: |
-            bash install_cimr.sh
+            bash .circleci/.circleci/install_cimr.sh
 
       - run:
           name: Process new PR
-          working_directory: ~/cimr-d/.circleci
           command: |
-            python3 process_submitted_data.py
+            python3 .circleci/process_submitted_data.py
 
       - run:
           name: Push output
-          working_directory: ~/cimr-d/.circleci
           command: |
-            bash push_processed_data.sh
+            bash .circleci/push_processed_data.sh
