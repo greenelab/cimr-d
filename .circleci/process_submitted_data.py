@@ -13,6 +13,10 @@ root_dir = 'submitted_data'
 submitted_file_split = set()
 
 for dir_, _, files in os.walk(root_dir):
+    print("dir_:", dir_)
+    print("_:", _)
+    print("files:", files)
+
     for file_name in files:
         rel_dir = os.path.relpath(dir_, root_dir)
         rel_file = os.path.join(root_dir, rel_dir, file_name)
@@ -36,10 +40,10 @@ for submitted_file in submitted_file_split:
             if not data_type == 'tad':
                 from cimr.processor.utils import Infiler
                 infile = Infiler(
-                    data_type, 
-                    submitted_file, 
-                    genome_build='b38', 
-                    update_rsid=False, 
+                    data_type,
+                    submitted_file,
+                    genome_build='b38',
+                    update_rsid=False,
                     outfile=str(outfile),
                     chunksize=500000
                 )
@@ -54,4 +58,3 @@ for submitted_file in submitted_file_split:
             else:
                 logging.info(f' processed file already exists for {submitted_file}')
                 logging.info(f' if reprocessing, delete {outfile} and file a new pull request')
-
