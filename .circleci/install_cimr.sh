@@ -10,16 +10,19 @@ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.s
 sudo apt-get update
 sudo apt-get install git-lfs
 git lfs install
-ssh git@github.com git-lfs-authenticate greenelab/cimr.git download
-
-
-
 git lfs pull
 
 python3 setup.py build
-python3 setup.py install
+sudo python3 setup.py install
 
+echo
 df -h
+
+echo
 free -g
+
+echo
 free -gt
+
+echo
 vmstat -s
