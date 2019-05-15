@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            bash .circleci/.circleci/install_cimr.sh
+            bash .circleci/install_cimr.sh
 
       - run:
           name: Process new PR
