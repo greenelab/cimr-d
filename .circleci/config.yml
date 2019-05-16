@@ -12,14 +12,12 @@ jobs:
       - run:
           name: Install git-lfs
           command: |
-            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
-            apt-get update
-            apt-get install -y git-lfs openssh-client
-            git lfs install
-            mkdir -p ~/.ssh
-            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-            ssh git@github.com git-lfs-authenticate "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}" download
-      
+            mkdir git-lfs
+            cd git-lfs
+            wget https://github.com/git-lfs/git-lfs/releases/download/v2.7.2/git-lfs-linux-386-v2.7.2.tar.gz
+            tar xzf git-lfs-linux-386-v2.7.2
+            sudo ./install.sh
+            
       - run:
           name: Install cimr + dependencies
           command: |
