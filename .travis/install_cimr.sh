@@ -4,7 +4,7 @@ git clone https://github.com/greenelab/cimr.git
 
 cd cimr
 
-git lfs intall
+git lfs install
 git lfs pull
 
 sudo python3 setup.py build
