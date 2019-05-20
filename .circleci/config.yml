@@ -13,6 +13,7 @@ references:
         - master
         - /rc-.*/
         - /*setup/
+        - submitter
 
   restore_repo: &restore_repo
     restore_cache:
