@@ -77,16 +77,16 @@ jobs:
             
 workflows:
   version: 2
-
   build_process_deploy:
     jobs:
-      - checkout_code
       - build
       - process:
+          requires:
+            - build
       - deploy:
           requires:
             - build
             - process
           filters:
             branches:
-              only: "submitter"
+              only: submitter
