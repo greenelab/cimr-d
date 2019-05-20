@@ -8,12 +8,6 @@ references:
     resource_class: large
     shell: bash
     working_directory: ~/cimr-d
-    branches:
-      only:
-        - master
-        - /rc-.*/
-        - /*setup/
-        - submitter
 
   restore_repo: &restore_repo
     restore_cache:
