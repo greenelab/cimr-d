@@ -1,4 +1,4 @@
-version: 2.0
+version: 2.1
 
 references:
 
@@ -26,6 +26,10 @@ jobs:
 
   checkout_code:
     <<: *container_config
+    filter:
+      branches:
+        except:
+          - development
     steps:
     - *restore_repo
     - checkout
@@ -36,6 +40,12 @@ jobs:
   
   build:
     <<: *container_config
+    filter:
+      branches:
+        except:
+          - development
+          - pre_prod
+          - deploy
     steps:
       - checkout
       - run:
@@ -51,8 +61,11 @@ jobs:
           command: |
             .circleci/install_cimr.sh
   
-  process:
+  staging_deploy:
     <<: *container_config
+    filter:
+      branches:
+        only: staging
     steps:
       - run:
           name: Process new PR
@@ -63,6 +76,9 @@ jobs:
   
   deploy:
     <<: *container_config
+    filter:
+      branches:
+        only: staging
     steps:
       - run:
           name: Commit processed data
@@ -78,13 +94,9 @@ jobs:
             
 workflows:
   version: 2
-  build_process_deploy:
+  build-stage-deploy:
     jobs:
+      - checkout_code
       - build
-      - process:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - build
-            - process
+      - staging_deploy
+      - deploy
