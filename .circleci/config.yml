@@ -9,37 +9,10 @@ references:
     shell: bash
     working_directory: ~/cimr-d
 
-  restore_repo: &restore_repo
-    restore_cache:
-      key:
-        - v1-repo-{{ .Branch }}-{{ .Revision }}
-        - v1-repo-{{ .Branch }}
-        - v1-repo
-
 jobs:
 
-  checkout_code:
-    <<: *container_config
-    filter:
-      branches:
-        except:
-          - development
-    steps:
-    - *restore_repo
-    - checkout
-    - save_cache:
-      key: v1-repo-{{ .Branch }}-{{ .Revision }}
-      paths:
-        - .
-  
   build:
     <<: *container_config
-    filter:
-      branches:
-        except:
-          - development
-          - pre_prod
-          - deploy
     steps:
       - checkout
       - run:
@@ -57,9 +30,6 @@ jobs:
   
   staging_deploy:
     <<: *container_config
-    filter:
-      branches:
-        only: staging
     steps:
       - run:
           name: Process new PR
@@ -70,9 +40,6 @@ jobs:
   
   deploy:
     <<: *container_config
-    filter:
-      branches:
-        only: staging
     steps:
       - run:
           name: Commit processed data
@@ -90,7 +57,22 @@ workflows:
   version: 2
   build-stage-deploy:
     jobs:
-      - checkout_code
       - build
+          filters:
+            branches:
+              except:
+                - development
+                - pre_prod
+                - deploy
       - staging_deploy
+          requires:
+            - build
+          filters:
+            branches:
+              only: staging
       - deploy
+          requires:
+            - staging_deploy
+          filters:
+            branches:
+              only: staging
