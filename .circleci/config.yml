@@ -88,6 +88,3 @@ workflows:
           requires:
             - build
             - process
-          filters:
-            branches:
-              only: submitter
