@@ -60,7 +60,7 @@ workflows:
       - build:
           filters:
             branches:
-              except:
+              ignore:
                 - development
                 - pre_prod
                 - deploy
