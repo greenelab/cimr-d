@@ -44,7 +44,7 @@ jobs:
 
 workflows:
   version: 2
-  crunch-deploy:
+  crunch-save:
     jobs:
       - crunch:
           filters:
