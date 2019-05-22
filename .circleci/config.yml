@@ -49,7 +49,8 @@ workflows:
             branches:
               only: pull/.*
       - deploy:
-          requires: crunch
+          requires:
+            - crunch
           filters:
             branches:
               only: master
