@@ -14,15 +14,3 @@ cd ~/cimr
 git lfs install && git lfs pull
 python3 setup.py build
 sudo python3 setup.py install
-
-echo; echo "df -h"
-df -h
-
-echo; echo "free -g"
-free -g
-
-echo; echo "free -gt"
-free -gt
-
-echo; echo "vmstat -s"
-vmstat -s
