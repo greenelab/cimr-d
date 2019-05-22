@@ -51,7 +51,7 @@ workflows:
             branches:
               only:
                 - pull/.*
-                - master
+                #- master
       - save-crunch:
           requires:
             - crunch

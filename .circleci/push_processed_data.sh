@@ -1,8 +1,7 @@
 #!/bin/bash
 
 git config --global user.email "cimrroot@gmail.com"
-#git config --global user.name "cimrroot"
-git config --global user.name "dongbohu"
+git config --global user.name "cimrroot"
 git config --global push.default simple
 
 #git remote rm origin
