@@ -26,7 +26,7 @@ jobs:
             - .circleci
             - processed_data
 
-  save:
+  save-crunch:
     machine: true
     working_directory: ~/cimr-d
     steps:
@@ -48,7 +48,7 @@ workflows:
           filters:
             branches:
               only: pull/.*
-      - save:
+      - save-crunch:
           requires:
             - crunch
           filters:
