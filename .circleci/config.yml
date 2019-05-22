@@ -38,7 +38,7 @@ jobs:
           fingerprints:
             - "70:0c:94:b3:28:79:80:c9:1d:4d:37:ae:e5:27:87:55"
       - run:
-          name: Push output
+          name: Push outputs
           command: |
             bash .circleci/push_processed_data.sh
 
