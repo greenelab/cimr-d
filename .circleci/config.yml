@@ -17,7 +17,8 @@ jobs:
       - run:
           name: Process new PR
           command: |
-            python3 .circleci/process_submitted_data.py
+            #python3 .circleci/process_submitted_data.py
+            (date; echo "hello from circleci") >> processed_data
 
       - persist_to_workspace:
           root: ~/cimr-d
