@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  crunch:
     docker:
       - image: circleci/python:3.6.8
 
@@ -44,11 +44,12 @@ workflows:
   version: 2
   build-stage-deploy:
     jobs:
-      - build:
+      - crunch:
           filters:
             branches:
               only: pull/.*
       - deploy:
+          requires: crunch
           filters:
             branches:
               only: master
