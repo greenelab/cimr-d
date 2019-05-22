@@ -23,6 +23,7 @@ jobs:
           root: ~/cimr-d
           paths:
             - .git
+            - .circleci
             - processed_data
 
   deploy:
