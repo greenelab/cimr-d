@@ -46,7 +46,12 @@ workflows:
   version: 2
   crunch-save:
     jobs:
-      - crunch
+      - crunch:
+          filters:
+            branches:
+              only:
+                - master
+                - /^pull/
       - save-crunch:
           requires:
             - crunch
