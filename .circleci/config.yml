@@ -49,9 +49,9 @@ workflows:
       - crunch:
           filters:
             branches:
-              ignore:
-                #- pull/.*
-                - develop
+              only:
+                - pull/.*
+                - master
       - save-crunch:
           requires:
             - crunch
