@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z "$CRUNCH_NEEDED" ]; then
+    exit
+fi
+
 # Download git-lfs tarball file in /tmp
 cd /tmp && wget https://github.com/git-lfs/git-lfs/releases/download/v2.7.2/git-lfs-linux-386-v2.7.2.tar.gz
 

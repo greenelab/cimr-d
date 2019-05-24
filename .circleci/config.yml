@@ -10,17 +10,19 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Check changed files
+          command: |
+            bash .circleci/check_changed_files.sh
+      - run:
           name: Install dependencies
           command: |
             bash .circleci/install_cimr.sh
-
       - run:
           name: Process new PR
           command: |
             #python3 .circleci/process_submitted_data.py
             mkdir -p processed_data
             (date; echo "hello from circleci"; echo) >> processed_data/foo.txt
-
       - persist_to_workspace:
           root: ~/cimr-d
           paths:
