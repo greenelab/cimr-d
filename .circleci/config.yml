@@ -21,8 +21,8 @@ jobs:
           name: Process new PR
           command: |
             #python3 .circleci/process_submitted_data.py
-            mkdir -p processed_data
-            (date; echo "hello from circleci"; echo) >> processed_data/foo.txt
+            #mkdir -p processed_data
+            #(date; echo "hello from circleci"; echo) >> processed_data/foo.txt
       - persist_to_workspace:
           root: ~/cimr-d
           paths:
