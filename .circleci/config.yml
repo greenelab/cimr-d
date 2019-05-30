@@ -24,6 +24,7 @@ jobs:
             cd git-lfs
             tar xzf ../git-lfs-linux-386-v2.7.2.tar.gz
             sudo ./install.sh
+            git lfs install
       - run:
           name: Install cimr + dependencies
           command: |
