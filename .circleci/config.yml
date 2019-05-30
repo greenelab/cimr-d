@@ -14,6 +14,9 @@ jobs:
   build:
     <<: *container_config
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "3d:e4:d3:51:b6:59:21:36:27:c7:9d:5a:89:cb:c2:df"
       - checkout
       - run:
           name: Install git-lfs
@@ -42,9 +45,6 @@ jobs:
     steps:
       - attach_workspace: 
           at: ~/cimr-d
-      - add_ssh_keys:
-          fingerprints:
-            - "3d:e4:d3:51:b6:59:21:36:27:c7:9d:5a:89:cb:c2:df"
       - run:
           name: Commit processed data
           requires:
