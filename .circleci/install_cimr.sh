@@ -9,7 +9,6 @@ mkdir -p git-lfs
 cd git-lfs
 tar xzf ../git-lfs-linux-386-v2.7.2.tar.gz
 sudo ./install.sh
-#git lfs install
 
 # Install cimr package
 cd ~/
