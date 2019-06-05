@@ -18,6 +18,12 @@ jobs:
           name: Process new PR
           command: |
             python3 .circleci/process_submitted_data.py
+      - persist_to_workspace:
+          root: ~/cimr-d
+          paths:
+            - .git
+            - .circleci
+            - processed_data
 
   foobar:
     machine: true
