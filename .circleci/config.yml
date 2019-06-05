@@ -54,6 +54,8 @@ workflows:
     jobs:
       - build
       - foobar
+          requires:
+            - build
       - deploy:
           requires:
             - build
