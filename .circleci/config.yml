@@ -25,20 +25,6 @@ jobs:
             - .circleci
             - processed_data
 
-  foobar:
-    machine: true
-    working_directory: ~/cimr-d
-    steps:
-      - attach_workspace:
-          at: ~/cimr-d
-      - add_ssh_keys:
-          fingerprints:
-            - "60:6d:08:51:d2:1b:3d:5c:af:f8:e1:b5:41:d0:7e:20"
-      - run:
-          name: Add foobar.txt
-          command: |
-            bash .circleci/foobar.sh
-
   deploy:
     machine: true
     working_directory: ~/cimr-d
@@ -58,9 +44,6 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - foobar:
-          requires:
-            - build
       - deploy:
           requires:
             - build
