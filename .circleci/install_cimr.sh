@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Install cimr package
 set -e -x
 
 # Install cimr package
