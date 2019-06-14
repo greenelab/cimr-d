@@ -12,28 +12,36 @@ Regarding Licence and Usage of cimr-d
 =====================================
 
 All citations and references for data stored in cimr-d are added to
-`citations`_.
+`cimr-d citations`_.
 
-Briefly, all data deposited here have been either: 1) contributed by researchers
-who own the copyright or license to the data, or; 2) reprocessed and deposited
-from a public source. We take every caution to make sure data stored and used 
-via cimr and cimr-d suite are approved for public sharing and reuse for research
-purposes. Nevertheless, if any data currently available here require more 
-strict licenses, changed citation/acknowledgement rules, or any other 
-usage guidelines, contact us and we will take appropriate actions.
+Briefly, all data deposited here have been either: 1) contributed by 
+researchers who own the copyright or license to the data, or; 
+2) reprocessed and deposited from a public source. We take every 
+caution to make sure data stored and used via cimr and cimr-d suite 
+are approved for public sharing and reuse for research purposes. 
+If any data currently available here require more strict licenses, 
+changed citation/acknowledgement rules, or any other usage guidelines, 
+contact us and we will take appropriate actions.
 
-For pull request (PR) invoked cimr usage, see the documentation on 
-`cimr`_. For any PR including new data, we 
-strongly recommend including appropriate citations, metadata and other relevant 
-information regarding the data to be added to
-`cimr citations doc`_.
+For cimr usage independent of cimr-d, see the `cimr manual`_. 
+For any PR including new data, we strongly recommend including 
+appropriate citations, metadata and other relevant information 
+regarding the data to be added to `cimr citations documentation`_.
+
+
+.. _cimr-d citations: 
+https://github.com/greenelab/cimr-d/blob/master/doc/citations.rst
+.. _cimr manual: 
+https://cimr.readthedocs.io
+.. _cimr citations documentation: 
+https://github.com/greenelab/cimr/blob/master/doc/citations.rst
 
 
 =================
 Contributing data
 =================
 
-
+cimr 
 
 
 =========
@@ -42,16 +50,14 @@ Citations
 
 * If you find cimr and cimr-d useful, please cite:
 
-  * Park Y. & Greene C., (2019). Continuous integration and analysis using cimr, 
-    In Preparation
+  * Park Y. & Greene C., (2019). Continuous integration and analysis 
+    using cimr, In Preparation
 
-* If you find any data incorporated into cimr and cimr-d, please cite
-  the original publications accordingly from 
-  `this list of citations`_
+* If you publish using any data incorporated into cimr and cimr-d, 
+  please cite the original publications accordingly from the list of 
+  `cimr-d data citations`_
 
 
-.. _citations: https://github.com/greenelab/cimr-d/blob/master/doc/citations.rst
-.. _cimr: https://cimr.readthedocs.io
-.. _this list of citations: https://cimr.readthedocs.io/citations.html
-.. _cimr citations doc: https://github.com/greenelab/cimr/blob/master/doc/citations.rst
+.. _cimr-d data citations: 
+https://cimr.readthedocs.io/citations.html
 
