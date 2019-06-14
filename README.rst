@@ -29,12 +29,9 @@ appropriate citations, metadata and other relevant information
 regarding the data to be added to `cimr citations documentation`_.
 
 
-.. _cimr-d citations: 
-  `https://github.com/greenelab/cimr-d/blob/master/doc/citations.rst`_
-.. _cimr manual: 
-https://cimr.readthedocs.io
-.. _cimr citations documentation: 
-https://github.com/greenelab/cimr/blob/master/doc/citations.rst
+.. _cimr-d citations: https://github.com/greenelab/cimr-d/blob/master/doc/citations.rst
+.. _cimr manual: https://cimr.readthedocs.io
+.. _cimr citations documentation: https://github.com/greenelab/cimr/blob/master/doc/citations.rst
 
 
 =================
@@ -58,6 +55,5 @@ Citations
   `cimr-d data citations`_
 
 
-.. _cimr-d data citations: 
-https://cimr.readthedocs.io/citations.html
+.. _cimr-d data citations: https://cimr.readthedocs.io/citations.html
 
