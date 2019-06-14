@@ -1,7 +1,13 @@
 #!/bin/bash
+#
+# This script will be triggered when "master" branch is updated.
+# It copies new files in "submitted_data" and "processed_data" to S3 buckets,
+# then cleans up everything in "submitted_data" directory and commits the
+# change back to remote repo.
 
 set -e -x
 
+# Git config
 git config --global user.email "cimrroot@gmail.com"
 git config --global user.name "cimrroot"
 git config --global push.default simple
