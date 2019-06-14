@@ -12,7 +12,7 @@ Regarding Licence and Usage of cimr-d
 =====================================
 
 All citations and references for data stored in cimr-d are added to
-`citations <https://github.com/greenelab/cimr-d/doc/citations.rst>`.
+citations_.
 
 Briefly, all data deposited here have been either: 1) contributed by researchers
 who own the copyright or license to the data, or; 2) reprocessed and deposited
@@ -49,4 +49,6 @@ Citations
   the original publications accordingly from 
   `this list of citations <https://cimr.readthedocs.io/citations.html>`
 
+
+.. _citations: https://github.com/greenelab/cimr-d/doc/citations.rst
 
