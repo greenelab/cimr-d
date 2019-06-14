@@ -2,17 +2,22 @@ defined_as: cardiogram_cad
 args:
     file:
         doc: >
-            Txt file of the CARDIOGRAM GWAS results
-            for coronary artery disease.
+            txt file of coronary artery disease gwas
         type: gwas
         example:
             url: https://zenodo.org/path/to/example_files/features.csv
             md5: 23mkj312klj
+
 info:
-    authors: 
+    authors: # not all authors of the publication; the data contributer
         - name: Contributer Name
           github: contributer_github_account
           email: contributer_email@host.edu
+          citation: publication citation
+
     doc: Dataset for coronary artery disease GWAS
-included_columns:
-    
+    method:
+        - name: logistic regression
+          tool: plink2
+          website: https://www.cog-genomics.org/plink/2.0/
+
