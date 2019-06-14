@@ -14,14 +14,14 @@ Regarding Licence and Usage of cimr-d
 All citations and references for data stored in cimr-d are added to
 `cimr-d citations`_.
 
-Briefly, all data deposited here have been either: 1) contributed by 
+All data deposited here have been either: 1) contributed by 
 researchers who own the copyright or license to the data, or; 
 2) reprocessed and deposited from a public source. We take every 
 caution to make sure data stored and used via cimr and cimr-d suite 
 are approved for public sharing and reuse for research purposes. 
 If any data currently available here require more strict licenses, 
-changed citation/acknowledgement rules, or any other usage guidelines, 
-contact us and we will take appropriate actions.
+different citation/acknowledgement rules, or any special usage 
+guidelines, contact us and we will take appropriate actions.
 
 For cimr usage independent of cimr-d, see the `cimr manual`_. 
 For any PR including new data, we strongly recommend including 
