@@ -30,7 +30,7 @@ regarding the data to be added to `cimr citations documentation`_.
 
 
 .. _cimr-d citations: 
-https://github.com/greenelab/cimr-d/blob/master/doc/citations.rst
+  `https://github.com/greenelab/cimr-d/blob/master/doc/citations.rst`_
 .. _cimr manual: 
 https://cimr.readthedocs.io
 .. _cimr citations documentation: 
