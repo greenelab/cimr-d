@@ -1,0 +1,18 @@
+defined_as: cardiogram_cad
+args:
+    file:
+        doc: >
+            Txt file of the CARDIOGRAM GWAS results
+            for coronary artery disease.
+        type: gwas
+        example:
+            url: https://zenodo.org/path/to/example_files/features.csv
+            md5: 23mkj312klj
+info:
+    authors: 
+        - name: Contributer Name
+          github: contributer_github_account
+          email: contributer_email@host.edu
+    doc: Dataset for coronary artery disease GWAS
+included_columns:
+    
