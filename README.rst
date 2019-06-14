@@ -12,7 +12,7 @@ Regarding Licence and Usage of cimr-d
 =====================================
 
 All citations and references for data stored in cimr-d are added to
-citations_.
+`citations`_.
 
 Briefly, all data deposited here have been either: 1) contributed by researchers
 who own the copyright or license to the data, or; 2) reprocessed and deposited
@@ -23,10 +23,10 @@ strict licenses, changed citation/acknowledgement rules, or any other
 usage guidelines, contact us and we will take appropriate actions.
 
 For pull request (PR) invoked cimr usage, see the documentation on 
-`cimr <https://cimr.readthedocs.io/`. For any PR including new data, we 
+`cimr`_. For any PR including new data, we 
 strongly recommend including appropriate citations, metadata and other relevant 
 information regarding the data to be added to
-`cimr citations doc <https://github.com/greenelab/cimr/doc/citations.rst>`.
+`cimr citations doc`_.
 
 
 =================
@@ -47,8 +47,11 @@ Citations
 
 * If you find any data incorporated into cimr and cimr-d, please cite
   the original publications accordingly from 
-  `this list of citations <https://cimr.readthedocs.io/citations.html>`
+  `this list of citations`_
 
 
-.. _citations: https://github.com/greenelab/cimr-d/doc/citations.rst
+.. _citations: https://github.com/greenelab/cimr-d/blob/master/doc/citations.rst
+.. _cimr: https://cimr.readthedocs.io
+.. _this list of citations: https://cimr.readthedocs.io/citations.html
+.. _cimr citations doc: https://github.com/greenelab/cimr/blob/master/doc/citations.rst
 
