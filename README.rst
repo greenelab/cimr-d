@@ -5,7 +5,7 @@
 cimr-d: database for continuous integration and analysis using cimr
 *******************************************************************
 
-Maintainer: YoSon Park
+Maintainer: YoSon Park <cimrroot at gmail dot com>
 
 =====================================
 Regarding Licence and Usage of cimr-d
@@ -26,12 +26,12 @@ guidelines, contact us and we will take appropriate actions.
 For cimr usage independent of cimr-d, see the `cimr manual`_. 
 For any PR including new data, we strongly recommend including 
 appropriate citations, metadata and other relevant information 
-regarding the data to be added to `cimr citations documentation`_.
+regarding the data to be added to `cimr citations`_.
 
 
 .. _cimr-d citations: https://github.com/greenelab/cimr-d/blob/master/doc/citations.rst
 .. _cimr manual: https://cimr.readthedocs.io
-.. _cimr citations documentation: https://github.com/greenelab/cimr/blob/master/doc/citations.rst
+.. _cimr citations: https://github.com/greenelab/cimr/blob/master/doc/citations.rst
 
 
 =================
@@ -47,7 +47,7 @@ Citations
 
 * If you find cimr and cimr-d useful, please cite:
 
-  * Park Y. & Greene C., (2019). Continuous integration and analysis 
+  * Park Y., Hu D. & Greene C., (2019). Continuous integration and analysis 
     using cimr, In Preparation
 
 * If you publish using any data incorporated into cimr and cimr-d, 
