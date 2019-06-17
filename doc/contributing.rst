@@ -7,10 +7,8 @@ example yml configuration to upload data to cimr-d
 
 
 >>> upload_data.yml
-
     # defined_as currently only supports 'upload'
     defined_as: upload
-
     # data information
     data_file:
         # very brief description of the data
@@ -22,7 +20,6 @@ example yml configuration to upload data to cimr-d
         location:
             url: https://zenodo.org/path/to/coronary_artery_disease_gwas.txt.gz
             md5: 23mkj312klj
-
     contributor:
         # name of the contributor; person submitting the data file to cimr-d
         name: YoSon Park
@@ -30,7 +27,6 @@ example yml configuration to upload data to cimr-d
         github: ypar
         # (optional) email account of the contributor
         email: cimrroot@gmail.com
-
     data_info:
         # (optional) doi identifier of the published paper, if available
         citation: 10.1038/ng.3396
@@ -42,7 +38,6 @@ example yml configuration to upload data to cimr-d
         data_type: gwas
         # whether data can be shared when appropriately credited / cited
         can_be_public: yes
-
     method:
         # method used to generate results
         name: logistic regression
