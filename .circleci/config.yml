@@ -8,6 +8,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Python error test
+          command: |
+            python3 py_err.py
+      - run:
           name: Install git-lfs
           command: |
             bash .circleci/git_lfs.sh
