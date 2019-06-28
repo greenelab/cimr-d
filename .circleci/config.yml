@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Python error test
           command: |
-            python3 py_err.py
+            python3 .circleci/py_err.py
       - run:
           name: Install git-lfs
           command: |
