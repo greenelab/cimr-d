@@ -2,22 +2,24 @@
 """Reading and parsing through the contributor's yaml file.
 (c) YoSon Park
 
-This is the default uploading skim for bulk files using zenodo. 
-For PR-based file uploader, check .circleci/deploy.sh and
-.circleci/process_submitted_data.py
+This is the default uploading skim for single and bulk files 
+using zenodo. For PR-based file uploader, check .circleci/deploy.sh 
+and .circleci/process_submitted_data.py
 """
+
 
 import sys
 import yaml
 import pandas
 import pathlib
 import logging
-import subprocess
 
 
 CONFIG_FILE_EXTENSION = ('yml', 'yaml')
-COMPRESSION_EXTENSION = ('gz')
-BULK_EXTENSION = ('tgz')
+# transparent compressions recognized by tarfile 'r:*' are:
+# gzip, bz2, and lzma (xz)
+COMPRESSION_EXTENSION = ('gz', 'bz2', 'xz')
+BULK_EXTENSION = ('tgz', 'tar.gz', 'tar.bz2', 'tar.xz')
 FILE_EXTENSION = ('txt', 'tsv')
 
 logging.basicConfig(level='INFO')
@@ -28,6 +30,8 @@ def check_yaml_via_git():
     parse_yaml.py. It searches for a new or modified yml/yaml file and 
     returns its pathlib path.
     """
+    import subprocess
+
     status_check = 'git status --porcelain'
     jobsplit = subprocess.check_output(
         status_check,
@@ -153,6 +157,7 @@ class Yamler:
         """
         path = self.yaml_data['data_file']['location']['url']
         self.downloaded_file = path.split('/')[-1]
+
         outdir_root = 'submitted_data/'
         pathlib.Path(outdir_root).mkdir(exist_ok=True)
         self.outdir = outdir_root + str(self.data_type) + '/'
@@ -169,7 +174,7 @@ class Yamler:
 
     def bulk_download(self):
         """Bulk download option assumes one of the following file types:
-        ['tar.gz', 'tgz']
+        ['gz', 'bz2', 'xz']
         """
         import tarfile
 

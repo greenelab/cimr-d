@@ -19,9 +19,9 @@ jobs:
           name: Install cimr and its dependencies
           command: |
             bash .circleci/install_cimr.sh
-      - run:
-          name: Check and download data if weblink provided
-          command: python3 .cimr-d/parse_yaml.py
+      # - run:
+      #     name: Check and download data if weblink provided
+      #     command: python3 .cimr-d/parse_yaml.py
       - run:
           name: Process submitted data
           command: |
@@ -30,6 +30,7 @@ jobs:
           root: ~/cimr-d
           paths:
             - .git
+            - .cimr-d
             - .circleci
             - submitted_data
             - processed_data
