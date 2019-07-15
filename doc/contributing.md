@@ -6,10 +6,10 @@
 - [Writing a yaml file for data contribution](#writing-a-yaml-file-for-data-contribution)
 
 - [Arguments](#arguments)
-  - [defined_as](#defined-as)
-  - [data_file](#data-file)
+  - [defined_as](#defined_as)
+  - [data_file](#data_file)
   - [contributor](#contributor)
-  - [data_info](#data-info)
+  - [data_info](#data_info)
   - [method](#method)
 
 - [Examples](#examples)
@@ -144,7 +144,7 @@ method:
 # Examples
 
 
-## TWAS example
+## TWAS upload example
 This is an example yml configuration to upload TWAS data to cimr-d:
 
 
@@ -202,7 +202,7 @@ method:
 
 
 
-## GWAS example
+## GWAS upload example
 
 
 
