@@ -265,5 +265,5 @@ if __name__ == '__main__':
         y.check_data_file()
     except FileNotFoundError:
         logging.info(f' no new yaml file found to process.')
-        sys.exit(1)
+        sys.exit(0)
 
