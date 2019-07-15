@@ -61,15 +61,35 @@ method:
 single text file or a tarball containing multiple files.
 
 
+| argument    | variable    | description             |
+|-------------|-------------|-------------------------|
+| defined_as  | upload      | single file upload yaml |
+| defined_as  | upload_bulk | bulk file upload yaml   |
+
+For `upload_bulk` option, all submitted files need to be archived as 
+one of the following file types: `tar`, `tar.gz`, `tar.bz2`, and `tar.xz`.
+***Important***: currently, cimr-d only processes tar files with no 
+directory trees. 
+
+One may produce a tar file containing all files with suffix `_gwas.txt` within 
+the directory as follows:
+
+```bash
+tar czvf gwas.tar.gz *_gwas.txt
+```
+
+
+
+Data contributor needs to provide a set of information regarding the 
+submitting data in the `data_file` section. 
+
 | argument    | description             |
 |-------------|-------------------------|
-| upload      | single file upload yaml |
-| upload_bulk | bulk file upload yaml   |
+| doc
+|
+|
+|
 
-
-```yaml
-defined_as: upload
-```
 
 ```yaml
 data_file:
