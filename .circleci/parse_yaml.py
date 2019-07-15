@@ -203,6 +203,7 @@ class Yamler:
         """Bulk download option assumes one of the following file types:
         ['tgz', 'tar.gz', 'tar.bz2', 'tar.xz']
         """
+        import os
         import tarfile
 
         self.download()
@@ -212,7 +213,10 @@ class Yamler:
                 self.downloaded_file, 
                 mode='r:*'
             )
-            tarred_data.extractall(path=self.outdir)
+            for member in tarred_data.getmembers():
+                if member.isreg():
+                    member.name = os.path.basename(member.name)
+                    tarred_data.extract(member, path=self.outdir)
     
 
     def check_hash(self):
