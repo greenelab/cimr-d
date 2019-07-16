@@ -28,7 +28,7 @@ jobs:
           name: Process submitted data
           command: |
             test -f my_request.yml && python3 .circleci/process_submitted_data.py
-      -run:
+      - run:
           name: Save processed data
           command: |
             bash .circleci/post_crunch.sh
