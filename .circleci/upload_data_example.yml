@@ -18,7 +18,7 @@ data_file:
     columns:
         variant_id: variant
         variant_chromosome: chr
-        variant_genomic_position: pos
+        variant_position: pos
         rsnum: rsid
         reference_allele: ref
         alternate_allele: alt
