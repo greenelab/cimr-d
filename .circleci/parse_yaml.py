@@ -232,12 +232,10 @@ class Yamler:
 
     def check_hash(self):
         """Compare md5 of the downloaded file to the provided value"""
-        try:
-            if validate_hash(self.downloaded_file, self.hash):
-                logging.info(f' data is ready for cimr processing.')
-                return True
-        except ValueError:
-            logging.error(f' provided md5 hash didn\'t match.')
+        if validate_hash(self.downloaded_file, self.hash):
+            logging.info(f' data is ready for cimr processing.')
+        else:
+            raise ValueError(' provided md5 hash didn\'t match.')
 
 
     def check_defined(self):
@@ -282,3 +280,4 @@ if __name__ == '__main__':
     print(yaml_data)
     y = Yamler(yaml_data)
     y.check_data_file()
+
