@@ -181,8 +181,8 @@ class Yamler:
         """Pull out data_type variable value from yaml"""
         try:
             data_type = self.yaml_data['data_info']['data_type']
-            validate_data_type(data_type)
-            self.data_type = data_type
+            if validate_data_type(data_type):
+                self.data_type = data_type
         except ValueError:
             logging.error(f' there is no data_type indicated.')
             sys.exit(1)
