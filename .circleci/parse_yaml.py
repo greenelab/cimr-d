@@ -20,7 +20,7 @@ CONFIG_FILE_EXTENSION = ('yml', 'yaml')
 # gzip, bz2, and lzma (xz)
 COMPRESSION_EXTENSION = ('gz', 'bz2', 'xz')
 BULK_EXTENSION = ('tgz', 'tar.gz', 'tar.bz2', 'tar.xz')
-FILE_EXTENSION = ('txt', 'tsv')
+FILE_EXTENSION = ('txt', 'tsv', 'txt.gz', 'tsv.gz')
 
 logging.basicConfig(level='INFO')
 
@@ -81,6 +81,16 @@ def load_yaml(yaml_file):
         except yaml.YAMLError as exc:
             logging.error(f' {exc}')
             sys.exit(1)
+
+
+def validate_data_type(data_type):
+    """Validate data_type variable for cimr compatibility."""
+    DATA_TYPES = ('gwas', 'twas', 'eqtl', 'sqtl', 'pqtl', 'tad', 'multiple')
+    if data_type in DATA_TYPES:
+        return True
+    else:
+        logging.error(f' check your data_type.')
+        sys.exit(1)
 
 
 def verify_weblink(path):
@@ -168,12 +178,12 @@ class Yamler:
 
 
     def set_data_type(self):
-        """One of the following data_type variables are expected:
-        ['gwas', 'twas', 'eqtl', 'sqtl', 'pqtl', 'tad']
-        """
-        if self.yaml_data['data_info']['data_type'] is not None:
-            self.data_type = self.yaml_data['data_info']['data_type']
-        else:
+        """Pull out data_type variable value from yaml"""
+        try:
+            data_type = self.yaml_data['data_info']['data_type']
+            validate_data_type(data_type)
+            self.data_type = data_type
+        except ValueError:
             logging.error(f' there is no data_type indicated.')
             sys.exit(1)
 
@@ -194,6 +204,7 @@ class Yamler:
             logging.info(f' starting download')
             download_file(path, self.outdir)
             self.hash = self.yaml_data['data_file']['location']['md5']
+            self.downloaded_file = self.outdir + self.downloaded_file
         else:
             logging.error(f' file unavailable')
             sys.exit(1)
@@ -221,12 +232,12 @@ class Yamler:
 
     def check_hash(self):
         """Compare md5 of the downloaded file to the provided value"""
-        if validate_hash(self.downloaded_file, self.hash):
-            logging.info(f' data is ready for cimr processing.')
-            return True
-        else:
-            logging.error(f' provided md5 hash didn\'t match the downloaded file.')
-            return False
+        try:
+            if validate_hash(self.downloaded_file, self.hash):
+                logging.info(f' data is ready for cimr processing.')
+                return True
+        except ValueError:
+            logging.error(f' provided md5 hash didn\'t match.')
 
 
     def check_defined(self):
