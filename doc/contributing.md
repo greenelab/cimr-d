@@ -13,7 +13,7 @@
   - [method](#method)
 
 - [Examples](#examples)
-  - [TWAS upload example](#twas-upload-example)
+  - [TWAS upload yaml file example](#twas-upload-yaml-file-example)
   - [GWAS upload example](#gwas-upload-example)
 
 - [Frequently asked questions](#frequently-asked-questions)
@@ -67,84 +67,83 @@ Then the file must be uploaded to a repository where cimr-d can access.
 `data_file` variable is a superset of variables describing the dataset. 
 
 
-| argument                    | description                                   |
-|-----------------------------|-----------------------------------------------|
-| doc                         | a brief description of data                   | 
-| location: url               | link to data                                  |
-| location: md5               | md5 sum hash to verify the file size          |
-| compression                 | whether the file has been compressed          |
-| keep_file_name              | whether the file name should be used          |
-| output_name                 | data name, if not indicated as a file name    |
-| columns: variant_id         | variant id in the format of
-|                             | chromosome:position:ref:alt or 
-|                             | chromosome_position_ref_alt  
-| columns: variant_chromosome | 
-| columns: variant_position   | 
-| columns: rsnum              | 
-| columns: reference_allele   | 
-| columns: alternate_allele   | 
-| columns: effect_allele      | 
-| columns: effect_size        | 
-| columns: standard_error     | 
-| columns: statistic          | 
-| columns: pvalue             | 
-| columns: gene_id            | 
-| columns: gene_chromosome    | 
-| columns: gene_start         | 
-| columns: gene_stop          | 
-| columns: comment_0          | 
+| argument                    | description                              |
+|-----------------------------|------------------------------------------|
+| doc                         | a brief description of data              | 
+| location: url               | link to data                             |
+| location: md5               | md5 sum hash to verify the file size     |
+| compression                 | whether the file has been compressed     |
+| keep_file_name              | whether the file name should be used     |
+| output_name                 | data name, if not indicated as file name |
+| columns: variant_id         | variant id in the format of              |
+|                             | chromosome:position:ref:alt or           |
+|                             | chromosome_position_ref_alt_build        |
+| columns: variant_chromosome | variant chromosome id                    |
+| columns: variant_position   | variant genomic position                 |
+| columns: rsnum              | variant rs id                            |
+| columns: reference_allele   | variant reference allele                 |
+| columns: alternate_allele   | variant alternate allele                 |
+| columns: effect_allele      | effect allele for statistic              |
+| columns: effect_size        | effect size / beta coefficient           |
+| columns: standard_error     | standard error of the effect size        |
+| columns: statistic          | statistic used to estimate p-value       |
+| columns: pvalue             | pvalue                                   |
+| columns: feature_id         | feature id, if applicable (e.g. gene)    |
+| columns: feature_chromosome | chromosome id, if applicable             |
+| columns: feature_start      | starting genomic position, if applicable |
+| columns: feature_stop       | stopping genomic position, if applicable |
+| columns: comment_0          | other info (e.g. did statistic converge?)|
 
 
 
 
 ## contributor
 
-Data contributor needs to provide a set of information regarding the 
-submitting data in the `data_file` section. 
+Contributor information is optional but recommended.
 
-| argument    | description             |
-|-------------|-------------------------|
-| doc
-|
-|
-|
 
-```yaml
-contributor:
-    name: YoSon Park
-    github: ypar
-    email: cimrroot@gmail.com
-```
+| argument    | description                         |
+|-------------|-------------------------------------|
+| name        | name of the contributor             |
+| github      | github user name of the contributor |
+| email       | e-mail address of the contributor   |
+
 
 
 ## data_info 
 
-```yaml
-data_info:
-    citation: 10.1016/S2213-2600(19)30055-4
-    data_source: https://zenodo.org/record/3248979
-    sample_size: 356083
-    cases: 37846
-    controls: 318237
-    data_type: twas
-    can_be_public: na
-```
+Data information provided in `data_info` is used to generate citation 
+and metadata information used for downstream analyses.
+
+
+| argument      | description                                          |
+|---------------|------------------------------------------------------|
+| citation      | publication or data doi, if applicable               |
+| data_source   | (permenant) link to the original data, if applicable |
+| sample_size   | sample size of the study                             |
+| cases         | number of cases, if applicable (e.g. binary trait)   |
+| controls      | number of controls, if applicable                    |
+| data_type     | data_type (e.g. twas, gwas, eqtl, etc.)              |
+| can_be_public | whether the data can be posted publicly via cimr-d   |
+
+
 
 ## method 
 
+Method details can be listed here.
 
-```yaml
-method:
-    name: logistic regression
-    tool: predixcan
-    website: https://github.com/hakyimlab/PrediXcan 
-```
+| argument  | description                    |
+|-----------|--------------------------------|
+| name      | name of the method used        |
+| tool      | name of the tool used          |
+| website   | website link for the tool used |
+
 
 
 # Examples
 
 
-## TWAS upload example
+## TWAS upload yaml file example
 This is an example yml configuration to upload TWAS data to cimr-d:
 
 
