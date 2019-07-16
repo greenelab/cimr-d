@@ -22,6 +22,8 @@ jobs:
       - run:
           name: Check and download data if a yaml file is submitted
           command: |
+            sudo pip install awscli
+            test -z ${CIRCLE_PR_NUMBER} || CIRCLE_PR_NUMBER=9876
             aws s3 rm s3://cimr-root/submitted_data/PR_${CIRCLE_PR_NUMBER}/my_request.done
             python3 .circleci/parse_yaml.py my_request.yml
       - run:
