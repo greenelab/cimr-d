@@ -58,7 +58,7 @@ def check_yaml_in_ci():
         stderr=subprocess.STDOUT,
         shell=True,
         universal_newlines=True
-    ).replace('\n', '').split('?? ')
+    ).split('\n')
 
     for job in jobsplit:
         if job.endswith(CONFIG_FILE_EXTENSION):
@@ -262,12 +262,12 @@ if __name__ == '__main__':
 
     try:
         yaml_file_path = yaml_file.resolve(strict=True)
-        logging.info(f' processing metadata {yaml_file_path}.')
-        yaml_data = load_yaml(yaml_file)
-        print(yaml_data)
-        y = Yamler(yaml_data)
-        y.check_data_file()
     except FileNotFoundError:
         logging.info(f' no new yaml file found to process.')
         sys.exit(0)
 
+    logging.info(f' processing metadata {yaml_file_path}.')
+    yaml_data = load_yaml(yaml_file)
+    print(yaml_data)
+    y = Yamler(yaml_data)
+    y.check_data_file()
