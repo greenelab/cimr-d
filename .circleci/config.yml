@@ -21,18 +21,24 @@ jobs:
             bash .circleci/install_cimr.sh
       - run:
           name: Check and download data if a yaml file is submitted
-          command: python3 .circleci/parse_yaml.py
+          command: |
+            aws s3 rm s3://cimr-root/submitted_data/PR_${CIRCLE_PR_NUMBER}/my_request.done
+            python3 .circleci/parse_yaml.py my_request.yml
       - run:
           name: Process submitted data
           command: |
-            python3 .circleci/process_submitted_data.py
+            test -f my_request.yml && python3 .circleci/process_submitted_data.py
+      -run:
+          name: Save processed data
+          command: |
+            bash .circleci/post_crunch.sh
+            touch my_request.done
+            aws s3 mv my_request.done s3://cimr-root/test-submitted/PR_${CIRCLE_PR_NUMBER}/
       - persist_to_workspace:
           root: ~/cimr-d
           paths:
             - .git
             - .circleci
-            - submitted_data
-            - processed_data
 
   deploy:
     machine: true

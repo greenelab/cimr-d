@@ -2,8 +2,8 @@
 """Reading and parsing through the contributor's yaml file.
 (c) YoSon Park
 
-This is the default uploading skim for single and bulk files 
-using zenodo. For PR-based file uploader, check .circleci/deploy.sh 
+This is the default uploading skim for single and bulk files
+using zenodo. For PR-based file uploader, check .circleci/deploy.sh
 and .circleci/process_submitted_data.py
 """
 
@@ -26,8 +26,8 @@ logging.basicConfig(level='INFO')
 
 
 def check_yaml_before_commit():
-    """A git-status-dependent function used when locally applying 
-    parse_yaml.py. It searches for a new or modified yml/yaml file and 
+    """A git-status-dependent function used when locally applying
+    parse_yaml.py. It searches for a new or modified yml/yaml file and
     returns its pathlib path.
     """
     import subprocess
@@ -48,7 +48,7 @@ def check_yaml_before_commit():
 
 
 def check_yaml_in_ci():
-    """A git-status-dependent function used during ci processing. It 
+    """A git-status-dependent function used during ci processing. It
     searches for a new or modified yml/yaml file from a new pr"""
     import subprocess
 
@@ -115,25 +115,25 @@ def download_file(path, outdir='./'):
     from tqdm import tqdm
     import requests
     import math
-    
+
     r = requests.get(path, stream=True)
     total_size = int(r.headers.get('content-length', 0))
     block_size = 1024
     wrote = 0
     file_name = path.split('/')[-1]
     file_path = outdir + file_name
-    
+
     with open(file_path, 'wb') as f:
-        for data in tqdm(r.iter_content(block_size), 
-                         total=math.ceil(total_size//block_size), 
-                         unit='KB', 
+        for data in tqdm(r.iter_content(block_size),
+                         total=math.ceil(total_size//block_size),
+                         unit='KB',
                          leave=True,
                          ncols=42,
                          unit_scale=True,
                          unit_divisor=1024):
             wrote = wrote + len(data)
             f.write(data)
-    
+
     if total_size != 0 and wrote != total_size:
         logging.error(f' check the file link and try again.')
         sys.exit(1)
@@ -144,14 +144,14 @@ def validate_hash(path, hash):
     import hashlib
 
     md5 = hashlib.md5()
-    
+
     with open(path, 'rb') as f:
         while True:
             chunk = f.read(10000000)
             if not chunk:
                 break
             md5.update(chunk)
-    
+
     return md5.hexdigest() == hash
 
 
@@ -189,7 +189,7 @@ class Yamler:
 
 
     def download(self):
-        """Check if provided weblink to the file exists. 
+        """Check if provided weblink to the file exists.
         Download if verified.
         """
         path = self.yaml_data['data_file']['location']['url']
@@ -221,14 +221,14 @@ class Yamler:
 
         if tarfile.is_tarfile(self.downloaded_file):
             tarred_data = tarfile.open(
-                self.downloaded_file, 
+                self.downloaded_file,
                 mode='r:*'
             )
             for member in tarred_data.getmembers():
                 if member.isreg():
                     member.name = os.path.basename(member.name)
                     tarred_data.extract(member, path=self.outdir)
-    
+
 
     def check_hash(self):
         """Compare md5 of the downloaded file to the provided value"""
@@ -239,20 +239,16 @@ class Yamler:
 
 
     def check_defined(self):
-        import os
-
         """Check whether the submitted data is a single file"""
         if self.yaml_data['defined_as'] == 'upload':
             self.download()
-            self.check_hash()
         elif self.yaml_data['defined_as'] == 'upload_bulk':
             self.bulk_download()
-            if self.check_hash():
-                os.remove(self.outdir + self.downloaded_file)
         else:
             logging.error(f' accepted \'defined_as\' variables are \'upload\' and \'upload_bulk\'.')
             sys.exit(1)
 
+        self.check_hash()
 
     def check_data_file(self):
         """Standard set of Yamler functions to check information on the
@@ -280,4 +276,3 @@ if __name__ == '__main__':
     print(yaml_data)
     y = Yamler(yaml_data)
     y.check_data_file()
-
