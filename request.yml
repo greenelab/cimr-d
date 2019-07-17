@@ -11,7 +11,7 @@ data_file:
     # where cimr-d can load the file(s) from
     location:
         url: https://zenodo.org/record/3338180/files/HDL_Cholesterol.txt.gz
-        md5: 358d9ac5a7b70633b6a9028331817c7b
+        md5: 2b28816a0a363db1a09ad9a6ba1a6620
     compression: true
     keep_file_name: false
     output_name: ukb_adult_asthma_predixcan_logistic
