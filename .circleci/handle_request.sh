@@ -23,7 +23,7 @@ if [ -z $CIRCLE_PR_NUMBER ]; then
     CIRCLE_PR_NUMBER=999
 fi
 
-REQ_INDICATOR='req_PR_${CIRCLE_PR_NUMBER}.success'
+REQ_INDICATOR="req_success.txt"
 
 # Install awscli for "aws" command
 sudo pip install awscli
@@ -39,13 +39,13 @@ python3 .circleci/process_submitted_data.py
 
 # Save submitted data to private S3 bucket
 if [ -d submitted_data ]; then
-    aws s3 sync submitted_data s3://cimr-root/test-submitted/PR_${CIRCLE_PR_NUMBER}
-    aws s3 cp   $REQ_FILENAME  s3://cimr-root/test-submitted/PR_${CIRCLE_PR_NUMBER}
+    aws s3 sync submitted_data s3://cimr-root/test-submitted/PR_${CIRCLE_PR_NUMBER}/
+    aws s3 cp   $REQ_FILENAME  s3://cimr-root/test-submitted/PR_${CIRCLE_PR_NUMBER}/
 fi
 
 # Save processed data to private S3 bucket as well
 if [ -d processed_data ]; then
-    aws s3 sync processed_data s3://cimr-root/test-processed/PR_${CIRCLE_PR_NUMBER}
+    aws s3 sync processed_data s3://cimr-root/test-processed/PR_${CIRCLE_PR_NUMBER}/
 fi
 
 # Create a new local indicator file to tell whether user request is handled successfully
