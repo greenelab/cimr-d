@@ -20,28 +20,9 @@ jobs:
           command: |
             bash .circleci/install_cimr.sh
       - run:
-          name: Check and download data if a yaml file is submitted
+          name: Handle user request
           command: |
-            sudo pip install awscli
-            if [ ! -f my_request.yml ]; then
-              exit 0
-            fi
-            test -z ${CIRCLE_PR_NUMBER} && CIRCLE_PR_NUMBER=9876
-            aws s3 rm s3://cimr-root/submitted_data/PR_${CIRCLE_PR_NUMBER}/my_request.done
-            python3 .circleci/parse_yaml.py my_request.yml
-      - run:
-          name: Process submitted data
-          command: |
-            if [ ! -f my_request.yml ]; then
-              exit 0
-            fi
-            python3 .circleci/process_submitted_data.py
-      - run:
-          name: Save processed data
-          command: |
-            bash .circleci/post_crunch.sh
-            touch my_request.done
-            aws s3 mv my_request.done s3://cimr-root/test-submitted/PR_${CIRCLE_PR_NUMBER}/
+            bash .circleci/handle_request.sh
       - persist_to_workspace:
           root: ~/cimr-d
           paths:
