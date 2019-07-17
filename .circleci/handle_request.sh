@@ -45,7 +45,7 @@ fi
 
 # Save processed data to private S3 bucket as well
 if [ -d processed_data ]; then
-    aws s3 sync processed_data s3://cimr/test-processed/PR_${CIRCLE_PR_NUMBER}
+    aws s3 sync processed_data s3://cimr-root/test-processed/PR_${CIRCLE_PR_NUMBER}
 fi
 
 # Create a new local indicator file to tell whether user request is handled successfully
