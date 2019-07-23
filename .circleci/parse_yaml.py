@@ -69,8 +69,9 @@ def check_yaml_in_ci():
 
 
 def get_submitted_yaml():
-    """dhu function that returns all yaml files in "submitted" subdir."""
+    """A function that returns all yaml files in "submitted/" subdir."""
     # https://stackoverflow.com/questions/3207219/how-do-i-list-all-files-of-a-directory
+
     import os
     submitted_files = os.listdir('submitted')
     submitted_yaml_files = []
