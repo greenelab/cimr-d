@@ -5,6 +5,13 @@
 
 set -e -x
 
+# Error if any change in "processed/" directory is detected.
+git diff origin/master --name-only | grep "^processed/" || PROCESSED_NO_CHANGE=true
+if [ -z "$PROCESSED_NO_CHANGE" ]; then
+    echo "Commits in processed/ not allowed!"
+    exit 1
+fi
+
 # Exit if no yaml files in "submitted/" directory
 if [ ! -f submitted/*.yml ] && [ ! -f submitted/*.yaml ]; then
     exit 0
