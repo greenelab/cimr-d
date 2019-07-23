@@ -172,6 +172,16 @@ def validate_hash(path, hash):
     return md5.hexdigest() == hash
 
 
+def verify_dir(tarred_data):
+    """Check directory tree of tarball containing multiple files"""
+    for member in tarred_data.getmembers():
+        if member.name.startswith(DATA_TYPES):
+            print(member.name, 'yes')
+        else:
+            print(member.name, 'no')
+
+
+
 class Yamler:
     """A collection of utilities to parse the yaml file, check metadata
     and trigger cimr processing of the contributed file
@@ -203,10 +213,6 @@ class Yamler:
         except ValueError:
             logging.error(f' there is no data_type indicated.')
             sys.exit(1)
-    
-
-    def verify_dir(self):
-        """Check directory tree of tarball containing multiple files"""
 
 
     def download(self):
