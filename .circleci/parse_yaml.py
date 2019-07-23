@@ -1,4 +1,3 @@
-
 """Reading and parsing through the contributor's yaml file.
 (c) YoSon Park
 
@@ -7,6 +6,13 @@ using zenodo. For PR-based file uploader, check .circleci/deploy.sh
 and .circleci/process_submitted_data.py
 """
 
+
+# HEADERS = ['rsnum', 'variant_id', 'pvalue', 'effect_size', 
+#     'odds_ratio', 'standard_error', 'zscore', 'tss_distance', 
+#     'effect_allele', 'non_effect_allele', 'frequency', 
+#     'imputation_status', 'sample_size', 'n_cases'
+# ]
+
 import os
 import sys
 import yaml
@@ -14,15 +20,13 @@ import pandas
 import pathlib
 import logging
 
+from ..defaults import DATA_TYPES
+from ..defaults import CONFIG_FILE_EXTENSION
 
-CONFIG_FILE_EXTENSION = ('yml', 'yaml')
-# transparent compressions recognized by tarfile 'r:*' are:
-# gzip, bz2, and lzma (xz)
-COMPRESSION_EXTENSION = ('gz', 'bz2', 'xz')
-BULK_EXTENSION = ('tgz', 'tar.gz', 'tar.bz2', 'tar.xz')
-FILE_EXTENSION = ('txt', 'tsv', 'txt.gz', 'tsv.gz')
 
-logging.basicConfig(level='INFO')
+def match_magic():
+    """https://www.garykessler.net/library/file_sigs.html"""
+    pass
 
 
 def check_yaml_before_commit():
@@ -42,16 +46,16 @@ def check_yaml_before_commit():
 
     for job in jobsplit:
         if job.endswith(CONFIG_FILE_EXTENSION):
-            yaml_file = pathlib.Path('submitted_data/yaml/' + job.split('/')[-1])
+            yaml_file = pathlib.Path('submitted/' + job.split('/')[-1])
 
     return yaml_file
 
 
 def check_yaml_in_ci():
-    """A git-status-dependent function used during ci processing. It 
-    searches for a new or modified yml/yaml file from a new pr.
+    """A git-status-dependent function used during ci processing. 
+    It searches for a new or modified yml/yaml file from a new pr.
     User-defined yaml files can be stored in the following dir:
-    submitted_data/yaml/
+    submitted/
     """
     import subprocess
 
@@ -65,27 +69,31 @@ def check_yaml_in_ci():
 
     for job in jobsplit:
         if job.endswith(CONFIG_FILE_EXTENSION):
-            yaml_file = pathlib.Path('submitted_data/yaml/' + job.split('/')[-1])
+            yaml_file = pathlib.Path(
+                'submitted/' + job.split('/')[-1]
+            )
 
     return yaml_file
 
 
 def predefine_yaml():
-    """A git-status-independent function used for cimr-d processing
-    of a user-submitted yaml."""
+    """A git-status-independent function used for testing"""
     return pathlib.Path('upload_data_example.yml')
 
 
 def find_yaml_in_dir():
-    """Considering multiple yaml files in a submitted_data/yaml/ dir."""
-
+    """Considering multiple yaml files in a submitted/ dir."""
     yaml_files = []
-    yaml_dir = os.path.join(os.getcwd(), 'submitted_data/yaml/')
+    yaml_dir = os.path.join(os.getcwd(), 'submitted/')
 
     for yaml_file in os.listdir(yaml_dir):
         yaml_file = os.path.join(yaml_dir, yaml_file)
-        if os.path.isfile(yaml_file):
+        if yaml_file.endswith('.place_holder'):
+            continue
+        if yaml_file.endswith(CONFIG_FILE_EXTENSION):
             yaml_files.append(yaml_file)
+        else:
+            raise Exception(f' {yaml_file} is not an acceptible yaml file')
 
     return yaml_files
 
@@ -102,7 +110,6 @@ def load_yaml(yaml_file):
 
 def validate_data_type(data_type):
     """Validate data_type variable for cimr compatibility."""
-    DATA_TYPES = ('gwas', 'twas', 'eqtl', 'sqtl', 'pqtl', 'tad', 'multiple')
     if data_type in DATA_TYPES:
         return True
     else:
@@ -127,7 +134,8 @@ def download_file(path, outdir='./'):
 
     Note;
     Progress bars added based on the following reference:
-    https://stackoverflow.com/questions/37573483/progress-bar-while-download-file-over-http-with-requests/37573701
+    https://stackoverflow.com/questions/37573483/progress-bar-while-down
+    load-file-over-http-with-requests/37573701
     """
     from tqdm import tqdm
     import requests
@@ -176,10 +184,10 @@ def verify_dir(tarred_data):
     """Check directory tree of tarball containing multiple files"""
     for member in tarred_data.getmembers():
         if member.name.startswith(DATA_TYPES):
-            print(member.name, 'yes')
+            return True
         else:
-            print(member.name, 'no')
-
+            logging.error(f' data_type not indicated in dir tree')
+            sys.exit(1)
 
 
 class Yamler:
@@ -213,6 +221,14 @@ class Yamler:
         except ValueError:
             logging.error(f' there is no data_type indicated.')
             sys.exit(1)
+    
+
+    def check_hash(self):
+        """Compare md5 of the downloaded file to the provided value"""
+        if validate_hash(self.downloaded_file, self.hash):
+            logging.info(f' data is ready for cimr processing.')
+        else:
+            raise ValueError(' provided md5 hash didn\'t match.')
 
 
     def download(self):
@@ -222,9 +238,9 @@ class Yamler:
         path = self.yaml_data['data_file']['location']['url']
         self.downloaded_file = path.split('/')[-1]
 
-        outdir_root = 'submitted_data/'
-        pathlib.Path(outdir_root).mkdir(exist_ok=True)
-        self.outdir = outdir_root + str(self.data_type) + '/'
+        self.outdir_root = 'submitted_data/'
+        pathlib.Path(self.outdir_root).mkdir(exist_ok=True)
+        self.outdir = self.outdir_root + str(self.data_type) + '/'
         pathlib.Path(self.outdir).mkdir(exist_ok=True)
 
         if verify_weblink(path):
@@ -232,6 +248,7 @@ class Yamler:
             download_file(path, self.outdir)
             self.hash = self.yaml_data['data_file']['location']['md5']
             self.downloaded_file = self.outdir + self.downloaded_file
+            self.check_hash()
         else:
             logging.error(f' file unavailable')
             sys.exit(1)
@@ -250,29 +267,25 @@ class Yamler:
                 self.downloaded_file, 
                 mode='r:*'
             )
+        else:
+            logging.error(f' not an accepted upload_bulk file format')
+
+        if self.data_type == 'multiple':
+            verify_dir(tarred_data)
+            tarred_data.extractall(path=self.outdir_root)
+        else:
             for member in tarred_data.getmembers():
                 if member.isreg():
                     member.name = os.path.basename(member.name)
                     tarred_data.extract(member, path=self.outdir)
-    
-
-    def check_hash(self):
-        """Compare md5 of the downloaded file to the provided value"""
-        if validate_hash(self.downloaded_file, self.hash):
-            logging.info(f' data is ready for cimr processing.')
-        else:
-            raise ValueError(' provided md5 hash didn\'t match.')
 
 
     def check_defined(self):
         """Check whether the submitted data is a single file"""
         if self.yaml_data['defined_as'] == 'upload':
             self.download()
-            self.check_hash()
         elif self.yaml_data['defined_as'] == 'upload_bulk':
             self.bulk_download()
-            if self.check_hash():
-                os.remove(self.outdir + self.downloaded_file)
         else:
             logging.error(f' accepted \'defined_as\' variables are \'upload\' and \'upload_bulk\'.')
             sys.exit(1)
@@ -284,9 +297,12 @@ class Yamler:
         """
         self.set_data_type()
         self.check_defined()
+        os.rename()
 
 
 if __name__ == '__main__':
+
+    logging.basicConfig(level='DEBUG')
 
     if len(sys.argv) == 1:
         yaml_files = find_yaml_in_dir()
@@ -304,6 +320,5 @@ if __name__ == '__main__':
     except FileNotFoundError:
         logging.info(f' no new yaml file found to process')
         sys.exit(0)
-
 
 
