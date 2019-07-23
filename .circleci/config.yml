@@ -28,6 +28,10 @@ jobs:
           paths:
             - .git
             - .circleci
+            - submitted
+            - processed
+            - submitted_data
+            - processed_data
 
   deploy:
     machine: true
