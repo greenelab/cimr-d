@@ -8,11 +8,11 @@ data_file:
         and adult-onset asthma; genome-wide association study
     # where cimr-d can load the file(s) from
     location:
-        url: https://zenodo.org/record/3248979/files/asthma_adults.logistic.assoc.tsv.gz
-        md5: 358d9ac5a7b70633b6a9028331817c7b
+        url: https://zenodo.org/record/3248979/files/asthma_age_onset.linear.assoc.tsv.gz
+        md5: fb0ab56dec65e48ac11e50fae67250d3
     compression: true
     keep_file_name: false
-    output_name: ukb_adult_asthma
+    output_name: ukb_asthma_ageonset
     columns:
         variant_id: variant
         variant_chrom: chr
@@ -27,7 +27,7 @@ data_file:
         inc_afrq: na
         effect_size: beta
         standard_error: se
-        zscore: zstat
+        statistic: zstat
         pvalue: pval
         feature_id: na
         feature_chrom: na
@@ -64,7 +64,7 @@ data_info:
 
 method:
     # method used to generate results
-    name: logistic regression
+    name: linear regression
     # name of the tool or programming package used
     tool: hail
     # website link where descriptions of the tool or the package can be found

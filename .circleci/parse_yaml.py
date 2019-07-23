@@ -7,7 +7,7 @@ using zenodo. For PR-based file uploader, check .circleci/deploy.sh
 and .circleci/process_submitted_data.py
 """
 
-
+import os
 import sys
 import yaml
 import pandas
@@ -42,14 +42,17 @@ def check_yaml_before_commit():
 
     for job in jobsplit:
         if job.endswith(CONFIG_FILE_EXTENSION):
-            yaml_file = pathlib.Path('.cimr-d/' + job.split('/')[-1])
+            yaml_file = pathlib.Path('submitted_data/yaml/' + job.split('/')[-1])
 
     return yaml_file
 
 
 def check_yaml_in_ci():
     """A git-status-dependent function used during ci processing. It 
-    searches for a new or modified yml/yaml file from a new pr"""
+    searches for a new or modified yml/yaml file from a new pr.
+    User-defined yaml files can be stored in the following dir:
+    submitted_data/yaml/
+    """
     import subprocess
 
     status_check = 'git diff origin --name-only'
@@ -62,7 +65,7 @@ def check_yaml_in_ci():
 
     for job in jobsplit:
         if job.endswith(CONFIG_FILE_EXTENSION):
-            yaml_file = pathlib.Path('.cimr-d/' + job.split('/')[-1])
+            yaml_file = pathlib.Path('submitted_data/yaml/' + job.split('/')[-1])
 
     return yaml_file
 
@@ -71,6 +74,20 @@ def predefine_yaml():
     """A git-status-independent function used for cimr-d processing
     of a user-submitted yaml."""
     return pathlib.Path('upload_data_example.yml')
+
+
+def find_yaml_in_dir():
+    """Considering multiple yaml files in a submitted_data/yaml/ dir."""
+
+    yaml_files = []
+    yaml_dir = os.path.join(os.getcwd(), 'submitted_data/yaml/')
+
+    for yaml_file in os.listdir(yaml_dir):
+        yaml_file = os.path.join(yaml_dir, yaml_file)
+        if os.path.isfile(yaml_file):
+            yaml_files.append(yaml_file)
+
+    return yaml_files
 
 
 def load_yaml(yaml_file):
@@ -128,7 +145,7 @@ def download_file(path, outdir='./'):
                          total=math.ceil(total_size//block_size), 
                          unit='KB', 
                          leave=True,
-                         ncols=42,
+                         ncols=72,
                          unit_scale=True,
                          unit_divisor=1024):
             wrote = wrote + len(data)
@@ -186,6 +203,10 @@ class Yamler:
         except ValueError:
             logging.error(f' there is no data_type indicated.')
             sys.exit(1)
+    
+
+    def verify_dir(self):
+        """Check directory tree of tarball containing multiple files"""
 
 
     def download(self):
@@ -214,7 +235,6 @@ class Yamler:
         """Bulk download option assumes one of the following file types:
         ['tgz', 'tar.gz', 'tar.bz2', 'tar.xz']
         """
-        import os
         import tarfile
 
         self.download()
@@ -239,8 +259,6 @@ class Yamler:
 
 
     def check_defined(self):
-        import os
-
         """Check whether the submitted data is a single file"""
         if self.yaml_data['defined_as'] == 'upload':
             self.download()
@@ -265,19 +283,21 @@ class Yamler:
 if __name__ == '__main__':
 
     if len(sys.argv) == 1:
-        yaml_file = predefine_yaml()
+        yaml_files = find_yaml_in_dir()
     else:
-        yaml_file = pathlib.Path(sys.argv[1])
+        yaml_files = pathlib.Path(sys.argv[1])
 
     try:
-        yaml_file_path = yaml_file.resolve(strict=True)
+        for yaml_file in yaml_files:
+            yaml_file = pathlib.Path(yaml_file)
+            yaml_file_path = yaml_file.resolve(strict=True)
+            logging.info(f' processing metadata {yaml_file_path}')
+            yaml_data = load_yaml(yaml_file)
+            y = Yamler(yaml_data)
+            y.check_data_file()
     except FileNotFoundError:
-        logging.info(f' no new yaml file found to process.')
+        logging.info(f' no new yaml file found to process')
         sys.exit(0)
 
-    logging.info(f' processing metadata {yaml_file_path}.')
-    yaml_data = load_yaml(yaml_file)
-    print(yaml_data)
-    y = Yamler(yaml_data)
-    y.check_data_file()
+
 

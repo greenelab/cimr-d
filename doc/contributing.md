@@ -48,8 +48,6 @@ single text file or a tarball containing multiple files.
 
 For `upload_bulk` option, all submitted files need to be archived as 
 one of the following file types: `tar`, `tar.gz`, `tar.bz2`, and `tar.xz`.
-***Important***: currently, cimr-d only processes tar files with no 
-directory trees. 
 
 One may produce a tar file containing all files with suffix `_gwas.txt` within 
 the directory as follows:
@@ -57,6 +55,9 @@ the directory as follows:
 ```bash
 tar czvf gwas.tar.gz *_gwas.txt
 ```
+
+Alternatively, for multiple files with one or more data types, 
+
 
 Then the file must be uploaded to a repository where cimr-d can access.
 
@@ -78,22 +79,21 @@ Then the file must be uploaded to a repository where cimr-d can access.
 | columns: variant_id         | variant id in the format of              |
 |                             | chromosome:position:ref:alt or           |
 |                             | chromosome_position_ref_alt_build        |
-| columns: variant_chromosome | variant chromosome id                    |
-| columns: variant_position   | variant genomic position                 |
+| columns: variant_chrom      | variant chromosome id                    |
+| columns: variant_pos        | variant genomic position                 |
 | columns: rsnum              | variant rs id                            |
-| columns: reference_allele   | variant reference allele                 |
-| columns: alternate_allele   | variant alternate allele                 |
+| columns: ref                | variant reference allele                 |
+| columns: alt                | variant alternate allele                 |
 | columns: effect_allele      | effect allele for statistic              |
 | columns: effect_size        | effect size / beta coefficient           |
 | columns: standard_error     | standard error of the effect size        |
-| columns: statistic          | statistic used to estimate p-value       |
+| columns: zscore             | zscore                                   |
 | columns: pvalue             | pvalue                                   |
 | columns: feature_id         | feature id, if applicable (e.g. gene)    |
-| columns: feature_chromosome | chromosome id, if applicable             |
+| columns: feature_chrom      | chromosome id, if applicable             |
 | columns: feature_start      | starting genomic position, if applicable |
 | columns: feature_stop       | stopping genomic position, if applicable |
 | columns: comment_0          | other info (e.g. did statistic converge?)|
-
 
 
 

@@ -8,11 +8,11 @@ data_file:
         and adult-onset asthma; genome-wide association study
     # where cimr-d can load the file(s) from
     location:
-        url: https://zenodo.org/record/3248979/files/asthma_adults.logistic.assoc.tsv.gz
-        md5: 358d9ac5a7b70633b6a9028331817c7b
+        url: https://zenodo.org/record/3248979/files/asthma_children.logistic.assoc.tsv.gz
+        md5: f2c14860cadfb8ee5686b4d7395f364b
     compression: true
     keep_file_name: false
-    output_name: ukb_adult_asthma
+    output_name: ukb_asthma_children
     columns:
         variant_id: variant
         variant_chrom: chr
@@ -27,7 +27,7 @@ data_file:
         inc_afrq: na
         effect_size: beta
         standard_error: se
-        zscore: zstat
+        statistic: zstat
         pvalue: pval
         feature_id: na
         feature_chrom: na
