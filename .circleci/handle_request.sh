@@ -6,8 +6,8 @@
 set -e -x
 
 # Error if any change in "processed/" directory is detected.
-git diff origin/master --name-only | grep "^processed/" || PROCESSED_NO_CHANGE=true
-if [ -z "$PROCESSED_NO_CHANGE" ]; then
+git diff origin/master --name-only | grep "^processed/" || PROCESSED_UNCHANGED=true
+if [ -z "$PROCESSED_UNCHANGED" ]; then
     echo "Error: Commits in 'processed' directory not allowed!"
     exit 1
 fi
