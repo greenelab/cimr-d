@@ -20,8 +20,8 @@ import pandas
 import pathlib
 import logging
 
-from cimr.defaults import CONFIG_FILE_EXTENSION
 from cimr.defaults import DATA_TYPES
+from cimr.defaults import CONFIG_FILE_EXTENSION
 
 
 def match_magic():
