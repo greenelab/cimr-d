@@ -11,7 +11,6 @@ data_file:
         url: https://zenodo.org/record/3248979/files/asthma_children.logistic.assoc.tsv.gz
         md5: f2c14860cadfb8ee5686b4d7395f364b
     compression: true
-    keep_file_name: false
     output_name: ukb_asthma_children
     columns:
         variant_id: variant
@@ -27,7 +26,7 @@ data_file:
         inc_afrq: na
         effect_size: beta
         standard_error: se
-        statistic: zstat
+        zscore: zstat
         pvalue: pval
         feature_id: na
         feature_chrom: na
@@ -38,6 +37,9 @@ data_file:
         tss_distance: na
         ma_samples: na
         maf: na
+        sample_size: 356083
+        cases: 37846
+        controls: 318237
         comment_0: converged
         
 contributor:
@@ -53,10 +55,6 @@ data_info:
     citation: 10.1016/S2213-2600(19)30055-4
     # original weblink, if data is re-processed from a public source
     data_source: https://zenodo.org/record/3248979
-    # sample size for the study
-    sample_size: 356083
-    cases: 37846
-    controls: 318237
     # accepted data types include: gwas, twas, eqtl, sqtl, pqtl, tad
     data_type: gwas
     # whether data can be shared when appropriately credited / cited
