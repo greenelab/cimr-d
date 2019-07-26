@@ -3,7 +3,7 @@ defined_as: upload
 # data information
 data_file:
     # brief description of the data
-    doc: >
+    doc: >-
         Global Lipid Genetics Consortium GWAS results for high-density 
         cholesterol levels
     # where cimr-d can load the file(s) from
@@ -11,7 +11,7 @@ data_file:
         url: https://zenodo.org/record/3338180/files/HDL_Cholesterol.txt.gz
         md5: 2b28816a0a363db1a09ad9a6ba1a6620
     compression: true
-    file_name: HDL_Cholesterol.txt.gz
+    output_name: hdl_cholesterol
     columns:
         variant_id: panel_variant_id
         variant_chrom: chromosome

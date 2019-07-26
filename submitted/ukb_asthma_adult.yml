@@ -3,7 +3,7 @@ defined_as: upload
 # data information
 data_file:
     # brief description of the data
-    doc: >
+    doc: >-
         Shared and distinct genetic risk factors for childhood-onset 
         and adult-onset asthma; genome-wide association study
     # where cimr-d can load the file(s) from
@@ -19,7 +19,7 @@ data_file:
         rsnum: rsid
         ref: ref
         alt: alt
-        build: na
+        build: b37
         effect_allele: na
         non_effect_allele: na
         inc_allele: na
