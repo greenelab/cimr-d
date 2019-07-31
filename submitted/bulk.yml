@@ -1,4 +1,4 @@
-defined_as: upload
+defined_as: upload_bulk
 
 # data information
 data_file:
@@ -8,10 +8,8 @@ data_file:
         cholesterol levels
     # where cimr-d can load the file(s) from
     location:
-        url: https://zenodo.org/record/3338180/files/HDL_Cholesterol.txt.gz
-        md5: 2b28816a0a363db1a09ad9a6ba1a6620
-    input_name: HDL_Cholesterol.txt.gz
-    output_name: hdl_cholesterol.tsv.gz
+        url: https://zenodo.org/record/3345991/files/gwas_hdl_ldl.tar.gz
+        md5: eccbd3b5b6ff87e78063321846b78dfa
     columns:
         variant_id: panel_variant_id
         variant_chrom: chromosome
@@ -71,4 +69,3 @@ method:
         https://csg.sph.umich.edu/abecasis/Merlin/tour/assoc.html;
         http://www.genabel.org/sites/default/files/html_for_import/GenABEL_tutorial_html/GenABEL-tutorial.html;
         https://mmap.github.io/
-

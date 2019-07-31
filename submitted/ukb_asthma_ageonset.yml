@@ -10,8 +10,8 @@ data_file:
     location:
         url: https://zenodo.org/record/3248979/files/asthma_age_onset.linear.assoc.tsv.gz
         md5: fb0ab56dec65e48ac11e50fae67250d3
-    compression: true
-    output_name: ukb_asthma_ageonset
+    input_name: asthma_age_onset.linear.assoc.tsv.gz
+    output_name: ukb_asthma_ageonset.tsv.gz
     columns:
         variant_id: variant
         variant_chrom: chr
@@ -19,7 +19,6 @@ data_file:
         rsnum: rsid
         ref: ref
         alt: alt
-        build: b37
         effect_allele: na
         non_effect_allele: na
         inc_allele: na
@@ -37,9 +36,6 @@ data_file:
         tss_distance: na
         ma_samples: na
         maf: na
-        sample_size: 356083
-        cases: 37846
-        controls: 318237
         comment_0: converged
         
 contributor:
@@ -57,6 +53,10 @@ data_info:
     data_source: https://zenodo.org/record/3248979
     # accepted data types include: gwas, twas, eqtl, sqtl, pqtl, tad
     data_type: gwas
+    build: b37
+    sample_size: 356083
+    cases: 37846
+    controls: 318237
     # whether data can be shared when appropriately credited / cited
     can_be_public: na
 
