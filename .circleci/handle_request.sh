@@ -26,11 +26,10 @@ INDICATOR_FILENAME="submitted_data/request.handled"
 # Remove flag file before data processing
 rm -rf $INDICATOR_FILENAME
 
-# Parse user request, download data (and extract archive file, if available)
-python3 .circleci/parse_yaml.py
-
-# Process submitted data
-python3 .circleci/process_submitted_data.py
+# For each yaml file, download and process data
+for yaml file in submitted/*.y*ml; do
+  cimr processor -process -yaml-file ${yaml_file}
+done
 
 # Create the flag file at the end
 touch $INDICATOR_FILENAME

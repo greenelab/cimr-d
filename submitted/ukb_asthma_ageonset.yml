@@ -46,7 +46,7 @@ data_info:
     sample_size: 356083
     n_cases: 37846
     # whether data can be shared when appropriately credited / cited
-    can_be_public: na
+    can_be_public: true
 
 method:
     # method used to generate results
