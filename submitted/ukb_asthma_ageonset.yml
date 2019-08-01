@@ -1,9 +1,6 @@
-defined_as: upload
-
-# data information
 data_file:
     # brief description of the data
-    doc: >-
+    description: >-
         Shared and distinct genetic risk factors for childhood-onset 
         and adult-onset asthma; genome-wide association study
     # where cimr-d can load the file(s) from
@@ -37,14 +34,6 @@ data_file:
         ma_samples: na
         maf: na
         comment_0: converged
-        
-contributor:
-    # name of the contributor; person submitting the data file to cimr-d
-    name: YoSon Park
-    # github account of the contributor
-    github: ypar
-    # (optional) email account of the contributor
-    email: cimrroot@gmail.com
 
 data_info:
     # doi identifier of the published paper, if available
@@ -55,8 +44,7 @@ data_info:
     data_type: gwas
     build: b37
     sample_size: 356083
-    cases: 37846
-    controls: 318237
+    n_cases: 37846
     # whether data can be shared when appropriately credited / cited
     can_be_public: na
 
@@ -68,3 +56,10 @@ method:
     # website link where descriptions of the tool or the package can be found
     website: https://github.com/hail-is/hail
 
+contributor:
+    # name of the contributor; person submitting the data file to cimr-d
+    name: YoSon Park
+    # github account of the contributor
+    github: ypar
+    # (optional) email account of the contributor
+    email: cimrroot@gmail.com

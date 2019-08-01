@@ -1,9 +1,6 @@
-defined_as: upload_bulk
-
-# data information
 data_file:
     # brief description of the data
-    doc: >-
+    description: >-
         Global Lipid Genetics Consortium GWAS results for high-density 
         cholesterol levels
     # where cimr-d can load the file(s) from
@@ -36,14 +33,6 @@ data_file:
         maf: na
         comment_0: na
         
-contributor:
-    # name of the contributor; person submitting the data file to cimr-d
-    name: YoSon Park
-    # github account of the contributor
-    github: ypar
-    # email account of the contributor
-    email: cimrroot@gmail.com
-
 data_info:
     # doi identifier of the published paper, if available
     citation: 10.1038/ng.2797
@@ -52,8 +41,7 @@ data_info:
     data_type: gwas
     build: b38
     sample_size: 187167
-    cases: na
-    controls: na
+    n_cases: na
     can_be_public: true
 
 method:
@@ -69,3 +57,11 @@ method:
         https://csg.sph.umich.edu/abecasis/Merlin/tour/assoc.html;
         http://www.genabel.org/sites/default/files/html_for_import/GenABEL_tutorial_html/GenABEL-tutorial.html;
         https://mmap.github.io/
+
+contributor:
+    # name of the contributor; person submitting the data file to cimr-d
+    name: YoSon Park
+    # github account of the contributor
+    github: ypar
+    # email account of the contributor
+    email: cimrroot@gmail.com

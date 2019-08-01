@@ -1,17 +1,12 @@
-defined_as: upload
-
-# data information
 data_file:
     # brief description of the data
-    doc: >-
+    description: >-
         Global Lipid Genetics Consortium GWAS results for high-density 
         cholesterol levels
     # where cimr-d can load the file(s) from
     location:
         url: https://zenodo.org/record/3338180/files/HDL_Cholesterol.txt.gz
         md5: 2b28816a0a363db1a09ad9a6ba1a6620
-    input_name: HDL_Cholesterol.txt.gz
-    output_name: hdl_cholesterol.tsv.gz
     columns:
         variant_id: panel_variant_id
         variant_chrom: chromosome
@@ -37,14 +32,6 @@ data_file:
         ma_samples: na
         maf: na
         comment_0: na
-        
-contributor:
-    # name of the contributor; person submitting the data file to cimr-d
-    name: YoSon Park
-    # github account of the contributor
-    github: ypar
-    # email account of the contributor
-    email: cimrroot@gmail.com
 
 data_info:
     # doi identifier of the published paper, if available
@@ -54,8 +41,7 @@ data_info:
     data_type: gwas
     build: b38
     sample_size: 187167
-    cases: na
-    controls: na
+    n_cases: na
     can_be_public: true
 
 method:
@@ -72,3 +58,10 @@ method:
         http://www.genabel.org/sites/default/files/html_for_import/GenABEL_tutorial_html/GenABEL-tutorial.html;
         https://mmap.github.io/
 
+contributor:
+    # name of the contributor; person submitting the data file to cimr-d
+    name: YoSon Park
+    # github account of the contributor
+    github: ypar
+    # email account of the contributor
+    email: cimrroot@gmail.com
