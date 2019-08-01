@@ -27,7 +27,7 @@ INDICATOR_FILENAME="submitted_data/request.handled"
 rm -rf $INDICATOR_FILENAME
 
 # For each yaml file, download and process data
-for yaml file in submitted/*.y*ml; do
+for yaml_file in submitted/*.y*ml; do
   cimr processor -process -yaml-file ${yaml_file}
 done
 
