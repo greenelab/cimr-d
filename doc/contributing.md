@@ -6,11 +6,10 @@
 - [Writing a yaml file for data contribution](#writing-a-yaml-file-for-data-contribution)
 
 - [Arguments](#arguments)
-  - [defined_as](#defined_as)
   - [data_file](#data_file)
-  - [contributor](#contributor)
   - [data_info](#data_info)
   - [method](#method)
+  - [contributor](#contributor)
 
 - [Examples](#examples)
   - [GWAS upload yaml file example](#gwas-upload-yaml-file-example)
@@ -100,20 +99,6 @@ contains column names different from the default _cimr_ variables.
 
 
 
-
-## contributor
-
-Contributor information is optional but recommended.
-
-
-| argument    | description                         |
-|-------------|-------------------------------------|
-| name        | name of the contributor             |
-| github      | github user name of the contributor |
-| email       | e-mail address of the contributor   |
-
-
-
 ## data_info 
 
 Data information provided in `data_info` is used to generate citation 
@@ -140,6 +125,21 @@ Method details can be listed here.
 | name      | name of the method used        |
 | tool      | name of the tool used          |
 | website   | website link for the tool used |
+
+
+
+
+## contributor
+
+Contributor information is optional but recommended.
+
+
+| argument    | description                         |
+|-------------|-------------------------------------|
+| name        | name of the contributor             |
+| github      | github user name of the contributor |
+| email       | e-mail address of the contributor   |
+
 
 
 
