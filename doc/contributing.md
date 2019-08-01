@@ -28,12 +28,10 @@
 
 Here is an example file after _cimr_ processing:
 
-
-
-| rsnum	|variant_id	|pvalue	|effect_size	|odds_ratio	|standard_error	|zscore	|tss_distance	|effect_allele|	non_effect_allele	|frequency	|imputation_status	|sample_size	|n_cases	|build|
-|--------|------|--------|------------|--------|----------|----------|------------|--------|-----------|---------|-----------|-----------|-----------|-------|-----|
-| rs12565286	|chr1_785910_G_C_b38	|0.06295	|-0.03250	|NA	|0.01940	|-1.85954	|NA	|C	|G	|0.05628	|original	|54632	|NA	|b38|
-
+```
+rsnum	variant_id	pvalue	effect_size	odds_ratio	standard_error	zscore	tss_distance	effect_allele	non_effect_allele	frequency	imputation_status	sample_size	n_cases	build
+rs12565286	chr1_785910_G_C_b38	0.06295	-0.03250	NA	0.01940	-1.85954	NA	C	G	0.05628	original	54632	NA	b38
+```
 
 
 # Writing a yaml file for a weblink-based data contribution
