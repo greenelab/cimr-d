@@ -13,8 +13,8 @@
   - [method](#method)
 
 - [Examples](#examples)
-  - [TWAS upload yaml file example](#twas-upload-yaml-file-example)
-  - [GWAS upload example](#gwas-upload-example)
+  - [GWAS upload yaml file example](#gwas-upload-yaml-file-example)
+  - [GWAS bulk upload yaml file example](#gwas-bulk-upload-yaml-file-example)
 
 - [Frequently asked questions](#frequently-asked-questions)
 
@@ -30,52 +30,47 @@
 _cimr-d_ accepts data previously uploaded to public archives such as 
 [zenodo](https://zenodo.org/).
 
+Following keys are required for _cimr-d_ processing:
 
+```yaml
+data_file:
+    location:
+        url: 
+        md5: 
+
+data_info:
+    citation:
+    data_type:
+    build:
+    sample_size:
+    n_cases:
+    can_be_public:
+
+method:
+    name:
+    tool:
+    website:
+
+```
+
+`data_file: columns:` fields are required if the submitted data 
+contains column names different from the default _cimr_ variables.
 
 
 # Arguments
 
-## defined_as
-
-`defined_as` variable indicates whether the contributed data is a
-single text file or a tarball containing multiple files.
-
-
-| argument    | description             |
-|-------------|-------------------------|
-| upload      | single file upload yaml |
-| upload_bulk | bulk file upload yaml   |
-
-For `upload_bulk` option, all submitted files need to be archived as 
-one of the following file types: `tar`, `tar.gz`, `tar.bz2`, and `tar.xz`.
-
-One may produce a tar file containing all files with suffix `_gwas.txt` within 
-the directory as follows:
-
-```bash
-tar czvf gwas.tar.gz *_gwas.txt
-```
-
-Alternatively, for multiple files with one or more data types, 
-
-
-Then the file must be uploaded to a repository where cimr-d can access.
-
-
 
 ## data_file
 
-`data_file` variable is a superset of variables describing the dataset. 
+`data_file` variable is a superset of variables describing the dataset.
 
 
 | argument                    | description                              |
 |-----------------------------|------------------------------------------|
-| doc                         | a brief description of data              | 
+| description                 | a brief description of data              | 
 | location: url               | link to data                             |
 | location: md5               | md5 sum hash to verify the file size     |
-| compression                 | whether the file has been compressed     |
-| keep_file_name              | whether the file name should be used     |
-| output_name                 | data name, if not indicated as file name |
+|-----------------------------|------------------------------------------|
 | columns: variant_id         | variant id in the format of              |
 |                             | chromosome:position:ref:alt or           |
 |                             | chromosome_position_ref_alt_build        |
@@ -85,6 +80,9 @@ Then the file must be uploaded to a repository where cimr-d can access.
 | columns: ref                | variant reference allele                 |
 | columns: alt                | variant alternate allele                 |
 | columns: effect_allele      | effect allele for statistic              |
+| columns: non_effect_allele  | non-effect allele for statistic          |
+| columns: inc_allele         | effect_allele                            |
+| columns: inc_afrq           | effect allele frequency                  |
 | columns: effect_size        | effect size / beta coefficient           |
 | columns: standard_error     | standard error of the effect size        |
 | columns: zscore             | zscore                                   |
@@ -93,7 +91,13 @@ Then the file must be uploaded to a repository where cimr-d can access.
 | columns: feature_chrom      | chromosome id, if applicable             |
 | columns: feature_start      | starting genomic position, if applicable |
 | columns: feature_stop       | stopping genomic position, if applicable |
+| columns: imputation_status  | imputation status                        |
+| columns: frequency          | effect allele frequency                  |
+| columns: tss_distance       | distance to tss                          |
+| columns: ma_samples         | count of samples with minor alleles      |
+| columns: maf                | minor allele frequency                   |
 | columns: comment_0          | other info (e.g. did statistic converge?)|
+
 
 
 
@@ -121,8 +125,7 @@ and metadata information used for downstream analyses.
 | citation      | publication or data doi, if applicable               |
 | data_source   | (permenant) link to the original data, if applicable |
 | sample_size   | sample size of the study                             |
-| cases         | number of cases, if applicable (e.g. binary trait)   |
-| controls      | number of controls, if applicable                    |
+| n_cases         | number of cases, if applicable (e.g. binary trait)   |
 | data_type     | data_type (e.g. twas, gwas, eqtl, etc.)              |
 | can_be_public | whether the data can be posted publicly via cimr-d   |
 
@@ -143,67 +146,156 @@ Method details can be listed here.
 # Examples
 
 
-## TWAS upload yaml file example
-This is an example yml configuration to upload TWAS data to cimr-d:
+## GWAS upload yaml file example
+This is an example yml configuration to upload GWAS data to cimr-d:
 
 
 ```yaml
-defined_as: upload
-
 data_file:
-    doc: >
-        Shared and distinct genetic risk factors for childhood-onset 
-        and adult-onset asthma; genome-wide and transcriptome-wide 
-        studies using predixcan
+    # brief description of the data
+    description: >-
+        Global Lipid Genetics Consortium GWAS results for high-density 
+        cholesterol levels
+    # where cimr-d can load the file(s) from
     location:
-        url: https://zenodo.org/record/3248979/files/asthma_adults.logistic.assoc.tsv.gz
-        md5: 358d9ac5a7b70633b6a9028331817c7b
-    compression: true
-    keep_file_name: false
-    output_name: ukb_adult_asthma_predixcan_logistic
+        url: https://zenodo.org/record/3338180/files/HDL_Cholesterol.txt.gz
+        md5: 2b28816a0a363db1a09ad9a6ba1a6620
     columns:
-        variant_id: variant
-        variant_chromosome: chr
-        variant_genomic_position: pos
-        rsnum: rsid
-        reference_allele: ref
-        alternate_allele: alt
-        effect_allele: na
-        effect_size: beta
-        standard_error: se
-        statistic: zstat
-        pvalue: pval
-        gene_id: na
-        gene_chromosome: na
-        gene_start: na
-        gene_stop: na
-        comment_0: converged
-        
-contributor:
-    name: YoSon Park
-    github: ypar
-    email: cimrroot@gmail.com
+        variant_id: panel_variant_id
+        variant_chrom: chromosome
+        variant_pos: position
+        rsnum: variant_id
+        ref: na
+        alt: na
+        effect_allele: effect_allele
+        non_effect_allele: non_effect_allele
+        inc_allele: na
+        inc_afrq: na
+        effect_size: effect_size
+        standard_error: standard_error
+        zscore: zscore
+        pvalue: pvalue
+        feature_id: na
+        feature_chrom: na
+        feature_start: na
+        feature_stop: na
+        imputation_status: imputation_status
+        frequency: na
+        tss_distance: na
+        ma_samples: na
+        maf: na
+        comment_0: na
 
 data_info:
-    citation: 10.1016/S2213-2600(19)30055-4
-    data_source: https://zenodo.org/record/3248979
-    sample_size: 356083
-    cases: 37846
-    controls: 318237
-    data_type: twas
-    can_be_public: na
+    # doi identifier of the published paper, if available
+    citation: 10.1038/ng.2797
+    # original weblink, if data is re-processed from a public source
+    data_source: http://lipidgenetics.org/
+    data_type: gwas
+    build: b38
+    sample_size: 187167
+    n_cases: na
+    can_be_public: true
 
 method:
-    name: logistic regression
-    tool: predixcan
-    website: https://github.com/hakyimlab/PrediXcan 
+    # method used to generate results
+    name: linear regression
+    # name of the tool or programming package used
+    tool: PLINK; SNPTEST; EMMAX; Merlin; GENABEL; MMAP
+    # website link where descriptions of the tool or the package can be found
+    website: >-
+        http://zzz.bwh.harvard.edu/plink/download.shtml; 
+        https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html;
+        https://genome.sph.umich.edu/wiki/EMMAX;
+        https://csg.sph.umich.edu/abecasis/Merlin/tour/assoc.html;
+        http://www.genabel.org/sites/default/files/html_for_import/GenABEL_tutorial_html/GenABEL-tutorial.html;
+        https://mmap.github.io/
+
+contributor:
+    # name of the contributor; person submitting the data file to cimr-d
+    name: YoSon Park
+    # github account of the contributor
+    github: ypar
+    # email account of the contributor
+    email: cimrroot@gmail.com
+
 ```
 
 
 
-## GWAS upload example
+## GWAS bulk upload yaml file example
 
 
+```yaml
+data_file:
+    # brief description of the data
+    description: >-
+        Global Lipid Genetics Consortium GWAS results for high-density 
+        cholesterol levels
+    # where cimr-d can load the file(s) from
+    location:
+        url: https://zenodo.org/record/3345991/files/gwas_hdl_ldl.tar.gz
+        md5: eccbd3b5b6ff87e78063321846b78dfa
+    columns:
+        variant_id: panel_variant_id
+        variant_chrom: chromosome
+        variant_pos: position
+        rsnum: variant_id
+        ref: na
+        alt: na
+        effect_allele: effect_allele
+        non_effect_allele: non_effect_allele
+        inc_allele: na
+        inc_afrq: na
+        effect_size: effect_size
+        standard_error: standard_error
+        zscore: zscore
+        pvalue: pvalue
+        feature_id: na
+        feature_chrom: na
+        feature_start: na
+        feature_stop: na
+        imputation_status: imputation_status
+        frequency: na
+        tss_distance: na
+        ma_samples: na
+        maf: na
+        comment_0: na
+        
+data_info:
+    # doi identifier of the published paper, if available
+    citation: 10.1038/ng.2797
+    # original weblink, if data is re-processed from a public source
+    data_source: http://lipidgenetics.org/
+    data_type: gwas
+    build: b38
+    sample_size: 187167
+    n_cases: na
+    can_be_public: true
+
+method:
+    # method used to generate results
+    name: linear regression
+    # name of the tool or programming package used
+    tool: PLINK; SNPTEST; EMMAX; Merlin; GENABEL; MMAP
+    # website link where descriptions of the tool or the package can be found
+    website: >-
+        http://zzz.bwh.harvard.edu/plink/download.shtml; 
+        https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html;
+        https://genome.sph.umich.edu/wiki/EMMAX;
+        https://csg.sph.umich.edu/abecasis/Merlin/tour/assoc.html;
+        http://www.genabel.org/sites/default/files/html_for_import/GenABEL_tutorial_html/GenABEL-tutorial.html;
+        https://mmap.github.io/
+
+contributor:
+    # name of the contributor; person submitting the data file to cimr-d
+    name: YoSon Park
+    # github account of the contributor
+    github: ypar
+    # email account of the contributor
+    email: cimrroot@gmail.com
+
+```
 
 
 
