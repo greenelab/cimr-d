@@ -4,6 +4,10 @@
 - [Preparing a file for data contribution](#preparing-a-file-for-data-contribution)
 
 - [Writing a yaml file for data contribution](#writing-a-yaml-file-for-data-contribution)
+  - [Accepted weblinks](#accepted-weblinks)
+  - [Required fields](#required-fields)
+  - [Conditionally required fields](#conditionally-required-fields)
+  - [Optional fields](#optional-fields)
 
 - [Arguments](#arguments)
   - [data_file](#data_file)
@@ -26,8 +30,15 @@
 
 # Writing a yaml file for a weblink-based data contribution
 
+
+## Accepted weblinks
+
 _cimr-d_ accepts data previously uploaded to public archives such as 
 [zenodo](https://zenodo.org/).
+
+
+
+## Required fields
 
 Following keys are required for _cimr-d_ processing:
 
@@ -52,8 +63,19 @@ method:
 
 ```
 
+## Conditionally required fields
+
 `data_file: columns:` fields are required if the submitted data 
 contains column names different from the default _cimr_ variables.
+
+
+## Optional fields
+
+For most non-required fields [as seen in examples below](#examples), 
+`na` (as in `not available`) is an acceptible value. Alternatively, 
+if there's no information available for a given non-required field, 
+such variables may be omitted.
+
 
 
 # Arguments
