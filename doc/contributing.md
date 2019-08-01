@@ -26,6 +26,14 @@
 # Preparing a file for data contribution
 
 
+Here is an example file after _cimr_ processing:
+
+
+
+| rsnum	|variant_id	|pvalue	|effect_size	|odds_ratio	|standard_error	|zscore	|tss_distance	|effect_allele|	non_effect_allele	|frequency	|imputation_status	|sample_size	|n_cases	|build|
+|--------|------|--------|------------|--------|----------|----------|------------|--------|-----------|---------|-----------|-----------|-----------|-------|-----|
+| rs12565286	|chr1_785910_G_C_b38	|0.06295	|-0.03250	|NA	|0.01940	|-1.85954	|NA	|C	|G	|0.05628	|original	|54632	|NA	|b38|
+
 
 
 # Writing a yaml file for a weblink-based data contribution
@@ -45,21 +53,21 @@ Following keys are required for _cimr-d_ processing:
 ```yaml
 data_file:
     location:
-        url: 
-        md5: 
+        url: https://location.of.contributed.data
+        md5: md5sumhashforfile
 
 data_info:
-    citation:
-    data_type:
-    build:
-    sample_size:
-    n_cases:
-    can_be_public:
+    citation: doinumber
+    data_type: datatype
+    build: genomebuild
+    sample_size: samplesize
+    n_cases: ncases
+    can_be_public: true
 
 method:
-    name:
-    tool:
-    website:
+    name: methodname
+    tool: toolname
+    website: toolreference
 
 ```
 
