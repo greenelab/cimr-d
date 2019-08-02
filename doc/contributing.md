@@ -106,7 +106,7 @@ indicated with `>-` next to the key as shown in
 
 ## data_file
 
-`data_file` variable is a superset of variables describing the dataset.
+`data_file` key is a superset of keys describing the dataset.
 
 
 | argument                    | description                              |
@@ -114,7 +114,7 @@ indicated with `>-` next to the key as shown in
 | description                 | a brief description of data              | 
 | location: url               | link to data                             |
 | location: md5               | md5 sum hash to verify the file size     |
-|-----------------------------|------------------------------------------|
+|                             |                                          |
 | columns: variant_id         | variant id in the format of              |
 |                             | chromosome_position_ref_alt or           |
 |                             | chromosome_position_ref_alt_build        |
@@ -145,7 +145,7 @@ indicated with `>-` next to the key as shown in
 ## data_info 
 
 Data information provided in `data_info` is used to generate citation 
-and metadata information used for downstream analyses.
+and metadata information used for analyses and acknowledgements.
 
 
 | argument      | description                                          |
@@ -153,7 +153,7 @@ and metadata information used for downstream analyses.
 | citation      | publication or data doi, if applicable               |
 | data_source   | (permenant) link to the original data, if applicable |
 | sample_size   | sample size of the study                             |
-| n_cases         | number of cases, if applicable (e.g. binary trait)   |
+| n_cases       | number of cases, if applicable (e.g. binary trait)   |
 | data_type     | data_type (e.g. twas, gwas, eqtl, etc.)              |
 | can_be_public | whether the data can be posted publicly via cimr-d   |
 
