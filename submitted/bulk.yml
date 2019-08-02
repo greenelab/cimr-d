@@ -1,9 +1,7 @@
 data_file:
-    # brief description of the data
     description: >-
         Global Lipid Genetics Consortium GWAS results for high-density 
         cholesterol levels
-    # where cimr-d can load the file(s) from
     location:
         url: https://zenodo.org/record/3345991/files/gwas_hdl_ldl.tar.gz
         md5: eccbd3b5b6ff87e78063321846b78dfa
@@ -34,9 +32,7 @@ data_file:
         comment_0: na
         
 data_info:
-    # doi identifier of the published paper, if available
     citation: 10.1038/ng.2797
-    # original weblink, if data is re-processed from a public source
     data_source: http://lipidgenetics.org/
     data_type: gwas
     build: b38
@@ -45,11 +41,8 @@ data_info:
     can_be_public: true
 
 method:
-    # method used to generate results
     name: linear regression
-    # name of the tool or programming package used
     tool: PLINK; SNPTEST; EMMAX; Merlin; GENABEL; MMAP
-    # website link where descriptions of the tool or the package can be found
     website: >-
         http://zzz.bwh.harvard.edu/plink/download.shtml; 
         https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html;
@@ -59,9 +52,6 @@ method:
         https://mmap.github.io/
 
 contributor:
-    # name of the contributor; person submitting the data file to cimr-d
     name: YoSon Park
-    # github account of the contributor
     github: ypar
-    # email account of the contributor
     email: cimrroot@gmail.com

@@ -8,6 +8,7 @@
   - [Required fields](#required-fields)
   - [Conditionally required fields](#conditionally-required-fields)
   - [Optional fields](#optional-fields)
+  - [Basics on yaml file formatting](#basics-on-yaml-file-formatting)
 
 - [Arguments](#arguments)
   - [data_file](#data_file)
@@ -26,12 +27,14 @@
 # Preparing a file for data contribution
 
 
-Here is an example file after _cimr_ processing:
+Here is an example GWAS file:
 
 ```
 rsnum	variant_id	pvalue	effect_size	odds_ratio	standard_error	zscore	tss_distance	effect_allele	non_effect_allele	frequency	imputation_status	sample_size	n_cases	build
 rs12565286	chr1_785910_G_C_b38	0.06295	-0.03250	NA	0.01940	-1.85954	NA	C	G	0.05628	original	54632	NA	b38
 ```
+
+
 
 
 # Writing a yaml file for a weblink-based data contribution
@@ -83,6 +86,20 @@ if there's no information available for a given non-required field,
 such variables may be omitted.
 
 
+## Basics on yaml file formatting
+
+Example cimr submission files are provided [below](#examples). 
+[YAML refers to a human friendly data serialization standard](https://yaml.org/). 
+Detailed documentation can be found 
+[elsewhere](https://yaml.org/spec/1.2/spec.html). 
+
+YAML uses strict syntactically significant newlines and indentations.
+In case of cimr data-submission yaml form, most fields expect values 
+of one word or a short string (such as a website link). However, for 
+longer lines as in `data_file: description`, multi-line strings can be 
+indicated with `>-` next to the key as shown in 
+[an example](#gwas-upload-yaml-file-example).
+
 
 # Arguments
 
@@ -99,7 +116,7 @@ such variables may be omitted.
 | location: md5               | md5 sum hash to verify the file size     |
 |-----------------------------|------------------------------------------|
 | columns: variant_id         | variant id in the format of              |
-|                             | chromosome:position:ref:alt or           |
+|                             | chromosome_position_ref_alt or           |
 |                             | chromosome_position_ref_alt_build        |
 | columns: variant_chrom      | variant chromosome id                    |
 | columns: variant_pos        | variant genomic position                 |
@@ -108,8 +125,6 @@ such variables may be omitted.
 | columns: alt                | variant alternate allele                 |
 | columns: effect_allele      | effect allele for statistic              |
 | columns: non_effect_allele  | non-effect allele for statistic          |
-| columns: inc_allele         | effect_allele                            |
-| columns: inc_afrq           | effect allele frequency                  |
 | columns: effect_size        | effect size / beta coefficient           |
 | columns: standard_error     | standard error of the effect size        |
 | columns: zscore             | zscore                                   |

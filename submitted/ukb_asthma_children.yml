@@ -1,14 +1,10 @@
 data_file:
-    # brief description of the data
     description: >-
         Shared and distinct genetic risk factors for childhood-onset 
         and adult-onset asthma; genome-wide association study
-    # where cimr-d can load the file(s) from
     location:
         url: https://zenodo.org/record/3248979/files/asthma_children.logistic.assoc.tsv.gz
         md5: f2c14860cadfb8ee5686b4d7395f364b
-    input_name: asthma_children.logistic.assoc.tsv.gz
-    output_name: ukb_asthma_children.tsv.gz
     columns:
         variant_id: variant
         variant_chrom: chr
@@ -23,22 +19,15 @@ data_file:
         comment_0: converged
 
 data_info:
-    # doi identifier of the published paper, if available
     citation: 10.1016/S2213-2600(19)30055-4
-    # original weblink, if data is re-processed from a public source
     data_source: https://zenodo.org/record/3248979
-    # accepted data types include: gwas, twas, eqtl, sqtl, pqtl, tad
     data_type: gwas
     build: b37
     sample_size: 356083
     n_cases: 37846
-    # whether data can be shared when appropriately credited / cited
     can_be_public: true
 
 method:
-    # method used to generate results
     name: logistic regression
-    # name of the tool or programming package used
     tool: hail
-    # website link where descriptions of the tool or the package can be found
     website: https://github.com/hail-is/hail
