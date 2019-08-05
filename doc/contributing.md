@@ -76,6 +76,12 @@ method:
 
 `data_file: columns:` fields are required if the submitted data 
 contains column names different from the default _cimr_ variables.
+See [data_file section](#data_file) for available options. Briefly,
+cimr-d expects the following information for processing and
+integrating new data:
+
+```
+```
 
 
 ## Optional fields
