@@ -1,6 +1,8 @@
 
 # Table of Contents
 
+- [Contributing data with a yaml file](#contributing-data-with-a-yaml-file)
+
 - [Preparing a file for data contribution](#preparing-a-file-for-data-contribution)
 
 - [Writing a yaml file for data contribution](#writing-a-yaml-file-for-data-contribution)
@@ -18,14 +20,39 @@
 
 - [Examples](#examples)
   - [GWAS upload yaml file example](#gwas-upload-yaml-file-example)
+  - [eQTL upload yaml file example](#eqtl-upload-yaml-file-example)
   - [GWAS bulk upload yaml file example](#gwas-bulk-upload-yaml-file-example)
 
 - [Frequently asked questions](#frequently-asked-questions)
 
 
 
-# Preparing a file for data contribution
+# Contributing data with a yaml file
 
+
+_cimr-d_ uses a version control system, [git](https://github.com), to 
+track different versions of code and data. Experienced git users 
+may skip the following section and just move on to the 
+[example yaml files](#examples).
+
+In order to contribute new data to _cimr-d_, please follow these steps:
+
+
+
+### 0. Make a github account.
+
+Create a github [account](https://github.com), GitHub allows 
+unlimited public repositories. Git also offers 
+[discounts for academics](https://education.github.com/discount_requests/new).
+
+If you need more detailed guides, here is 
+[a tutorial on using git and github for revision control](https://www.melbournebioinformatics.org.au/tutorials/tutorials/using_git/Using_Git/), 
+
+
+### 1. Prepare data
+
+Details are in the following 
+[section](#preparing-a-file-for-data-contribution).
 
 Here is an example GWAS file:
 
@@ -34,16 +61,62 @@ rsnum	variant_id	pvalue	effect_size	odds_ratio	standard_error	zscore	tss_distanc
 rs12565286	chr1_785910_G_C_b38	0.06295	-0.03250	NA	0.01940	-1.85954	NA	C	G	0.05628	original	54632	NA	b38
 ```
 
+Any variant-based association files can be similarly formatted. 
+The absolute minimum requirement for _cimr-d_ to accept the 
+contributed data are following columns:
+
+* variant_id (chrom_position_refallele_altallele_genomebuild)
+* pvalue
+* effect_size (may be substituted by zscore for imputed data, etc.)
+* standard_error
+* effect_allele
+* sample_size (may be written in the yaml file)
+* n_cases (may be written in the yaml file)
+
+
+### 2. Prepare the contributor yaml file
+
+Some more details are provided 
+[below](#writing-a-yaml-file-for-data-contribution). 
 
 
 
-# Writing a yaml file for a weblink-based data contribution
+### 3. Fork the current _cimr-d_ repository.
+
+Here is [a help article](https://help.github.com/en/articles/fork-a-repo).
+
+
+### 4. Create a pull request from the forked repository
+
+Here is [a help article](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork)
+
+
+
+# Preparing a file for data contribution
+
+## File formatting
+
+Currently _cimr-d_ expects tab-delimited plain text files that 
+are compressed by gzip. Column headings may differ from the 
+default _cimr-d_ example files. However, in such cases, 
+column heading changes must be noted in the 
+[yaml file](#conditionally-required-fields). 
+
+
+
+# Writing a yaml file for data contribution
 
 
 ## Accepted weblinks
 
 _cimr-d_ accepts data previously uploaded to public archives such as 
-[zenodo](https://zenodo.org/).
+[zenodo](https://zenodo.org/) and [figshare](https://figshare.com/). 
+_cimr-d_ will as long as the linked data contains all required 
+columns and properly formatted yaml pointing to it.
+
+However, we strongly recommend archive services in place of e.g. 
+personal storage drive or box accounts, due to various reasons 
+including long-term reproducibility and contributor acknowledgement. 
 
 
 
@@ -76,9 +149,10 @@ method:
 
 `data_file: columns:` fields are required if the submitted data 
 contains column names different from the default _cimr_ variables.
-See [data_file section](#data_file) for available options. Briefly,
-cimr-d expects the following information for processing and
-integrating new data:
+See [data_file section](#data_file) for available options. _cimr-d_ 
+expects the following information for processing and integrating 
+new data:
+
 
 ```
 ```
@@ -201,7 +275,6 @@ This is an example yml configuration to upload GWAS data to cimr-d:
 
 ```yaml
 data_file:
-    # brief description of the data
     description: >-
         Global Lipid Genetics Consortium GWAS results for high-density 
         cholesterol levels
@@ -236,9 +309,7 @@ data_file:
         comment_0: na
 
 data_info:
-    # doi identifier of the published paper, if available
     citation: 10.1038/ng.2797
-    # original weblink, if data is re-processed from a public source
     data_source: http://lipidgenetics.org/
     data_type: gwas
     build: b38
@@ -247,11 +318,8 @@ data_info:
     can_be_public: true
 
 method:
-    # method used to generate results
     name: linear regression
-    # name of the tool or programming package used
     tool: PLINK; SNPTEST; EMMAX; Merlin; GENABEL; MMAP
-    # website link where descriptions of the tool or the package can be found
     website: >-
         http://zzz.bwh.harvard.edu/plink/download.shtml; 
         https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html;
@@ -261,15 +329,52 @@ method:
         https://mmap.github.io/
 
 contributor:
-    # name of the contributor; person submitting the data file to cimr-d
     name: YoSon Park
-    # github account of the contributor
     github: ypar
-    # email account of the contributor
     email: cimrroot@gmail.com
 
 ```
 
+
+## eQTL upload yaml file example
+
+This is an example yml configuration to upload eQTL data to cimr-d:
+
+```yaml
+data_file:
+    description: >-
+        Genotype-Tissue Expression (GTEx) consortium v7 data release 
+        for genome-wide expression quantitative trait loci (eQTL) scans
+    location:
+        url: https://storage.googleapis.com/gtex_analysis_v7/single_tissue_eqtl_data/all_snp_gene_associations/Whole_Blood.allpairs.txt.gz
+        md5: 09d0f87289e29f75cd735533472093c3
+    columns:
+        effect_size: slope
+        standard_error: slope_se
+        pvalue: pval_nominal
+        feature_id: gene_id
+        variant_id: variant_id
+
+data_info:
+    citation: 10.1093/bioinformatics/btv722
+    data_source: http:/gtexportal.org
+    data_type: eqtl
+    build: b37
+    sample_size: 369
+    n_cases: na
+    can_be_public: true
+
+method:
+    name: linear regression
+    tool: fastqtl
+    website: http://fastqtl.sourceforge.net/
+
+contributor:
+    name: YoSon Park
+    github: ypar
+    email: cimrroot@gmail.com
+
+```
 
 
 ## GWAS bulk upload yaml file example
@@ -277,7 +382,6 @@ contributor:
 
 ```yaml
 data_file:
-    # brief description of the data
     description: >-
         Global Lipid Genetics Consortium GWAS results for high-density 
         cholesterol levels
@@ -312,9 +416,7 @@ data_file:
         comment_0: na
         
 data_info:
-    # doi identifier of the published paper, if available
     citation: 10.1038/ng.2797
-    # original weblink, if data is re-processed from a public source
     data_source: http://lipidgenetics.org/
     data_type: gwas
     build: b38
@@ -323,11 +425,8 @@ data_info:
     can_be_public: true
 
 method:
-    # method used to generate results
     name: linear regression
-    # name of the tool or programming package used
     tool: PLINK; SNPTEST; EMMAX; Merlin; GENABEL; MMAP
-    # website link where descriptions of the tool or the package can be found
     website: >-
         http://zzz.bwh.harvard.edu/plink/download.shtml; 
         https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html;
@@ -337,11 +436,8 @@ method:
         https://mmap.github.io/
 
 contributor:
-    # name of the contributor; person submitting the data file to cimr-d
     name: YoSon Park
-    # github account of the contributor
     github: ypar
-    # email account of the contributor
     email: cimrroot@gmail.com
 
 ```
@@ -349,4 +445,90 @@ contributor:
 
 
 ## Frequently asked questions
+
+
+### Error messages
+
+
+Troubleshooting cimr processing based on error messages:
+
+
+
+`data type is not recognized`
+
+
+`no file_name provided; nothing to process`
+
+
+`data_type or file_name is not recognized; nothing to do`
+
+
+`no file {file_name} found for processing`
+
+
+`%s rows in %s are non-numeric' % (numcol, col,)`
+
+
+`the format of %s is not testable.' % (col,)`
+
+
+`unknown delimiter used in variant_id`
+
+
+
+`chromosome id needs to be checked.`
+* chromosome ID contains values other than \[chr\]1-26, X, Y, M or MT.
+* data is too big to be processed as a whole. Splited chunks of data
+  does not contain all chromosomes
+
+
+`there are no matching rs ids`
+
+
+`{col} should only contain values between 0 and 1`
+
+
+`gene_id column is not provided`
+
+
+`variant_id column is not provided`
+
+
+`rsnum column is not provided`
+
+
+
+`effect_size column is not provided`
+
+
+`standard_error column is not provided`
+
+
+
+`pvalue column is not provided`
+
+
+`file {self.outfile} cannot be written`
+
+
+`no content in {self.file_name}`
+
+
+`check your data_type`
+
+
+`check the file link and try again`
+
+
+
+`data_type not indicated in dir tree`
+
+
+`{yaml_file} is not accessible`
+
+
+`there is no data_type indicated`
+
+
+`file unavailable`
 
