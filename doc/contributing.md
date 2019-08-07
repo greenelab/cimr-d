@@ -24,7 +24,8 @@
   - [GWAS bulk upload yaml file example](#gwas-bulk-upload-yaml-file-example)
 
 - [Frequently asked questions](#frequently-asked-questions)
-
+  - [Where did my data go after submission to cimr-d?](#where-did-my-data-go-after-submission-to-cimr-d)
+  - [What happens after I submit a pull request with new data?](#what-happens-after-i-submit-a-pull-request-with-new-data)
 
 
 # Contributing data with a yaml file
@@ -403,7 +404,6 @@ data_file:
     description: >-
         Global Lipid Genetics Consortium GWAS results for high-density 
         cholesterol levels
-    # where cimr-d can load the file(s) from
     location:
         url: https://zenodo.org/record/3345991/files/gwas_hdl_ldl.tar.gz
         md5: eccbd3b5b6ff87e78063321846b78dfa
@@ -412,20 +412,12 @@ data_file:
         variant_chrom: chromosome
         variant_pos: position
         rsnum: variant_id
-        ref: na
-        alt: na
         effect_allele: effect_allele
         non_effect_allele: non_effect_allele
-        inc_allele: na
-        inc_afrq: na
         effect_size: effect_size
         standard_error: standard_error
         zscore: zscore
         pvalue: pvalue
-        feature_id: na
-        feature_chrom: na
-        feature_start: na
-        feature_stop: na
         imputation_status: imputation_status
         frequency: na
         tss_distance: na
@@ -473,6 +465,11 @@ accesible S3 bucket in Amazon Web Services (AWS).
 for convenient review and download. Periodically, data will 
 undergo additional review to be released on an archive service 
 such as zenodo to allow bulk downloads. 
+
+
+## What happens after I submit a pull request with new data?
+
+
 
 
 ## Error messages
@@ -538,9 +535,11 @@ Troubleshooting cimr-d processing based on error messages:
 `variant_id column is not provided`
 * variant_id column should contain unique variant ids in the format 
   of chrom_pos_refallele_altallele_genomebuild.
+  e.g. chr1_13417_C_CGAGA_b37
 
 
 `rsnum column is not provided`
+* 
 
 
 `effect_size column is not provided`
