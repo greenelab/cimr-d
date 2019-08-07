@@ -27,7 +27,7 @@ rm -rf $INDICATOR_FILENAME
 
 # For each yaml file, download and process data
 for f in ${yml_files[*]}; do
-    cimr processor -process -yaml-file $f
+    cimr processor -process -yaml-file $f -chunksize 22000000
 done
 
 # Create the flag file at the end
