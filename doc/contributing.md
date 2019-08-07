@@ -462,65 +462,91 @@ contributor:
 
 
 
-## Frequently asked questions
+# Frequently asked questions
 
 
-### Error messages
+## Where did my data go after submission to cimr-d?
+
+Successfully processed data will be relocated to a publicly 
+accesible S3 bucket in Amazon Web Services (AWS). 
+[The list is maintained in the cimr-d github repository](https://github.com/greenelab/cimr-d/blob/master/processed/README.md) 
+for convenient review and download. Periodically, data will 
+undergo additional review to be released on an archive service 
+such as zenodo to allow bulk downloads. 
 
 
-Troubleshooting cimr processing based on error messages:
+## Error messages
 
+
+Troubleshooting cimr-d processing based on error messages:
 
 
 `data type is not recognized`
-
-
-`no file_name provided; nothing to process`
-
-
-`data_type or file_name is not recognized; nothing to do`
-
-
-`no file {file_name} found for processing`
+* Currently _cimr-d_ expects variant-based association data. 
+  These can be genome-wide association study (gwas) results or 
+  expression-, splicing-, protein-, and other quantitative trait 
+  loci (eqtl, sqtl, pqtl, etc.). These data_types should be 
+  indicated in the [yaml file data_info section](#data_info).
 
 
 `%s rows in %s are non-numeric' % (numcol, col,)`
+* variant_pos, inc_Afrq, effect_size, standard_error, zscore, 
+  pvalues, frequency, ma_samples, maf and tss_distance columns 
+  are expected to only contain numeric values.
+* By default the following values are interpreted as NaN: ‘’, 
+  ‘#N/A’, ‘#N/A N/A’, ‘#NA’, ‘-1.#IND’, ‘-1.#QNAN’, ‘-NaN’, 
+  ‘-nan’, ‘1.#IND’, ‘1.#QNAN’, ‘N/A’, ‘NA’, ‘NULL’, ‘NaN’, 
+  ‘n/a’, ‘nan’, ‘null’. If there are any non-numeric values 
+  other than these will cause errors.
 
 
 `the format of %s is not testable.' % (col,)`
+* cimr will try to test whether above mentioned numeric columns 
+  containing non-numeric values can be converted into numeric. 
+  If this test fails, it will cause a format error.
 
 
 `unknown delimiter used in variant_id`
-
+* Expected variant_id format is:
+  chromosome_genomicposition_referenceallele_alternateallele_genomebuild
+  with underscores. cimr-d will accept ":" and "-" delimiters and 
+  convert them to underscores while processing. Any other delimiters or 
+  missing information may cause an error.
 
 
 `chromosome id needs to be checked.`
 * chromosome ID contains values other than \[chr\]1-26, X, Y, M or MT.
 * data is too big to be processed as a whole. Splited chunks of data
-  does not contain all chromosomes
+  does not contain all chromosomes (benign)
 
 
 `there are no matching rs ids`
+* By default a random subset of variants are selected to check against 
+  the reference genomic position - rs id pairs. If this test fails, 
+  cimr-d will call an error.
 
 
 `{col} should only contain values between 0 and 1`
+* pvalue column containing non-probability values will cause an error.
 
 
-`gene_id column is not provided`
+`feature_id column is not provided`
+* eqtl, sqtl, pqtl, etc. datasets must contain a column specifying the 
+  tested feature for each variant.
 
 
 `variant_id column is not provided`
+* variant_id column should contain unique variant ids in the format 
+  of chrom_pos_refallele_altallele_genomebuild.
 
 
 `rsnum column is not provided`
-
 
 
 `effect_size column is not provided`
 
 
 `standard_error column is not provided`
-
 
 
 `pvalue column is not provided`
@@ -536,7 +562,6 @@ Troubleshooting cimr processing based on error messages:
 
 
 `check the file link and try again`
-
 
 
 `data_type not indicated in dir tree`
