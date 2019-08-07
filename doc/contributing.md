@@ -356,7 +356,7 @@ data_file:
         variant_id: variant_id
 
 data_info:
-    citation: 10.1093/bioinformatics/btv722
+    citation: 10.1038/nature24277
     data_source: http:/gtexportal.org
     data_type: eqtl
     build: b37
