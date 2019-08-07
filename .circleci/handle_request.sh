@@ -15,8 +15,8 @@ fi
 # Exit if no yaml files in "submitted/" directory
 shopt -s nullglob dotglob
 
-files=(submitted/*.y*ml)
-if [ ${#files[@]} -eq 0 ]; then
+yml_files=(submitted/*.yml submitted/*.yaml)
+if [ ${#yml_files[@]} -eq 0 ]; then
     exit 0
 fi
 
@@ -27,8 +27,8 @@ INDICATOR_FILENAME="submitted_data/request.handled"
 rm -rf $INDICATOR_FILENAME
 
 # For each yaml file, download and process data
-for yaml_file in submitted/*.y*ml; do
-  cimr processor -process -yaml-file ${yaml_file}
+for f in ${yml_files[*]}; do
+    cimr processor -process -yaml-file $f
 done
 
 # Create the flag file at the end
