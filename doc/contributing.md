@@ -338,7 +338,14 @@ contributor:
 
 ## eQTL upload yaml file example
 
-This is an example yml configuration to upload eQTL data to cimr-d:
+
+Here is an example yaml file for eQTL data submission. This example 
+refers to a file linked on a website, GTEx Portal. Since the file 
+contains all required columns for _cimr-d_ but have different 
+column names, this information has been noted in the `data_file` 
+section of the yaml file. 
+
+
 
 ```yaml
 data_file:
@@ -378,6 +385,17 @@ contributor:
 
 
 ## GWAS bulk upload yaml file example
+
+_cimr-d_ allows bulk uploads, if all data contributed share metadata. 
+Specifically, compressed tarfiles are accepted. Bulk file extensions 
+can be: 'tar.gz', 'tgz', 'tar.bz2', or 'tar.xz'.
+
+For instance, two different traits, low-density lipid cholesterol and 
+high-density lipid cholesterol, have been measured in the same 
+cohort of people and analyzed using the same method in the below 
+example. In this case, two compressed tab-delimited files may be 
+prepared as one tarfile and submitted with one yaml file. 
+
 
 
 ```yaml
