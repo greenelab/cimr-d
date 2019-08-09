@@ -26,6 +26,9 @@
 - [Frequently asked questions](#frequently-asked-questions)
   - [Where did my data go after submission to cimr-d?](#where-did-my-data-go-after-submission-to-cimr-d)
   - [What happens after I submit a pull request with new data?](#what-happens-after-i-submit-a-pull-request-with-new-data)
+  - [I got an error message in the cimr log, what does it mean exactly?](I-got-an-error-message-in-the-cimr-log-what-does-it-mean-exactly)
+
+
 
 
 # Contributing data with a yaml file
@@ -42,12 +45,12 @@ In order to contribute new data to _cimr-d_, please follow these steps:
 
 ### 0. Make a github account.
 
-Create a github [account](https://github.com), GitHub allows 
-unlimited public repositories. Git also offers 
+Create a GitHub [account](https://github.com), GitHub allows 
+unlimited public repositories, and also offers 
 [discounts for academics](https://education.github.com/discount_requests/new).
 
 If you need more detailed guides, here is 
-[a tutorial on using git and github for revision control](https://www.melbournebioinformatics.org.au/tutorials/tutorials/using_git/Using_Git/), 
+[a tutorial on using git and github for revision control](https://www.melbournebioinformatics.org.au/tutorials/tutorials/using_git/Using_Git/).
 
 
 ### 1. Prepare data
@@ -89,7 +92,7 @@ Here is [a help article](https://help.github.com/en/articles/fork-a-repo).
 
 ### 4. Create a pull request from the forked repository
 
-Here is [a help article](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork)
+Here is [a help article](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork).
 
 
 
@@ -112,7 +115,7 @@ column heading changes must be noted in the
 
 _cimr-d_ accepts data previously uploaded to public archives such as 
 [zenodo](https://zenodo.org/) and [figshare](https://figshare.com/). 
-_cimr-d_ will as long as the linked data contains all required 
+_cimr-d_ will work as long as the linked data contains all required 
 columns and properly formatted yaml pointing to it.
 
 However, we strongly recommend archive services in place of e.g. 
@@ -129,40 +132,35 @@ Following keys are required for _cimr-d_ processing:
 data_file:
     location:
         url: https://location.of.contributed.data
-        md5: md5sumhashforfile
+        md5: md5sum-hash-for-file
 
 data_info:
-    citation: doinumber
-    data_type: datatype
-    build: genomebuild
-    sample_size: samplesize
-    n_cases: ncases
+    citation: doi-number
+    data_type: data-type
+    build: genome-build
+    sample_size: sample-size
+    n_cases: n-cases
     can_be_public: true
 
 method:
-    name: methodname
-    tool: toolname
-    website: toolreference
+    name: method-name
+    tool: tool-name
+    website: tool-reference
 
 ```
 
 ## Conditionally required fields
 
-`data_file: columns:` fields are required if the submitted data 
+`columns` fields in `data_file`are required if the submitted data 
 contains column names different from the default _cimr_ variables.
-See [data_file section](#data_file) for available options. _cimr-d_ 
-expects the following information for processing and integrating 
-new data:
+See [data_file section](#data_file) for available options.
 
-
-```
-```
 
 
 ## Optional fields
 
 For most non-required fields [as seen in examples below](#examples), 
-`na` (as in `not available`) is an acceptible value. Alternatively, 
+`na` (as in `not available`) is an acceptable value. Alternatively, 
 if there's no information available for a given non-required field, 
 such variables may be omitted.
 
@@ -172,7 +170,7 @@ such variables may be omitted.
 Example cimr submission files are provided [below](#examples). 
 [YAML refers to a human friendly data serialization standard](https://yaml.org/). 
 Detailed documentation can be found 
-[elsewhere](https://yaml.org/spec/1.2/spec.html). 
+[here](https://yaml.org/spec/1.2/spec.html). 
 
 YAML uses strict syntactically significant newlines and indentations.
 In case of cimr data-submission yaml form, most fields expect values 
@@ -206,6 +204,10 @@ indicated with `>-` next to the key as shown in
 | columns: alt                | variant alternate allele                 |
 | columns: effect_allele      | effect allele for statistic              |
 | columns: non_effect_allele  | non-effect allele for statistic          |
+| columns: inc_allele         | effect allele for statistic, legacy term |
+|                             | used with non-overlapping missing values |
+|                             | with effect_allele in some public data   |
+| columns: inc_afrq           | effect allele allele frequency           |
 | columns: effect_size        | effect size / beta coefficient           |
 | columns: standard_error     | standard error of the effect size        |
 | columns: zscore             | zscore                                   |
@@ -233,6 +235,7 @@ and metadata information used for analyses and acknowledgements.
 |---------------|------------------------------------------------------|
 | citation      | publication or data doi, if applicable               |
 | data_source   | (permenant) link to the original data, if applicable |
+| build         | genome build (b37, b38)                              |
 | sample_size   | sample size of the study                             |
 | n_cases       | number of cases, if applicable (e.g. binary trait)   |
 | data_type     | data_type (e.g. twas, gwas, eqtl, etc.)              |
@@ -244,11 +247,11 @@ and metadata information used for analyses and acknowledgements.
 
 Method details can be listed here.
 
-| argument  | description                    |
-|-----------|--------------------------------|
-| name      | name of the method used        |
-| tool      | name of the tool used          |
-| website   | website link for the tool used |
+| argument  | description                       |
+|-----------|-----------------------------------|
+| name      | name of the method used           |
+| tool      | name of the tool used             |
+| website   | website link(s) for the tool used |
 
 
 
@@ -340,9 +343,9 @@ contributor:
 ## eQTL upload yaml file example
 
 
-Here is an example yaml file for eQTL data submission. This example 
+Here is an example yaml file for eQTL data submission. It 
 refers to a file linked on a website, GTEx Portal. Since the file 
-contains all required columns for _cimr-d_ but have different 
+contains all required columns for _cimr-d_ but has different 
 column names, this information has been noted in the `data_file` 
 section of the yaml file. 
 
@@ -464,15 +467,24 @@ accesible S3 bucket in Amazon Web Services (AWS).
 [The list is maintained in the cimr-d github repository](https://github.com/greenelab/cimr-d/blob/master/processed/README.md) 
 for convenient review and download. Periodically, data will 
 undergo additional review to be released on an archive service 
-such as zenodo to allow bulk downloads. 
+such as [zenodo]( https://zenodo.org) to allow bulk downloads. 
 
 
 ## What happens after I submit a pull request with new data?
 
+_cimr-d_ is based on a continuous integration service, 
+[CircleCI](https://circleci.com). Once a pull request with a 
+new yaml file is opened, it will go through the CI service for 
+automated file checking, processing and ID harmonizations before 
+data is accepted for storage in _cimr-d_. One may check the status 
+of the automated steps by the colored dots next to the PR commit 
+history in the GitHub. Orange means the PR has been submitted and 
+is pending processing. Green means the PR has passed all 
+pre-requisites to proceed into the _cimr-d_ AWS S3 bucket for 
+public downloads.
 
 
-
-## Error messages
+## I got an error message in the cimr log, what does it mean exactly?
 
 
 Troubleshooting cimr-d processing based on error messages:
@@ -482,8 +494,9 @@ Troubleshooting cimr-d processing based on error messages:
 * Currently _cimr-d_ expects variant-based association data. 
   These can be genome-wide association study (gwas) results or 
   expression-, splicing-, protein-, and other quantitative trait 
-  loci (eqtl, sqtl, pqtl, etc.). These data_types should be 
-  indicated in the [yaml file data_info section](#data_info).
+  loci (eqtl, sqtl, pqtl, etc.). These data types should be 
+  indicated by the `data_type` field in the 
+  [yaml file data_info section](#data_info).
 
 
 `%s rows in %s are non-numeric' % (numcol, col,)`
@@ -493,8 +506,7 @@ Troubleshooting cimr-d processing based on error messages:
 * By default the following values are interpreted as NaN: ‘’, 
   ‘#N/A’, ‘#N/A N/A’, ‘#NA’, ‘-1.#IND’, ‘-1.#QNAN’, ‘-NaN’, 
   ‘-nan’, ‘1.#IND’, ‘1.#QNAN’, ‘N/A’, ‘NA’, ‘NULL’, ‘NaN’, 
-  ‘n/a’, ‘nan’, ‘null’. If there are any non-numeric values 
-  other than these will cause errors.
+  ‘n/a’, ‘nan’, ‘null’.
 
 
 `the format of %s is not testable.' % (col,)`
@@ -513,14 +525,14 @@ Troubleshooting cimr-d processing based on error messages:
 
 `chromosome id needs to be checked.`
 * chromosome ID contains values other than \[chr\]1-26, X, Y, M or MT.
-* data is too big to be processed as a whole. Splited chunks of data
-  does not contain all chromosomes (benign)
+* data is too big to be processed as a whole. Split chunks of data
+  do not contain all chromosomes (benign)
 
 
 `there are no matching rs ids`
 * By default a random subset of variants are selected to check against 
   the reference genomic position - rs id pairs. If this test fails, 
-  cimr-d will call an error.
+  cimr-d will cause an error.
 
 
 `{col} should only contain values between 0 and 1`
@@ -539,38 +551,51 @@ Troubleshooting cimr-d processing based on error messages:
 
 
 `rsnum column is not provided`
-* 
+* rsnum columns are recommended but _cimr_ will still run as long as 
+  `variant_id` and other required columns are provided.
 
 
 `effect_size column is not provided`
+* effect size (beta coefficient, regression coefficient, etc.) values 
+  are required to submit data to _cimr_.
 
 
 `standard_error column is not provided`
+* standard errors of the effect size are also required.
 
 
 `pvalue column is not provided`
+* pvalue column is required.
 
 
 `file {self.outfile} cannot be written`
+* The output file could not be written. It likely is caused by 
+  directory permission issues.
 
 
 `no content in {self.file_name}`
+* The file is empty.
 
 
 `check your data_type`
+* Indicated data type is not a recognized data type.
 
 
 `check the file link and try again`
+* The weblink probided in the yaml file is not available.
 
 
 `data_type not indicated in dir tree`
+* For `data_type` == `multiple`, the dir tree must reflect the 
+  `data_type` of compressed tsv files in each dir.
 
 
 `{yaml_file} is not accessible`
+* cimr is not able to access the yaml file for processing.
 
 
 `there is no data_type indicated`
+* `data_type` field is empty.
 
 
-`file unavailable`
 
