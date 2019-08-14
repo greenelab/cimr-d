@@ -26,6 +26,7 @@
 - [Frequently asked questions](#frequently-asked-questions)
   - [Where did my data go after submission to cimr-d?](#where-did-my-data-go-after-submission-to-cimr-d)
   - [What happens after I submit a pull request with new data?](#what-happens-after-i-submit-a-pull-request-with-new-data)
+  - [How long does it take for the PR to be approved?](#how-long-does-it-take-for-the-pr-to-be-approved)
   - [I got an error message in the cimr log, what does it mean exactly?](I-got-an-error-message-in-the-cimr-log-what-does-it-mean-exactly)
 
 
@@ -207,7 +208,7 @@ indicated with `>-` next to the key as shown in
 | columns: inc_allele         | effect allele for statistic, legacy term |
 |                             | used with non-overlapping missing values |
 |                             | with effect_allele in some public data   |
-| columns: inc_afrq           | effect allele allele frequency           |
+| columns: inc_afrq           | effect allele frequency                  |
 | columns: effect_size        | effect size / beta coefficient           |
 | columns: standard_error     | standard error of the effect size        |
 | columns: zscore             | zscore                                   |
@@ -467,21 +468,38 @@ accesible S3 bucket in Amazon Web Services (AWS).
 [The list is maintained in the cimr-d github repository](https://github.com/greenelab/cimr-d/blob/master/processed/README.md) 
 for convenient review and download. Periodically, data will 
 undergo additional review to be released on an archive service 
-such as [zenodo]( https://zenodo.org) to allow bulk downloads. 
+such as [zenodo](https://zenodo.org) to allow bulk downloads. 
 
 
 ## What happens after I submit a pull request with new data?
 
 _cimr-d_ is based on a continuous integration service, 
 [CircleCI](https://circleci.com). Once a pull request with a 
-new yaml file is opened, it will go through the CI service for 
+new yaml file is opened, it will go through the cimr-d pipeline for 
 automated file checking, processing and ID harmonizations before 
 data is accepted for storage in _cimr-d_. One may check the status 
 of the automated steps by the colored dots next to the PR commit 
 history in the GitHub. Orange means the PR has been submitted and 
 is pending processing. Green means the PR has passed all 
 pre-requisites to proceed into the _cimr-d_ AWS S3 bucket for 
-public downloads.
+public downloads. Once the PR has been checked, both the submitted 
+and processed data are manually reviewed before the PR is approved. 
+Subsequently, data merged into the master branch will be relocated 
+to a designated S3 bucket for public downloads.
+
+
+## How long does it take for the PR to be approved?
+
+_cimr-d_ processing depends on the size of the data. A typical data 
+containing $\lt$ 10 million variants would take a few minutes or less. 
+Larger files (e.g. $\gt$ 150 million variants) may take a significantly 
+longer time due to I/O limits. An example eqtl file from the 
+Genotype-Tissue Expression (GTEx), for instance, may take about an hour.
+
+Additionally, in order to make sure all data processed are suitable for 
+_cimr-d_ release, the resulting processed dataset(s) are manually reviewed 
+before the PR is approved. We try to provide feedback for changes or 
+approve the PR within one or two business days.
 
 
 ## I got an error message in the cimr log, what does it mean exactly?
@@ -551,7 +569,7 @@ Troubleshooting cimr-d processing based on error messages:
 
 
 `rsnum column is not provided`
-* rsnum columns are recommended but _cimr_ will still run as long as 
+* rsnum column is recommended but _cimr_ will still run as long as 
   `variant_id` and other required columns are provided.
 
 
@@ -582,7 +600,7 @@ Troubleshooting cimr-d processing based on error messages:
 
 
 `check the file link and try again`
-* The weblink probided in the yaml file is not available.
+* The weblink provided in the yaml file is not available.
 
 
 `data_type not indicated in dir tree`
