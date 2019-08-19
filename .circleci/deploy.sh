@@ -21,7 +21,6 @@ git config --global user.name "cimrroot"
 git config --global push.default simple
 
 cd ~/cimr-d/
-git lfs install
 
 # Find the PR number of the latest commit
 LATEST_COMMIT_HASH=$(git log -1 --pretty=format:%H)
