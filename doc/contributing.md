@@ -19,6 +19,7 @@
   - [contributor](#contributor)
 
 - [Examples](#examples)
+  - [Template yaml file](#template-yaml-file)
   - [GWAS upload yaml file example](#gwas-upload-yaml-file-example)
   - [eQTL upload yaml file example](#eqtl-upload-yaml-file-example)
   - [GWAS bulk upload yaml file example](#gwas-bulk-upload-yaml-file-example)
@@ -72,17 +73,28 @@ contributed data are following columns:
 
 * variant_id (chrom_position_refallele_altallele_genomebuild)
 * pvalue
-* effect_size (may be substituted by zscore for imputed data, etc.)
+* effect_size
 * standard_error
 * effect_allele
-* sample_size (may be written in the yaml file)
-* n_cases (may be written in the yaml file)
+* sample_size (in the yaml file)
+* n_cases (in the yaml file)
+* build (in the yaml file)
 
 
 ### 2. Prepare the contributor yaml file
 
 Some more details are provided 
 [below](#writing-a-yaml-file-for-data-contribution). 
+
+One may write their own yaml files or copy a 
+[template](#template-yaml-file) and fill in blanks.
+
+Recommended indentation for yaml files are 4-spaces per level. 
+While most other columns in the example files are not required, 
+it is highly recommended that the contributor provides as much 
+data as they have available to maximize the usage of contributed data. 
+
+Prepared yaml files can 
 
 
 
@@ -138,6 +150,7 @@ data_file:
 data_info:
     citation: doi-number
     data_type: data-type
+    context: tissue-or-trait
     build: genome-build
     sample_size: sample-size
     n_cases: n-cases
@@ -150,9 +163,11 @@ method:
 
 ```
 
+
+
 ## Conditionally required fields
 
-`columns` fields in `data_file`are required if the submitted data 
+`columns` fields in `data_file` are required if the submitted data 
 contains column names different from the default _cimr_ variables.
 See [data_file section](#data_file) for available options.
 
@@ -181,7 +196,14 @@ indicated with `>-` next to the key as shown in
 [an example](#gwas-upload-yaml-file-example).
 
 
-# Arguments
+## Listing multiple values
+
+Multiple values may be listed for keys in `data_info` and `method` 
+sections. These values can be separated using a `;` (semicolon) between 
+values. 
+
+
+# Keys
 
 
 ## data_file
@@ -235,12 +257,54 @@ and metadata information used for analyses and acknowledgements.
 | argument      | description                                          |
 |---------------|------------------------------------------------------|
 | citation      | publication or data doi, if applicable               |
+| context       | context of the submitted data
 | data_source   | (permenant) link to the original data, if applicable |
 | build         | genome build (b37, b38)                              |
 | sample_size   | sample size of the study                             |
 | n_cases       | number of cases, if applicable (e.g. binary trait)   |
 | data_type     | data_type (e.g. twas, gwas, eqtl, etc.)              |
 | can_be_public | whether the data can be posted publicly via cimr-d   |
+
+
+### citation
+
+While not required, citation information ensures that data contributed 
+to _cimr-d_ are acknowledged and cited properly as they are used in 
+other research studies. DOI numbers can be provided from published paper 
+describing the data or from zenodo and other data archive services. 
+Multiple doi's may be listed with `;` delimiter. e.g. 
+
+```yaml
+data_info:
+    citation: 10.5281/zenodo.3369410;10.1038/ng.2797
+```
+
+
+### context
+
+`context` in `data_info` refer to the context of the contributed data 
+in the biological sense. For instance, for `gwas` `data_type`, `context` 
+will mean complex traits or diseases used in the study. Recommended 
+`context` values include terms searchable in 
+[Human Disease Ontology](http://www.obofoundry.org/ontology/doid.html) 
+such as terms from the 
+[NCI Thesaurus](https://ncit.nci.nih.gov/ncitbrowser/). An example 
+`context` for `gwas` would be 
+[coronary artery disease](http://www.ontobee.org/ontology/DOID?iri=http://purl.obolibrary.org/obo/DOID_3393).
+
+For `eqtl`, the `context` may be the tissue or cell type within 
+which the eqtl effect has been measured. Recommended `context` values 
+include terms from the 
+[Uber-anatomy ontology](https://www.ebi.ac.uk/ols/ontologies/uberon). 
+For the GTEx example [provided below](#eqtl-upload-yaml-file-example), 
+the `context` is `whole blood`, which is a synonym with `blood` 
+in [uberon](https://www.ebi.ac.uk/ols/ontologies/uberon/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FUBERON_0000178).
+
+This information is used to assess compatibility between datasets for 
+meta-analysis and other downstream applications. Values in `context` 
+will be changed to all lower case letters and an `_` (underscore) will 
+be inserted in place of spaces for consistency in the 
+[cimr-d_catalog.txt](https://github.com/greenelab/cimr-d/blob/master/cimr-d_catalog.txt).
 
 
 
@@ -273,8 +337,16 @@ Contributor information is optional but recommended.
 
 # Examples
 
+## Template yaml file
+
+This is an example yml configuration with all required and 
+optional keys for a successful _cimr-d_ processing:
+
+
+
 
 ## GWAS upload yaml file example
+
 This is an example yml configuration to upload GWAS data to cimr-d:
 
 
@@ -317,6 +389,7 @@ data_info:
     citation: 10.1038/ng.2797
     data_source: http://lipidgenetics.org/
     data_type: gwas
+    context: hdl cholesterol
     build: b38
     sample_size: 187167
     n_cases: na
@@ -371,6 +444,7 @@ data_info:
     citation: 10.1038/nature24277
     data_source: http:/gtexportal.org
     data_type: eqtl
+    context: whole blood
     build: b37
     sample_size: 369
     n_cases: na
@@ -433,6 +507,7 @@ data_info:
     citation: 10.1038/ng.2797
     data_source: http://lipidgenetics.org/
     data_type: gwas
+    context: hdl cholesterol;ldl cholesterol
     build: b38
     sample_size: 187167
     n_cases: na
