@@ -92,7 +92,7 @@ contributed data are following columns:
 * build (in the yaml file)
 
 
-We strongly recommend that the file(s) are uploaded to an archive 
+We strongly recommend that the file(s) be uploaded to an archive 
 service such as [Zenodo](https://zenodo.org). This ensures that all 
 steps involving processing and remapping of the files are reproducible 
 by others. In rare cases, we may accept Google Drive share links, 
@@ -105,12 +105,12 @@ provided that the cimr-d processed outputs can be publicly shared.
 Some more details are provided 
 [below](#writing-a-yaml-file-for-data-contribution). 
 
-One may write their own yaml files or copy a 
+You may write your own yaml files or copy a 
 [template](#template-yaml-file) and fill in values. 
 
 Recommended indentation for yaml files are 4-spaces per level. 
 While most other columns in the example files are not required, 
-it is highly recommended that the contributor provides as much 
+it is highly recommended that the contributor provide as much 
 information as they have available to maximize the usage of 
 contributed data. 
 
@@ -139,7 +139,7 @@ Then place the prepared yaml file from
 
 ```bash
 cd cimr-d
-rsync ${path-to-the-prepared-yaml-file} submitted/
+cp ${path-to-the-prepared-yaml-file} submitted/
 ```
 
 Next, add and commit the file. 
@@ -286,42 +286,42 @@ Both of the `location` keys are required to contribute data to
 _cimr-d_.
 
 
-| argument                    | description                              |
-|-----------------------------|------------------------------------------|
-| description                 | a brief description of data              | 
-| location: url               | link to data                             |
-| location: md5               | md5 sum hash to verify the file size     |
-| input_name                  | name of the submitted file,              |
-|                             | required for google drive file links     |
-|                             |                                          |
-| columns: variant_id         | variant id in the format of              |
-|                             | chromosome_position_ref_alt or           |
-|                             | chromosome_position_ref_alt_build        |
-| columns: variant_chrom      | variant chromosome id                    |
-| columns: variant_pos        | variant genomic position                 |
-| columns: rsnum              | variant rs id                            |
-| columns: ref                | variant reference allele                 |
-| columns: alt                | variant alternate allele                 |
-| columns: effect_allele      | effect allele for statistic              |
-| columns: non_effect_allele  | non-effect allele for statistic          |
-| columns: inc_allele         | effect allele for statistic, legacy term |
-|                             | used with non-overlapping missing values |
-|                             | with effect_allele in some public data.  |
-| columns: inc_afrq           | effect allele frequency                  |
-| columns: effect_size        | effect size / beta coefficient           |
-| columns: standard_error     | standard error of the effect size        |
-| columns: zscore             | zscore                                   |
-| columns: pvalue             | pvalue                                   |
-| columns: feature_id         | feature id, if applicable (e.g. gene)    |
-| columns: feature_chrom      | chromosome id, if applicable             |
-| columns: feature_start      | starting genomic position, if applicable |
-| columns: feature_stop       | stopping genomic position, if applicable |
-| columns: imputation_status  | imputation status                        |
-| columns: frequency          | effect allele frequency                  |
-| columns: tss_distance       | distance to tss                          |
-| columns: ma_samples         | count of samples with minor alleles      |
-| columns: maf                | minor allele frequency                   |
-| columns: comment_0          | other info (e.g. did statistic converge?)|
+| argument                   | description                               |
+|----------------------------|-------------------------------------------|
+| description                | a brief description of data.              | 
+| location: url              | link to data.                             |
+| location: md5              | md5 sum hash to verify the file size.     |
+| input_name                 | name of the submitted file,               |
+|                            | required for google drive file links.     |
+|                            |                                           |
+| columns: variant_id        | variant id in the format of               |
+|                            | chromosome_position_ref_alt or            |
+|                            | chromosome_position_ref_alt_build.        |
+| columns: variant_chrom     | variant chromosome id.                    |
+| columns: variant_pos       | variant genomic position.                 |
+| columns: rsnum             | variant rs id.                            |
+| columns: ref               | variant reference allele.                 |
+| columns: alt               | variant alternate allele.                 |
+| columns: effect_allele     | effect allele for statistic.              |
+| columns: non_effect_allele | non-effect allele for statistic.          |
+| columns: inc_allele        | effect allele for statistic, legacy term  |
+|                            | used with non-overlapping missing values  |
+|                            | with effect_allele in some public data.   |
+| columns: inc_afrq          | effect allele frequency.                  |
+| columns: effect_size       | effect size / beta coefficient.           |
+| columns: standard_error    | standard error of the effect size.        |
+| columns: zscore            | zscore.                                   |
+| columns: pvalue            | pvalue.                                   |
+| columns: feature_id        | feature id, if applicable (e.g. gene).    |
+| columns: feature_chrom     | chromosome id, if applicable.             |
+| columns: feature_start     | starting genomic position, if applicable. |
+| columns: feature_stop      | stopping genomic position, if applicable. |
+| columns: imputation_status | imputation status.                        |
+| columns: frequency         | effect allele frequency.                  |
+| columns: tss_distance      | distance to tss.                          |
+| columns: ma_samples        | count of samples with minor alleles.      |
+| columns: maf               | minor allele frequency.                   |
+| columns: comment_0         | other info (e.g. did statistic converge?).|
 
 
 
@@ -334,7 +334,7 @@ and metadata information used for analyses and acknowledgements.
 | argument      | description                                          |
 |---------------|------------------------------------------------------|
 | citation      | publication or data doi, if applicable               |
-| context       | context of the submitted data
+| context       | context of the submitted data                        |
 | data_source   | (permenant) link to the original data, if applicable |
 | build         | genome build (b37, b38)                              |
 | sample_size   | sample size of the study                             |
@@ -639,9 +639,9 @@ contributor:
 
 For single compressed text files submissions, _cimr-d_ will accept 
 a gdrive link in place of an archive service such as 
-[Zenodo](https://zenodo.org). Additional requirement for a gdrive 
-link is an pre-defined file name `input_name` field in the 
-`data_file` section to overwrite the hashed file path of gdrive links.
+[Zenodo](https://zenodo.org). Additional requirement for a Google 
+Drive link is an pre-defined file name `input_name` field in the 
+`data_file` section to overwrite the hashed file path.
 
 An example yaml file is provided below:
 
