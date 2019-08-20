@@ -216,6 +216,8 @@ values.
 | description                 | a brief description of data              | 
 | location: url               | link to data                             |
 | location: md5               | md5 sum hash to verify the file size     |
+| input_name                  | name of the submitted file,              |
+|                             | required for google drive file links     |
 |                             |                                          |
 | columns: variant_id         | variant id in the format of              |
 |                             | chromosome_position_ref_alt or           |
