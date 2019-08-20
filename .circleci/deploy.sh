@@ -41,11 +41,14 @@ if [ ! -f ${INDICATOR_FIELNAME} ]; then
     exit 0
 fi
 
+# Use the latest "pip"
+sudo pip install --upgrade pip
+
 # Install awscli to make "aws" command available
 sudo pip install awscli
 
 # Move files in S3 buckets from temporary to permanent locations.
-aws s3 sync submitted_data/  s3://cimr-root/PR-${PR_NUMBER}/
+aws s3 sync submitted_data/  s3://cimr-root/PR-${PR_NUMBER}/ --exclude "request.handled"
 aws s3 sync processed_data/  s3://cimr-d/
 
 # Move submitted YAML files to "processed/" sub-dir
@@ -53,12 +56,15 @@ mkdir -p processed/PR-${PR_NUMBER}/
 git mv -k submitted/*.yml submitted/*.yaml processed/PR-${PR_NUMBER}/
 git commit -m "CircleCI: Save requests to processed/ dir [skip ci]"
 
-# Update README.md, which lists all files in "cimr-d" S3 bucket
+# Update "processed/README.md", which lists all files in "cimr-d" S3 bucket
 aws s3 ls cimr-d --recursive --human-readable > processed/s3_list.txt
 python3 .circleci/txt2md.py
 git add processed/README.md
-git commit -m "Update REAME.md [skip ci]"
 
-# Push new commits to remote "master" branch
+# Update "cimr-d_catalog.txt"
+git add cimr-d_catalog.txt
+
+# Commit changes and push them to remote "master" branch
+git commit -m "Update processed/REAME.md and cimr-d_catalog.txt [skip ci]"
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 git push --force --quiet origin master
