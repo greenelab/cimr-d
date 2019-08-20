@@ -23,6 +23,7 @@
   - [GWAS upload yaml file example](#gwas-upload-yaml-file-example)
   - [eQTL upload yaml file example](#eqtl-upload-yaml-file-example)
   - [GWAS bulk upload yaml file example](#gwas-bulk-upload-yaml-file-example)
+  - [GWAS upload yaml file example using a Google Drive link](#gwas-upload-yaml-file-example-using-a-google-drive-link)
 
 - [Frequently asked questions](#frequently-asked-questions)
   - [Where did my data go after submission to cimr-d?](#where-did-my-data-go-after-submission-to-cimr-d)
@@ -31,7 +32,7 @@
   - [I got an error message in the cimr log, what does it mean exactly?](I-got-an-error-message-in-the-cimr-log-what-does-it-mean-exactly)
 
 
-
+------------
 
 # Contributing data with a yaml file
 
@@ -54,6 +55,11 @@ unlimited public repositories, and also offers
 If you need more detailed guides, here is 
 [a tutorial on using git and github for revision control](https://www.melbournebioinformatics.org.au/tutorials/tutorials/using_git/Using_Git/).
 
+In order to contribute data to cimr-d, you also need a local 
+installation of git. 
+[Here is a guideline for installing git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+
 
 ### 1. Prepare data
 
@@ -68,10 +74,14 @@ rs12565286	chr1_785910_G_C_b38	0.06295	-0.03250	NA	0.01940	-1.85954	NA	C	G	0.056
 ```
 
 Any variant-based association files can be similarly formatted. 
+The file must be tab-delimited. Accepted file extensions included 
+`tsv.gz` and `txt.gz`.
+
 The absolute minimum requirement for _cimr-d_ to accept the 
 contributed data are following columns:
 
-* variant_id (chrom_position_refallele_altallele_genomebuild)
+* variant_id 
+  (in the format of chrom_position_ref-allele_alt-allele_genome-build)
 * pvalue
 * effect_size
 * standard_error
@@ -81,33 +91,84 @@ contributed data are following columns:
 * build (in the yaml file)
 
 
+We strongly recommend that the file(s) are uploaded to an archive 
+service such as [Zenodo](https://zenodo.org). This ensures that all 
+steps involving processing and remapping of the files are reproducible 
+by others. In rare cases, we may accept Google Drive share links, 
+provided that the cimr-d processed outputs can be publicly shared. 
+
+
+
 ### 2. Prepare the contributor yaml file
 
 Some more details are provided 
 [below](#writing-a-yaml-file-for-data-contribution). 
 
 One may write their own yaml files or copy a 
-[template](#template-yaml-file) and fill in blanks.
+[template](#template-yaml-file) and fill in values. 
 
 Recommended indentation for yaml files are 4-spaces per level. 
 While most other columns in the example files are not required, 
 it is highly recommended that the contributor provides as much 
-data as they have available to maximize the usage of contributed data. 
+information as they have available to maximize the usage of 
+contributed data. 
 
-Prepared yaml files can 
-
-
-
-### 3. Fork the current _cimr-d_ repository.
-
-Here is [a help article](https://help.github.com/en/articles/fork-a-repo).
+Find the hyperlink to the file uploaded in [step 1](#prepare-data) 
+and paste in `url` field of the yaml file.
 
 
-### 4. Create a pull request from the forked repository
 
-Here is [a help article](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork).
+### 3. Fork cimr-d repository.
+
+Here is 
+[a help article](https://help.github.com/en/articles/fork-a-repo).
 
 
+
+### 4. Commit yaml file
+
+Once the repository has been forked, clone the repository.
+
+```bash
+git clone git@github.com:${your-github-user-name-or-organization}/cimr-d.git
+```
+
+Then place the prepared yaml file from 
+[step 3](#fork-cimr-d-repository) in the `submitted` dir.
+
+```bash
+cd cimr-d
+rsync ${path-to-the-prepared-yaml-file} submitted/
+```
+
+Next, add and commit the file. 
+
+```bash
+git add submitted/${yaml-file-name}
+git commit -m '${short-meaningful-message-about-data}'
+```
+
+Now the file is ready to be submitted to cimr-d.
+
+
+
+### 5. Create a pull request from the forked repository
+
+Here is 
+[a help article](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork).
+
+Each yaml file may refer to one compressed text file or multiple 
+compressed text files in a tar archive. For one yaml file to 
+be used to submit multiple data files, the information in the 
+yaml file must be representative of all submitted files. 
+
+Alternatively, one cimr-d pull request may be filed with multiple 
+yaml files at once; i.e. one or more appropriately formatted 
+yaml files can be placed in the `submitted` directory 
+as described in [step4](#commit-yaml-file) for one pull request.
+
+
+-------------
 
 # Preparing a file for data contribution
 
@@ -208,7 +269,9 @@ values.
 
 ## data_file
 
-`data_file` key is a superset of keys describing the dataset.
+`data_file` key is a superset of keys describing the dataset. 
+Both of the `location` keys are required to contribute data to 
+_cimr-d_.
 
 
 | argument                    | description                              |
@@ -231,7 +294,7 @@ values.
 | columns: non_effect_allele  | non-effect allele for statistic          |
 | columns: inc_allele         | effect allele for statistic, legacy term |
 |                             | used with non-overlapping missing values |
-|                             | with effect_allele in some public data   |
+|                             | with effect_allele in some public data.  |
 | columns: inc_afrq           | effect allele frequency                  |
 | columns: effect_size        | effect size / beta coefficient           |
 | columns: standard_error     | standard error of the effect size        |
@@ -531,6 +594,67 @@ contributor:
     github: ypar
     email: cimrroot@gmail.com
 
+```
+
+## GWAS upload yaml file example using a Google Drive link
+
+
+For single compressed text files submissions, _cimr-d_ will accept 
+a gdrive link in place of an archive service such as 
+[Zenodo](https://zenodo.org). Additional requirement for a gdrive 
+link is an pre-defined file name `input_name` field in the 
+`data_file` section to overwrite the hashed file path of gdrive links.
+
+An example yaml file is provided below:
+
+
+```yaml
+data_file:
+    description: >-
+        Global Lipid Genetics Consortium GWAS results for triglyceride 
+        levels
+    location:
+        url: https://drive.google.com/file/d/1dpCqxjZRZtWmiq_6GalCLTweFd15y09n/view?usp=sharing
+        md5: 9935f0422c52f32946629dd1f965af51
+    input_name: glgc_triglycerides.txt.gz
+    columns:
+        variant_id: panel_variant_id
+        variant_chrom: chromosome
+        variant_pos: position
+        rsnum: variant_id
+        effect_allele: effect_allele
+        non_effect_allele: non_effect_allele
+        effect_size: effect_size
+        standard_error: standard_error
+        zscore: zscore
+        pvalue: pvalue
+        imputation_status: imputation_status
+
+data_info:
+    citation: 10.1038/ng.2797
+    data_source: http://lipidgenetics.org/
+    data_type: gwas
+    context: triglyceride
+    build: b38
+    sample_size: 187167
+    n_cases: na
+    can_be_public: true
+
+method:
+    name: linear regression
+    tool: PLINK; SNPTEST; EMMAX; Merlin; GENABEL; MMAP
+    website: >-
+        http://zzz.bwh.harvard.edu/plink/download.shtml; 
+        https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html;
+        https://genome.sph.umich.edu/wiki/EMMAX;
+        https://csg.sph.umich.edu/abecasis/Merlin/tour/assoc.html;
+        http://www.genabel.org/sites/default/files/html_for_import/GenABEL_tutorial_html/GenABEL-tutorial.html;
+        https://mmap.github.io/
+
+contributor:
+    name: YoSon Park
+    github: ypar
+    email: cimrroot@gmail.com
 ```
 
 
