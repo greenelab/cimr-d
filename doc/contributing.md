@@ -11,6 +11,7 @@
   - [Conditionally required fields](#conditionally-required-fields)
   - [Optional fields](#optional-fields)
   - [Basics on yaml file formatting](#basics-on-yaml-file-formatting)
+  - [Missing values](#missing-values)
 
 - [Arguments](#arguments)
   - [data_file](#data_file)
@@ -257,11 +258,22 @@ indicated with `>-` next to the key as shown in
 [an example](#gwas-upload-yaml-file-example).
 
 
+
+## Missing values
+
+Missing values in the yaml file may be indicated by `na` or by 
+deleting the key from the yaml file.
+
+
+
 ## Listing multiple values
 
 Multiple values may be listed for keys in `data_info` and `method` 
 sections. These values can be separated using a `;` (semicolon) between 
 values. 
+
+
+
 
 
 # Keys
@@ -383,7 +395,15 @@ Method details can be listed here.
 | tool      | name of the tool used             |
 | website   | website link(s) for the tool used |
 
+If multiple methods and tools are used to generate data, they 
+may be listed, separated by a `;` (semicolon).
 
+```yaml
+method:
+    method: mixed effects model
+    tool: GEMMA;BOLTLMM
+    website: https://github.com/genetics-statistics/GEMMA;https://data.broadinstitute.org/alkesgroup/BOLT-LMM/
+```
 
 
 ## contributor
@@ -408,6 +428,57 @@ This is an example yml configuration with all required and
 optional keys for a successful _cimr-d_ processing:
 
 
+```yaml
+data_file:
+    description:
+    location:
+        url:
+        md5: 
+    columns:
+        variant_id: 
+        variant_chrom: 
+        variant_pos: 
+        rsnum: 
+        ref: 
+        alt: 
+        effect_allele: 
+        non_effect_allele: 
+        inc_allele: 
+        inc_afrq: 
+        effect_size:
+        standard_error: 
+        zscore:
+        pvalue: 
+        feature_id:
+        feature_chrom:
+        feature_start: 
+        feature_stop:
+        imputation_status:
+        frequency:
+        tss_distance:
+        ma_samples:
+        maf:
+        
+data_info:
+    citation: 
+    data_source: 
+    data_type:
+    context:
+    build: 
+    sample_size:
+    n_cases: 
+    can_be_public: true
+
+method:
+    name: 
+    tool: 
+    website: 
+
+contributor:
+    name:
+    github: 
+    email:
+```
 
 
 ## GWAS upload yaml file example
@@ -420,7 +491,6 @@ data_file:
     description: >-
         Global Lipid Genetics Consortium GWAS results for high-density 
         cholesterol levels
-    # where cimr-d can load the file(s) from
     location:
         url: https://zenodo.org/record/3338180/files/HDL_Cholesterol.txt.gz
         md5: 2b28816a0a363db1a09ad9a6ba1a6620
@@ -429,26 +499,6 @@ data_file:
         variant_chrom: chromosome
         variant_pos: position
         rsnum: variant_id
-        ref: na
-        alt: na
-        effect_allele: effect_allele
-        non_effect_allele: non_effect_allele
-        inc_allele: na
-        inc_afrq: na
-        effect_size: effect_size
-        standard_error: standard_error
-        zscore: zscore
-        pvalue: pvalue
-        feature_id: na
-        feature_chrom: na
-        feature_start: na
-        feature_stop: na
-        imputation_status: imputation_status
-        frequency: na
-        tss_distance: na
-        ma_samples: na
-        maf: na
-        comment_0: na
 
 data_info:
     citation: 10.1038/ng.2797
@@ -462,7 +512,7 @@ data_info:
 
 method:
     name: linear regression
-    tool: PLINK; SNPTEST; EMMAX; Merlin; GENABEL; MMAP
+    tool: PLINK;SNPTEST;EMMAX;Merlin;GENABEL;MMAP
     website: >-
         http://zzz.bwh.harvard.edu/plink/download.shtml; 
         https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html;
@@ -555,18 +605,6 @@ data_file:
         variant_chrom: chromosome
         variant_pos: position
         rsnum: variant_id
-        effect_allele: effect_allele
-        non_effect_allele: non_effect_allele
-        effect_size: effect_size
-        standard_error: standard_error
-        zscore: zscore
-        pvalue: pvalue
-        imputation_status: imputation_status
-        frequency: na
-        tss_distance: na
-        ma_samples: na
-        maf: na
-        comment_0: na
         
 data_info:
     citation: 10.1038/ng.2797
