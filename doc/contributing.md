@@ -638,7 +638,7 @@ contributor:
 
 
 For single compressed text files submissions, _cimr-d_ will accept 
-a gdrive link in place of an archive service such as 
+a Google Drive link in place of an archive service such as 
 [Zenodo](https://zenodo.org). Additional requirement for a Google 
 Drive link is an pre-defined file name `input_name` field in the 
 `data_file` section to overwrite the hashed file path.
