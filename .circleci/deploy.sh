@@ -47,14 +47,24 @@ sudo pip install --upgrade pip
 # Install awscli to make "aws" command available
 sudo pip install awscli
 
-# Move files in S3 buckets from temporary to permanent locations.
+# Copy processed_data to "cimr-d" bucket (public)
+
+OUTPUT_FILES=$(find processed_data -type f)
+for f in ${OUTPUT_FILES}; do
+    g=$(echo $f | cut -d'/' -f'2-')              # strip "processed_data/" from $f
+    g_stem="${g%.*}"                             # full path without extension
+    g_ext="${g##*.}"                             # file extension
+    s3name="${g_stem}_PR-${PR_NUMBER}.${g_ext}"  # object name in S3 bucket
+    aws s3 cp $f s3://cimr-d/${s3name}
+done
+
+
+# Copy submitted_data to "cimr-root" bucket (private)
 aws s3 sync submitted_data/  s3://cimr-root/PR-${PR_NUMBER}/ --exclude "request.handled"
-aws s3 sync processed_data/  s3://cimr-d/
 
 # Move submitted YAML files to "processed/" sub-dir
 mkdir -p processed/PR-${PR_NUMBER}/
 git mv -k submitted/*.yml submitted/*.yaml processed/PR-${PR_NUMBER}/
-git commit -m "CircleCI: Save requests to processed/ dir [skip ci]"
 
 # Update "processed/README.md", which lists all files in "cimr-d" S3 bucket
 aws s3 ls cimr-d --recursive --human-readable > processed/s3_list.txt
@@ -65,6 +75,6 @@ git add processed/README.md
 git add cimr-d_catalog.txt
 
 # Commit changes and push them to remote "master" branch
-git commit -m "Update processed/REAME.md and cimr-d_catalog.txt [skip ci]"
+git commit -m "CircleCI: Save processed requests [skip ci]"
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 git push --force --quiet origin master
