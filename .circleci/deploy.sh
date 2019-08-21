@@ -47,19 +47,32 @@ sudo pip install --upgrade pip
 # Install awscli to make "aws" command available
 sudo pip install awscli
 
-# Copy processed_data to "cimr-d" bucket (public)
-
+# Copy "processed_data" to "cimr-d" bucket (public).
+# "PR-<n>" is inserted in the filename to avoid possible duplicate filenames.
 OUTPUT_FILES=$(find processed_data -type f)
 for f in ${OUTPUT_FILES}; do
-    g=$(echo $f | cut -d'/' -f'2-')              # strip "processed_data/" from $f
-    g_stem="${g%.*}"                             # full path without extension
-    g_ext="${g##*.}"                             # file extension
-    s3name="${g_stem}_PR-${PR_NUMBER}.${g_ext}"  # object name in S3 bucket
+    g=$(echo $f | cut -d'/' -f'2-')                # strip "processed_data/" from $f
+    g_stem1="${g%.*}"                              # full path without the last extension
+    g_ext1="${g##*.}"                              # last extension
+
+    if [ "${g_ext1}" == "$g" ]; then               # "foo" will become "foo-PR-n"
+	s3name=$g-PR-${PR_NUMBER}
+    else
+	g_stem2="${g_stem1%.*}"
+	g_ext2="${g_stem1##*.}"
+	if [ "${g_ext2}" == "${g_stem1}" ]; then   # "foo.ext1" will become "foo-PR-n.ext1"
+	    g_stem=${g_stem1}
+	    g_ext=${g_ext1}
+	else                                       # "foo.ext2.ext1" will become "foo-PR-n.ext2.ext1"
+	    g_stem=${g_stem2}
+	    g_ext=${g_ext2}.${g_ext1}
+	fi
+	s3name="${g_stem}-PR-${PR_NUMBER}.${g_ext}"
+    fi
     aws s3 cp $f s3://cimr-d/${s3name}
 done
 
-
-# Copy submitted_data to "cimr-root" bucket (private)
+# Copy "submitted_data" to "cimr-root" bucket (private)
 aws s3 sync submitted_data/  s3://cimr-root/PR-${PR_NUMBER}/ --exclude "request.handled"
 
 # Move submitted YAML files to "processed/" sub-dir
