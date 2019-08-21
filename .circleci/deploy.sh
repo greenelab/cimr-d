@@ -33,6 +33,8 @@ if [ $PR_NUMBER == 'null' ]; then
     exit 0
 fi
 
+PR_STR="PR-${PR_NUMBER}"
+
 # If we are merging a PR, but the indicator object is not found in S3 bucket,
 # data processing must either fail or not start at all, so we exit too.
 INDICATOR_FIELNAME="submitted_data/request.handled"
@@ -56,7 +58,7 @@ for f in ${OUTPUT_FILES}; do
     g_ext1="${g##*.}"                              # last extension
 
     if [ "${g_ext1}" == "$g" ]; then               # "foo" will become "foo-PR-n"
-	s3name=$g-PR-${PR_NUMBER}
+	s3name=$g-${PR_STR}
     else
 	g_stem2="${g_stem1%.*}"
 	g_ext2="${g_stem1##*.}"
@@ -67,17 +69,17 @@ for f in ${OUTPUT_FILES}; do
 	    g_stem=${g_stem2}
 	    g_ext=${g_ext2}.${g_ext1}
 	fi
-	s3name="${g_stem}-PR-${PR_NUMBER}.${g_ext}"
+	s3name="${g_stem}-${PR_STR}.${g_ext}"
     fi
     aws s3 cp $f s3://cimr-d/${s3name}
 done
 
 # Copy "submitted_data" to "cimr-root" bucket (private)
-aws s3 sync submitted_data/  s3://cimr-root/PR-${PR_NUMBER}/ --exclude "request.handled"
+aws s3 sync submitted_data/  s3://cimr-root/${PR_STR}/ --exclude "request.handled"
 
 # Move submitted YAML files to "processed/" sub-dir
-mkdir -p processed/PR-${PR_NUMBER}/
-git mv -k submitted/*.yml submitted/*.yaml processed/PR-${PR_NUMBER}/
+mkdir -p processed/${PR_STR}/
+git mv -k submitted/*.yml submitted/*.yaml processed/${PR_STR}/
 
 # Update "processed/README.md", which lists all files in "cimr-d" S3 bucket
 aws s3 ls cimr-d --recursive --human-readable > processed/s3_list.txt
