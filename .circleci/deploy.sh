@@ -48,7 +48,7 @@ sudo pip install --upgrade pip
 sudo pip install awscli
 
 # Copy "processed_data" to "cimr-d" bucket (public).
-# "PR-<n>" is inserted in the filename to avoid possible duplicate filenames.
+# "PR-<n>" is inserted in filenames to avoid possible duplicates.
 OUTPUT_FILES=$(find processed_data -type f)
 for f in ${OUTPUT_FILES}; do
     g=$(echo $f | cut -d'/' -f'2-')                # strip "processed_data/" from $f
