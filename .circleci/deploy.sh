@@ -74,7 +74,7 @@ for f in ${OUTPUT_FILES}; do
 	done
 
 	LEN_m2=$(expr $LEN - 2)        # $LEN - 2
-	LEN_m1=$(expr $LEN - 1))       # $LEN - 1
+	LEN_m1=$(expr $LEN - 1)        # $LEN - 1
 	S3BASE="$S3BASE-${PR_STR}.${tokens[$LEN_m2]}.${tokens[$LEN_m1]}"
     fi
 
