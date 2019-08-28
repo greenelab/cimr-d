@@ -2,7 +2,7 @@ data_file:
     description: >-
         Meta-analysis of genome-wide association studies for body
         fat distribution in 694,649 individuals of European ancestry.
-        The study combined GIANT consortium data with UK Biobank.
+        The study combined GIANT consortium data with UK Biobank data.
     location:
         url: https://portals.broadinstitute.org/collaboration/giant/images/1/14/Bmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only.txt.gz
         md5: 01c459646a35e4e28ea2c97eadf2055e
