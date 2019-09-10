@@ -77,7 +77,7 @@ rm -rf $INDICATOR_FILENAME
 
 # For each yaml file, download and process data
 for f in ${SUBMITTED_YAMLS}; do
-    cimr processor -process -yaml-file $f -catalog PR_catalog.txt
+    cimr processor -process -yaml-file $f -catalog-name PR_catalog.txt
 done
 
 # Create the flag file at the end

@@ -92,12 +92,12 @@ aws s3 sync submitted_data/ s3://cimr-root/${PR_STR}/ --exclude "request.handled
 git pull
 
 # Move submitted YAML files to "processed/" sub-dir
-mkdir -p processed/${PR_STR}/
 SUBMITTED_FILES=$(curl -s ${GH_PR_API} | jq -r '.[].filename' | grep "^submitted/") || true
 if [ -z "${SUBMITTED_FILES}" ]; then
     exit 0
 fi
 
+mkdir -p processed/${PR_STR}/
 for f in ${SUBMITTED_FILES}; do
     git mv $f processed/${PR_STR}/
 done
