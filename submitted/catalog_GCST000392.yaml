@@ -1,0 +1,41 @@
+
+data_file:
+    description: >-
+        Genome-wide association study and meta-analysis find that over 40 loci affect risk of type 1 diabetes; 7,514 European ancestry cases, 9,045 European ancestry controls;4,267 European ancestry cases, 4,670 European ancestry controls, 4,342 European ancestry trios from 2,319 families
+    location:
+        url: ftp://ftp.ebi.ac.uk:21/pub/databases/gwas/summary_statistics/BarrettJC_19430480_GCST000392/harmonised/19430480-GCST000392-EFO_0001359.h.tsv.gz
+        md5: 67e11330f6e94164ff9ec3fe76a5eb14
+    columns:
+        variant_id: hm_variant_id
+        original_variant_id: variant_id
+        rsnum: hm_rsid
+        variant_chrom: hm_chrom
+        variant_pos: hm_pos
+        non_effect_allele: hm_other_allele
+        effect_allele: hm_effect_allele
+        effect_size: hm_beta
+        effect_allele: original_effect_allele
+        standard_error: standard_error
+        pvalue: p_value
+
+data_info:
+    citation: 10.1038/ng.381
+    data_source: https://www.ebi.ac.uk/gwas/
+    data_type: gwas
+    context: type I diabetes mellitus
+    context_id: EFO_0001359
+    build: b38
+    sample_size: 32157.0
+    n_cases: NA
+    can_be_public: true
+
+method:
+    name: NA
+    tool: NA
+    website: www.ncbi.nlm.nih.gov/pubmed/19430480
+
+contributor:
+    name: YoSon Park
+    github: ypar
+    email: cimrroot@gmail.com
+
