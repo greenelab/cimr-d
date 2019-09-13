@@ -1,0 +1,41 @@
+
+data_file:
+    description: >-
+        Genome-wide association meta-analysis of 78,308 individuals identifies new loci and genes influencing human intelligence; up to 58,799 European ancestry adults, up to 19,509 European ancestry children
+    location:
+        url: ftp://ftp.ebi.ac.uk:21/pub/databases/gwas/summary_statistics/SniekersS_28530673_GCST004364/harmonised/28530673-GCST004364-EFO_0004337.h.tsv.gz
+        md5: 090c3b2c95ac3e8e1601dcc59f7a9e10
+    columns:
+        variant_id: hm_variant_id
+        original_variant_id: variant_id
+        rsnum: hm_rsid
+        variant_chrom: hm_chrom
+        variant_pos: hm_pos
+        non_effect_allele: hm_other_allele
+        effect_allele: hm_effect_allele
+        effect_size: hm_beta
+        effect_allele: original_effect_allele
+        standard_error: standard_error
+        pvalue: p_value
+
+data_info:
+    citation: 10.1038/ng.3869
+    data_source: https://www.ebi.ac.uk/gwas/
+    data_type: gwas
+    context: intelligence
+    context_id: EFO_0004337
+    build: b38
+    sample_size: 78308.0
+    n_cases: NA
+    can_be_public: true
+
+method:
+    name: NA
+    tool: NA
+    website: www.ncbi.nlm.nih.gov/pubmed/28530673
+
+contributor:
+    name: YoSon Park
+    github: ypar
+    email: cimrroot@gmail.com
+
