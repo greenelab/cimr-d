@@ -1,0 +1,41 @@
+
+data_file:
+    description: >-
+        NA; 1,464 European ancestry cases, 1,467 European ancestry controls;5,065 European ancestry cases, 5,785 European ancestry controls, at least 18,129 cases and controls.
+    location:
+        url: ftp://ftp.ebi.ac.uk:21/pub/databases/gwas/summary_statistics/SaxenaR_17463246_GCST000028/harmonised/17463246-GCST000028-EFO_0001360.h.tsv.gz
+        md5: 8e86c44d8bb7bd6fdc376826511d454f
+    columns:
+        variant_id: hm_variant_id
+        original_variant_id: variant_id
+        rsnum: hm_rsid
+        variant_chrom: hm_chrom
+        variant_pos: hm_pos
+        non_effect_allele: hm_other_allele
+        effect_allele: hm_effect_allele
+        effect_size: hm_beta
+        effect_allele: original_effect_allele
+        standard_error: standard_error
+        pvalue: p_value
+
+data_info:
+    citation: nan
+    data_source: https://www.ebi.ac.uk/gwas/
+    data_type: gwas
+    context: type II diabetes mellitus
+    context_id: EFO_0001360
+    build: b38
+    sample_size: 31910.0
+    n_cases: NA
+    can_be_public: true
+
+method:
+    name: NA
+    tool: NA
+    website: www.ncbi.nlm.nih.gov/pubmed/17463246
+
+contributor:
+    name: YoSon Park
+    github: ypar
+    email: cimrroot@gmail.com
+
