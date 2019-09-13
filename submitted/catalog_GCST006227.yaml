@@ -1,0 +1,41 @@
+
+data_file:
+    description: >-
+        Meta-analysis identifies common and rare variants influencing blood pressure and overlapping with metabolic trait loci; 120,473 European ancestry individuals, 21,503 African American individuals, 4,586 Hispanic individuals;154,543 European ancestry individuals, 26,183 South Asian ancestry individuals
+    location:
+        url: ftp://ftp.ebi.ac.uk:21/pub/databases/gwas/summary_statistics/LiuC_27618448_GCST006227/harmonised/27618448-GCST006227-EFO_0006336.h.tsv.gz
+        md5: 9e97c3a001384d3a31449fa9f9b83153
+    columns:
+        variant_id: hm_variant_id
+        original_variant_id: variant_id
+        rsnum: hm_rsid
+        variant_chrom: hm_chrom
+        variant_pos: hm_pos
+        non_effect_allele: hm_other_allele
+        effect_allele: hm_effect_allele
+        effect_size: hm_beta
+        effect_allele: original_effect_allele
+        standard_error: standard_error
+        pvalue: p_value
+
+data_info:
+    citation: 10.1038/ng.3660
+    data_source: https://www.ebi.ac.uk/gwas/
+    data_type: gwas
+    context: diastolic blood pressure
+    context_id: EFO_0006336
+    build: b38
+    sample_size: 327288.0
+    n_cases: NA
+    can_be_public: true
+
+method:
+    name: NA
+    tool: NA
+    website: www.ncbi.nlm.nih.gov/pubmed/27618448
+
+contributor:
+    name: YoSon Park
+    github: ypar
+    email: cimrroot@gmail.com
+
