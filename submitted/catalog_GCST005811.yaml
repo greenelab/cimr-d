@@ -1,0 +1,41 @@
+
+data_file:
+    description: >-
+        Genome-wide analyses using UK Biobank data provide insights into the genetic architecture of osteoarthritis; 12,658 European ancestry cases, 50,898 European ancestry controls
+    location:
+        url: ftp://ftp.ebi.ac.uk:21/pub/databases/gwas/summary_statistics/ZenginiE_29559693_GCST005811/harmonised/29559693-GCST005811-EFO_0002506.h.tsv.gz
+        md5: 6558d1ea426a0cff25ab2f0f68f0e743
+    columns:
+        variant_id: hm_variant_id
+        original_variant_id: variant_id
+        rsnum: hm_rsid
+        variant_chrom: hm_chrom
+        variant_pos: hm_pos
+        non_effect_allele: hm_other_allele
+        effect_allele: hm_effect_allele
+        effect_size: hm_beta
+        effect_allele: original_effect_allele
+        standard_error: standard_error
+        pvalue: p_value
+
+data_info:
+    citation: 10.1038/s41588-018-0079-y
+    data_source: https://www.ebi.ac.uk/gwas/
+    data_type: gwas
+    context: osteoarthritis
+    context_id: EFO_0002506
+    build: b38
+    sample_size: 63556.0
+    n_cases: NA
+    can_be_public: true
+
+method:
+    name: NA
+    tool: NA
+    website: www.ncbi.nlm.nih.gov/pubmed/29559693
+
+contributor:
+    name: YoSon Park
+    github: ypar
+    email: cimrroot@gmail.com
+
