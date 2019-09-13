@@ -129,7 +129,6 @@ for i in $(seq 5); do
     git_commit $i      # commit all changes to local repo
 
     # Try to push changes from local repo to remote repo
-    echo "$(date): git push attempt #$i"
     GH_UPDATED=true
     git push || GH_UPDATED=false
 
