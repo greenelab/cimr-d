@@ -1,0 +1,32 @@
+
+data_file:
+    description: >-
+        phenotype source: phesant; reported phenotype: 22660_103; Gap coding: Full-time or part-time education; variable type: binary; dataset: female
+    location:
+        url: https://www.dropbox.com/s/v5ow0qrtewu7sjd/22660_103.gwas.imputed_v3.female.v2.tsv.bgz?dl=0
+        md5: 81e4400b61d350f1d1aac58bbcad50e4
+    columns:
+        variant_id: variant
+        effect_allele: minor_allele
+        effect_size: beta
+        standard_error: se
+        pvalue: pval
+
+data_info:
+    citation: http://www.nealelab.is/uk-biobank
+    data_source: http://www.nealelab.is/uk-biobank
+    data_type: gwas
+    context: 22660_103
+    build: b37
+    sample_size: 40205
+    n_cases: 7950.0
+    can_be_public: true
+
+method:
+    name: linear regression
+    tool: hail
+    website: https://github.com/hail-is/hail
+
+contributor:
+    email: cimrroot@gmail.com
+
