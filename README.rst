@@ -29,9 +29,12 @@ doi of each citable publication in the catalog.txt, `.bib` file to be
 used in the `bibtex directory`_, and the `full reference`_.
 
 
-.. _ catalog.txt: https://raw.githubusercontent.com/greenelab/cimr-d/master/catalog.txt
-.. _ bibtex directory: https://github.com/greenelab/cimr-d/tree/master/doc/bibtex
-.. _ full reference: https://github.com/greenelab/cimr-d/blob/master/doc/references.md
+
+.. _catalog.txt: https://raw.githubusercontent.com/greenelab/cimr-d/master/catalog.txt
+.. _bibtex directory: https://github.com/greenelab/cimr-d/tree/master/doc/bibtex
+.. _full reference: https://github.com/greenelab/cimr-d/blob/master/doc/references.md
+
+
 
 
 =====================================
@@ -45,12 +48,11 @@ guideline.
 
 
 
-
 All data deposited here have been either:
 
-1) contributed by researchers who own the copyright or
-license to the data, or
-2) reprocessed and deposited from a public source.
+  * contributed by researchers who own the copyright or
+license to the data, or |br|\
+  * reprocessed and deposited from a public source.
 
 We take every caution to make sure data stored and used via cimr-d
 suite are approved for public sharing and reuse for research
@@ -64,6 +66,11 @@ For any PR including new data, we strongly recommend including
 appropriate citations, metadata and other relevant information
 regarding the data to be added to `cimr citations`_.
 
+
+
+.. |br| raw:: html
+
+   <br />
 
 .. _cimr-d references: https://github.com/greenelab/cimr-d/blob/master/doc/references.md
 .. _cimr manual: https://cimr.readthedocs.io
@@ -80,7 +87,15 @@ by contributors of all levels, from research data to development.
 For details regarding how to contribute data to cimr-d, please see
 the `cimr-d contributions`_ doc.
 
+
+Briefly, first, make a GitHub account, fork this repository, and
+clone to upload a yaml file.
+
+1.
+
+
 .. _cimr-d contributions: https://github.com/greenelab/cimr-d/blob/master/doc/contributing.md
+
 
 
 =================
