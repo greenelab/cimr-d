@@ -47,7 +47,7 @@ guideline.
 
 All data deposited here have been either::
 
-  * contributed by researchers who own the copyright or license to the data, or |br|\
+  * contributed by researchers who own the copyright or license to the data, or
   * reprocessed and deposited from a public source.
 
 
