@@ -19,6 +19,18 @@ the link and view raw file or by typing the following in a terminal::
     wget https://raw.githubusercontent.com/greenelab/cimr-d/master/catalog.txt
 
 
+Cloning the full repository will not download all data stored in the
+cimr-d AWS S3 bucket. So you may safely clone the repository to keep a
+local copy of the catalog::
+
+    git clone git@github.com:greenelab/cimr-d.git
+
+
+Frequent pulling is recommended as cimr-d may be updated with new or
+improved information.
+
+
+
 While data processing can be streamlined, any data used in research
 studies should be carefully reviewed in the context of its original
 publication. To make this as convenient as possible, we provide
