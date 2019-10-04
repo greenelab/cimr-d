@@ -3,7 +3,7 @@
 cimr-d: client and database for continuously integrated metaresource
 ********************************************************************
 
-YoSon Park <cimrroot at gmail dot com; yoson.park at gmail dot com>
+YoSon Park <cimrroot at gmail dot com>
 
 
 ====================
@@ -45,7 +45,7 @@ guideline.
 
 
 
-All data deposited here have been either:
+All data deposited here have been either::
 
   * contributed by researchers who own the copyright or license to the data, or |br|\
   * reprocessed and deposited from a public source.
