@@ -1,11 +1,9 @@
 
-
-
 ********************************************************************
 cimr-d: client and database for continuously integrated metaresource
 ********************************************************************
 
-Maintainer: YoSon Park <cimrroot at gmail dot com>
+YoSon Park <cimrroot at gmail dot com; yoson.park at gmail dot com>
 
 
 ====================
@@ -15,17 +13,16 @@ Using data in cimr-d
 
 If you are looking for processed files, you do not need to clone
 the cimr-d GitHub repository. All information you need is
-provided in `the catalog.txt`_, which you can download by clicking
-the link and view raw file or by typing the following in a terminal:
+provided in the `catalog.txt`_, which you can download by clicking
+the link and view raw file or by typing the following in a terminal::
 
-.. code-block: bash
-   wget https://raw.githubusercontent.com/greenelab/cimr-d/master/catalog.txt
+    wget https://raw.githubusercontent.com/greenelab/cimr-d/master/catalog.txt
 
 
 While data processing can be streamlined, any data used in research
 studies should be carefully reviewed in the context of its original
 publication. To make this as convenient as possible, we provide
-doi of each citable publication in the catalog.txt, `.bib` file to be
+doi of each citable publication in the `catalog.txt`_, `.bib` file to be
 used in the `bibtex directory`_, and the `full reference`_.
 
 
@@ -50,9 +47,10 @@ guideline.
 
 All data deposited here have been either:
 
-  * contributed by researchers who own the copyright or
-license to the data, or |br|\
+  * contributed by researchers who own the copyright or license to the data, or |br|\
   * reprocessed and deposited from a public source.
+
+
 
 We take every caution to make sure data stored and used via cimr-d
 suite are approved for public sharing and reuse for research
