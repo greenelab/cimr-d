@@ -66,10 +66,6 @@ regarding the data to be added to `cimr citations`_.
 
 
 
-.. |br| raw:: html
-
-   <br />
-
 .. _cimr-d references: https://github.com/greenelab/cimr-d/blob/master/doc/references.md
 .. _cimr manual: https://cimr.readthedocs.io
 .. _cimr citations: https://github.com/greenelab/cimr/blob/master/doc/source/citations.rst
@@ -86,10 +82,13 @@ For details regarding how to contribute data to cimr-d, please see
 the `cimr-d contributions`_ doc.
 
 
-Briefly, first, make a GitHub account, fork this repository, and
-clone to upload a yaml file.
+Briefly,::
 
-1.
+    1. make a GitHub account
+    2. fork this repository
+    3. clone the forked repository
+    4. copy the yaml file(s) in the submitted directory
+    5. add, commit and push to upload a yaml file
 
 
 .. _cimr-d contributions: https://github.com/greenelab/cimr-d/blob/master/doc/contributing.md
