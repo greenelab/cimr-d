@@ -14,7 +14,7 @@ Using data in cimr-d
 If you are looking for processed files, you do not need to clone
 the cimr-d GitHub repository. All information you need is
 provided in the `catalog.txt`_, which you can download by clicking
-the link and view raw file or by typing the following in a terminal::
+the link and viewing raw file or by typing the following in a terminal::
 
     wget https://raw.githubusercontent.com/greenelab/cimr-d/master/catalog.txt
 
@@ -59,9 +59,9 @@ guideline.
 
 All data deposited here have been either
 
-  * contributed by researchers who own the copyright or license to the data, or
+* contributed by researchers who own the copyright or license to the data, or
 
-  * reprocessed and deposited from a public source.
+* reprocessed and deposited from a public source.
 
 
 
@@ -100,8 +100,8 @@ Briefly,::
     1. make a GitHub account
     2. fork this repository
     3. clone the forked repository
-    4. copy the yaml file(s) in the submitted directory
-    5. add, commit and push to upload a yaml file
+    4. copy your yaml file(s) into the "submitted" directory
+    5. use git commands to add, commit and push your changes to the forked repository
 
 
 .. _cimr-d contributions: https://github.com/greenelab/cimr-d/blob/master/doc/contributing.md
