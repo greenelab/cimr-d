@@ -1,0 +1,50 @@
+data_file:
+    description: LADA GWAS summary statistics
+    location: 
+        url: ftp://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/CousminerDL_30254083_GCST007245/CousminerDL_30254083.gz
+        md5: 0c3676eefe7cf4bb8a475040dfb6730b
+    input_name: CousminerDL_30254083.gz
+    columns:
+        variant_id: variant_id
+        variant_chrom: na 
+        variant_pos: na
+        rsnum: na
+        ref: reference_allele
+        alt: other_allele
+        effect_allele: reference_allele
+        non_effect_allele: other_allele
+        inc_allele: na
+        inc_afrq: na
+        effect_size: OR
+        standard_error: OR_se
+        zscore: z
+        pvalue: P
+        feature_id: na
+        feature_chrom: na
+        feature_start: na
+        feature_stop: na
+        imputation_status: na
+        frequency: eaf
+        tss_distance: na
+        ma_samples: 
+        maf: na
+
+data_info:
+    citation: https://doi.org/10.2337/dc18-1032
+    data_source: na
+    data_type: gwas
+    context: Latent autoimmune diabetes in adults
+    build: b37
+    sample_size: 8581
+    n_cases: 2634
+    can_be_public: true
+
+method:
+    name: logistic regression
+    tool: SNPtest
+    website: https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html 
+
+contributor:
+    name: Diana Cousminer
+    github: Dcousminer
+    email: cousminerd@email.chop.edu
