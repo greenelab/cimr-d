@@ -101,9 +101,15 @@ INDICATOR_FILENAME="submitted_data/request.handled"
 # Remove flag file before data processing
 rm -rf $INDICATOR_FILENAME
 
-# For each yaml file, download and process data
+# For each yaml file, download and process data.
+# Set chunksize=200k and parallel=32 in CircleCI container.
+# Here are some tests of different values of these two parameters:
+#   - https://circleci.com/gh/greenelab/cimr/289
+#   - https://circleci.com/gh/greenelab/cimr/297
+#   - https://circleci.com/gh/greenelab/cimr/298
+#
 for f in ${SUBMITTED_YAMLS}; do
-    cimr processor -process -yaml-file $f -catalog-name PR_catalog.txt
+    cimr processor -process -yaml-file $f -catalog-name PR_catalog.txt -chunksize 200000 -parallel 32
 done
 
 # Create the flag file at the end
