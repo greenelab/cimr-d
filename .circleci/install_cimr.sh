@@ -7,6 +7,6 @@ set -e -x
 git clone https://github.com/greenelab/cimr.git /tmp/cimr
 
 cd /tmp/cimr
-
+pip install -r requirements.txt
 python3 setup.py build
 sudo python3 setup.py install
