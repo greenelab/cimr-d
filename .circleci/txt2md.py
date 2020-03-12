@@ -71,4 +71,5 @@ with open(TXT_FILENAME) as file_in, open(MD_FILENAME, 'w') as file_out:
             date_str = f" (updated on *{s3_date}*)"
             size_str = ": " + s3_size
             file_out.write(md_name + size_str + date_str + '\n')
+
         prev_folders = s3_name.split('/')[0:-1]
