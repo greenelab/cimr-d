@@ -1,3 +1,6 @@
+*Note: If the list is cutoff at the bottom due to GitHub's 512KB-limit
+on the main page, click [here](README.md) to see its full content.*
+
 List of processed files (with links to AWS S3 bucket):
 ----
   * eqtl
