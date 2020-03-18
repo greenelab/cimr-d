@@ -8,6 +8,7 @@ data_file:
         url: https://zenodo.org/record/1251813/files/whradjbmi.giant-ukbb.meta-analysis.females.23May2018.txt.gz?download=1
         md5: 6eee7b3c9b1898b5c0ff2f983e6e1e33
     columns:
+        column_separator: space
         rsnum: SNP
         variant_chrom: CHR
         variant_pos: POS

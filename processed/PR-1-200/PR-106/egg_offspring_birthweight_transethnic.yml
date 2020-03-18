@@ -6,6 +6,7 @@ data_file:
         url: http://mccarthy.well.ox.ac.uk/publications/2019/EggBirthWeight_NatureGenetics/Maternal_BW_transethnic_meta.NG2019.txt.gz
         md5: 7a54a4dfaafe3534bec1954d237e5bf5
     columns:
+        column_separator: multispace
         variant_chrom: chr
         variant_pos: pos
         effect_allele: ea

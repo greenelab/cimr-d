@@ -4,7 +4,7 @@ data_file:
         Genome-wide association meta-analysis in 269,867 individuals identifies new genetic and functional links to intelligence; 269,867 European ancestry individuals
     location:
         url: ftp://ftp.ebi.ac.uk:21/pub/databases/gwas/summary_statistics/SavageJE_29942086_GCST006250/harmonised/29942086-GCST006250-EFO_0004337.h.tsv.gz
-        md5: aff8f15940f74f930c3f63e1a11b9dff
+        md5: c94b9b4440836502fd2ea7941a3fd617
     columns:
         variant_id: hm_variant_id
         original_variant_id: variant_id
@@ -33,9 +33,4 @@ method:
     name: NA
     tool: NA
     website: www.ncbi.nlm.nih.gov/pubmed/29942086
-
-contributor:
-    name: YoSon Park
-    github: ypar
-    email: cimrroot@gmail.com
 

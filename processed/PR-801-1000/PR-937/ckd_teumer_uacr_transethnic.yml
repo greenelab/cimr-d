@@ -18,6 +18,7 @@ data_file:
         standard_error: StdErr
         pvalue: P-value
         sample_size: N_total_sum
+        column_separator: space
 
 data_info:
     citation: http://ckdgen.imbi.uni-freiburg.de/

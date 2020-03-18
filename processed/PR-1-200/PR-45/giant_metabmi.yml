@@ -8,6 +8,7 @@ data_file:
         url: https://portals.broadinstitute.org/collaboration/giant/images/1/14/Bmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only.txt.gz
         md5: 01c459646a35e4e28ea2c97eadf2055e
     columns:
+        column_separator: space
         rsnum: SNP
         variant_chrom: CHR
         variant_pos: POS

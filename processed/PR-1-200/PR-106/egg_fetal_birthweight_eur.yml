@@ -9,6 +9,7 @@ data_file:
         url: http://mccarthy.well.ox.ac.uk/publications/2019/EggBirthWeight_NatureGenetics/Fetal_BW_European_meta.NG2019.txt.gz
         md5: 03526287dedb0557c9f9a46575cc256a
     columns:
+        column_separator: multispace
         variant_chrom: chr
         variant_pos: pos
         effect_allele: ea

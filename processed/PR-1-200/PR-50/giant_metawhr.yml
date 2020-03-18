@@ -8,6 +8,7 @@ data_file:
         url: https://zenodo.org/record/1251813/files/whr.giant-ukbb.meta-analysis.combined.23May2018.txt.gz?download=1
         md5: efd3615fcd7f8a30371168ea27c2d7b1
     columns:
+        column_separator: space
         rsnum: SNP
         variant_chrom: CHR
         variant_pos: POS

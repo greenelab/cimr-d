@@ -8,6 +8,7 @@ data_file:
         url: https://zenodo.org/record/1251813/files/bmi.giant-ukbb.meta-analysis.females.23May2018.txt.gz
         md5: 8a72aeb3d09539becfea66c313a17392
     columns:
+        column_separator: space
         rsnum: SNP
         variant_chrom: CHR
         variant_pos: POS

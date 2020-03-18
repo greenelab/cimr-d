@@ -7,6 +7,7 @@ data_file:
         url: http://mccarthy.well.ox.ac.uk/publications/2019/EggBirthWeight_NatureGenetics/Fetal_Effect_European_meta_NG2019.txt.gz
         md5: cb7a154d4cfb8c21b49d95be8e7de3a8
     columns:
+        column_separator: multispace
         variant_id: SNPID
         variant_chrom: chr
         variant_pos: pos

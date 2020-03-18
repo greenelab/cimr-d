@@ -4,7 +4,7 @@ data_file:
         Genome-wide association study implicates immune activation of multiple integrin genes in inflammatory bowel disease; 12,366 European and unknown ancestry cases, 33,609 European and unknown ancestry controls
     location:
         url: ftp://ftp.ebi.ac.uk:21/pub/databases/gwas/summary_statistics/deLangeKM_28067908_GCST004133/harmonised/28067908-GCST004133-EFO_0000729.h.tsv.gz
-        md5: 3d359ae0456d3b5e3d1dedd3b02d8ffe
+        md5: f22f8215e49dfd31d1e157a3588a47c6
     columns:
         variant_id: hm_variant_id
         original_variant_id: variant_id
@@ -26,7 +26,7 @@ data_info:
     context_id: EFO_0000729
     build: b38
     sample_size: 45975.0
-    n_cases: NA
+    n_cases: 12366
     can_be_public: true
 
 method:

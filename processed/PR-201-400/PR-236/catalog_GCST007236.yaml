@@ -4,7 +4,7 @@ data_file:
         Genome-wide association analysis of more than 120,000 individuals identifies 15 new susceptibility loci for breast cancer; 46,785 European ancestry cases, 42,892 European ancestry controls
     location:
         url: ftp://ftp.ebi.ac.uk:21/pub/databases/gwas/summary_statistics/MichailidouK_25751625_GCST007236/harmonised/25751625-GCST007236-EFO_0000305.h.tsv.gz
-        md5: 79201df44533c59f0d4532ca08056cbd
+        md5: d4dfa99efd505a982e708dd3758f96a3
     columns:
         variant_id: hm_variant_id
         original_variant_id: variant_id
@@ -26,7 +26,7 @@ data_info:
     context_id: EFO_0000305
     build: b38
     sample_size: 89677.0
-    n_cases: NA
+    n_cases: 46785
     can_be_public: true
 
 method:

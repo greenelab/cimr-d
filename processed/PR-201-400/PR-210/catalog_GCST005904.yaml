@@ -4,7 +4,7 @@ data_file:
         Genome-wide association study of depression phenotypes in UK Biobank identifies variants in excitatory synaptic pathways; 30,603 British ancestry cases, 143,916 British ancestry controls
     location:
         url: ftp://ftp.ebi.ac.uk:21/pub/databases/gwas/summary_statistics/HowardDM_29662059_GCST005904/harmonised/29662059-GCST005904-EFO_0003761.h.tsv.gz
-        md5: 2868bff2d1b5ea4b8d189519a716c742
+        md5: a646e388ddd52a691356e1b95a14fc30
     columns:
         variant_id: hm_variant_id
         original_variant_id: variant_id
@@ -26,7 +26,7 @@ data_info:
     context_id: EFO_0003761
     build: b38
     sample_size: 174519.0
-    n_cases: NA
+    n_cases: 30603
     can_be_public: true
 
 method:
