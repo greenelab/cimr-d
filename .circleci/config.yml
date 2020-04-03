@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/python:3.7.6
     working_directory: ~/cimr-d
-    resource_class: large
+    resource_class: xlarge
     steps:
       - checkout
       - add_ssh_keys:
