@@ -1,0 +1,37 @@
+data_file:
+    description: >-
+        cis- and trans-expression quantitative trait locus (eQTL)
+        analysis of blood from 31,684 individuals through the
+        eQTLGen Consortium.
+    location:
+        url: https://molgenis26.gcc.rug.nl/downloads/eqtlgen/trans-eqtl/2018-09-04-trans-eQTLsFDR-CohortInfoRemoved-BonferroniAdded.txt.gz
+        md5: fb673fe98a498cc46e0d58efff2d5f0d
+    columns:
+        rsnum: SNP
+        variant_chrom: SNPChr
+        variant_pos: SNPPos
+        effect_allele: AssessedAllele
+        non_effect_allele: OtherAllele
+        feature_id: Gene
+        feature_name: GeneSymbol
+        feature_chrom: GeneChr
+        feature_start: GenePos
+        zscore: Zscore
+        pvalue: Pvalue
+        sample_size: NrSamples
+
+data_info:
+    citation: 10.1101/447367
+    data_source: https://molgenis26.gcc.rug.nl/downloads/eqtlgen
+    data_type: eqtl
+    context: whole blood
+    build: b37
+    sample_size: 31,684
+    n_cases: na
+    can_be_public: true
+
+method:
+    name: Spearman correlation and permutation
+    tool: na
+    website: na
+
