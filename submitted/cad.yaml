@@ -8,7 +8,7 @@ data_file:
         variants and involved 60,801 CAD cases
         and 123,504 controls.
     location:
-        url: https://upenn.box.com/s/qw8xo1qb8hbjk1rpptaf4nnxdhmb08n8
+        url: https://drive.google.com/file/d/1zVBAziItKgsmW_IYqbdwcQ1p1-XM-eX-/view?usp=sharing
         md5: 49a2fc08ed17168c389983e33bd8da0d
     input_name: CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz
     columns:
