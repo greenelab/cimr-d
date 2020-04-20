@@ -1,0 +1,33 @@
+data_file:
+    description: >-
+        CARDIoGRAMplusC4D 1000 Genomes-based GWAS is a
+        meta-analysis of GWAS studies of mainly European,
+        South Asian, and East Asian, descent imputed using
+        the 1000 Genomes phase 1 v3 training set with
+        38 million variants. The study interrogated 9.4 million
+        variants and involved 60,801 CAD cases
+        and 123,504 controls.
+    location:
+        url: https://drive.google.com/file/d/1zVBAziItKgsmW_IYqbdwcQ1p1-XM-eX-/view?usp=sharing
+        md5: 49a2fc08ed17168c389983e33bd8da0d
+    input_name: CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz
+    columns:
+        variant_id: panel_variant_id
+        variant_chrom: chromosome
+        variant_pos: position
+        rsnum: variant_id
+
+data_info:
+    citation: 10.1038/ng.3396
+    data_source: http://www.cardiogramplusc4d.org/data-downloads/
+    data_type: gwas
+    context: coronary artery disease (additive)
+    build: b38
+    sample_size: 184305
+    n_cases: 60801
+    can_be_public: true
+
+method:
+    name: logistic regression; meta-analysis
+    tool: GCTA
+    website: https://cnsgenomics.com/software/gcta/#Overview
