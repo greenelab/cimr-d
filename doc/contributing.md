@@ -711,7 +711,7 @@ contributor:
 ## Where did my data go after submission to cimr-d?
 
 Successfully processed data will be relocated to a publicly
-accesible S3 bucket in Amazon Web Services (AWS).
+accesible bucket in Google Cloud Storage.
 [The list is maintained in the cimr-d github repository](https://github.com/greenelab/cimr-d/blob/master/processed/README.md)
 for convenient review and download. Periodically, data will
 undergo additional review to be released on an archive service
@@ -728,11 +728,11 @@ data is accepted for storage in _cimr-d_. One may check the status
 of the automated steps by the colored dots next to the PR commit
 history in the GitHub. Orange means the PR has been submitted and
 is pending processing. Green means the PR has passed all
-pre-requisites to proceed into the _cimr-d_ AWS S3 bucket for
+pre-requisites to proceed into the _cimr-d_ cloud bucket for
 public downloads. Once the PR has been checked, both the submitted
 and processed data are manually reviewed before the PR is approved.
 Subsequently, data merged into the master branch will be relocated
-to a designated S3 bucket for public downloads.
+to a designated cloud bucket for public downloads.
 
 
 ## How long does it take for the PR to be approved?

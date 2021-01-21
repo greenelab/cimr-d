@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # This script is executed at the end of data crunching to save downloaded and
-# decompressed files in a temporary location in private S3 bucket.
+# decompressed files in a temporary location in private cloud bucket.
 
 set -e -x
 
