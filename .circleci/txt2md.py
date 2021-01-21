@@ -1,46 +1,17 @@
-"""This script generates README.md based on s3_list.txt. If an S3 object's
-parent folder(s) doesn't exist, this script will be smart enough to create
-the parent folder(s) as separate items in output MD file.
-"""
+#!/usr/bin/env python3
 
-TXT_FILENAME = "processed/s3_list.txt"
+"""Generates README.md based on gs_list.txt."""
+
+TXT_FILENAME = "processed/gs_list.txt"
 MD_FILENAME = "processed/README.md"
+GS_PREFIX = "gs://cimr-d/"
 
-
-def get_md_name(s3_name):
-    """Returns the filename with leading bullet list MD format."""
-
-    path_tokens = s3_name.rstrip('/').split('/')
-    indentation_level = len(path_tokens)
-    list_prefix = indentation_level * 2 * ' ' + '* '
-    file_basename = path_tokens[-1]
-    if s3_name.endswith('/'):
-        return list_prefix + file_basename
-    else:
-        bucket_url = "https://cimr-d.s3.amazonaws.com"
-        return f"{list_prefix}[{file_basename}]({bucket_url}/{s3_name})"
-
-
-def create_folders(curr_folders, prev_folders):
-    """Compare curr_folders with prev_folders, then generate all folders
-    that are not in prev_folders.
-    """
-
-    idx = 0
-    end = min(len(curr_folders), len(prev_folders))
-    while idx < end:
-        if curr_folders[idx] != prev_folders[idx]:
-            break
-        idx += 1
-
-    if idx == len(curr_folders):
-        return
-
-    while idx < len(curr_folders):
-        s3_folder_path = '/'.join(curr_folders[0:(idx + 1)]) + '/'
-        md_name = get_md_name(s3_folder_path)
-        file_out.write(md_name + '\n')
-        idx += 1
+def get_md_name(gs_path):
+    """Returns the filename with leading bullet list in MD format."""
+    relative_path = gs_path[len(GS_PREFIX):]
+    file_name = relative_path.split("/")[-1]
+    bucket_url = "https://storage.googleapis.com/cimr-d"
+    return f"[{file_name}]({bucket_url}/{relative_path})"
 
 
 with open(TXT_FILENAME) as file_in, open(MD_FILENAME, 'w') as file_out:
@@ -48,28 +19,26 @@ with open(TXT_FILENAME) as file_in, open(MD_FILENAME, 'w') as file_out:
         "*Note: If the list is cutoff at the bottom due to GitHub's 512KB-limit\n"
         "on the main page, click [here](README.md) to see its full content.*\n\n"
     )
-    file_out.write("List of processed files (with links to AWS S3 bucket):\n")
+    file_out.write("List of processed files (with links to Google Cloud Storage bucket):\n")
     file_out.write("----\n")
 
-    prev_folders = []
     for line_in in file_in:
+        line_in = line_in.strip()
+        # Ignore blank lines and the ending summary line
+        if len(line_in) == 0 or line_in.startswith("TOTAL: "):
+            continue
+
+        # folder name
+        if line_in.startswith(GS_PREFIX) and line_in.endswith("/:"):
+            left_idx = len(GS_PREFIX)
+            folder_name = line_in[left_idx:-2]  # "-2" cuts off the trailing ":/"
+            file_out.write(" " * 2 + f"* {folder_name}\n")
+            continue
+
+        # file name
         tokens = line_in.strip().split()
-        s3_name = " ".join(tokens[4:])
-        md_name = get_md_name(s3_name)
-
-        if s3_name.endswith('/'):
-            curr_folders = s3_name.split('/')[0:-2]
-            create_folders(curr_folders, prev_folders)
-            # Do not show size and date fields for a directory
-            file_out.write(md_name + '\n')
-        else:
-            curr_folders = s3_name.split('/')[0:-1]
-            create_folders(curr_folders, prev_folders)
-            # For a regular file, include size and date fields too
-            s3_date = tokens[0] + " " + tokens[1]
-            s3_size = tokens[2] + " " + tokens[3]
-            date_str = f" (updated on *{s3_date}*)"
-            size_str = ": " + s3_size
-            file_out.write(md_name + size_str + date_str + '\n')
-
-        prev_folders = s3_name.split('/')[0:-1]
+        gs_path = " ".join(tokens[3:])
+        md_name = get_md_name(gs_path)
+        file_size = " ".join(tokens[0:2])
+        file_date = tokens[2]
+        file_out.write(f" " * 4 + f"* {md_name}: {file_size} (updated on *{file_date}*)\n")

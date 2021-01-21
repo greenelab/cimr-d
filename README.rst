@@ -24,7 +24,7 @@ the link and viewing raw file or by typing the following in a terminal::
 
 
 Cloning the full repository will not download all data stored in the
-cimr-d AWS S3 bucket. So you may safely clone the repository to keep a
+`cimr-d` Google Cloud Storage bucket. So you may safely clone the repository to keep a
 local copy of the catalog::
 
     git clone git@github.com:greenelab/cimr-d.git
@@ -126,5 +126,3 @@ cimr-d references
     Manuscript in Preparation
 
   * Park Y. (2019), cimr, https://github.com/greenelab/cimr
-
-

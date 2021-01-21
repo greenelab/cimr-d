@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # This script will be triggered when "master" branch is updated.
-# It copies "submitted_data" and "processed_data" to permanent locations in S3
-# buckets, cleans up everything in "submitted/" sub-directory and commits the
-# changes back to remote repo.
+# It copies "submitted_data" and "processed_data" to permanent locations in
+# Google Cloud Storage buckets, cleans up everything in "submitted/" sub-directory
+# and commits the changes back to remote repo.
 
 set -e -x
 
@@ -46,7 +46,7 @@ fi
 
 PR_STR="PR-${PR_NUMBER}"
 
-# If we are merging a PR, but the indicator object is not found in S3 bucket,
+# If we are merging a PR, but the indicator object is not found in cloud bucket,
 # data processing must either fail or not start at all, so we exit too.
 INDICATOR_FIELNAME="submitted_data/request.handled"
 if [ ! -f ${INDICATOR_FIELNAME} ]; then
@@ -57,15 +57,38 @@ fi
 # Use the latest "pip"
 sudo pip install --upgrade pip
 
-# Install awscli to make "aws" command available
-sudo pip install awscli
+# Install Google Cloud SDK
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
+    | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+sudo apt-get install apt-transport-https ca-certificates gnupg --yes
+
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+    | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+
+sudo apt-get update
+sudo apt-get install google-cloud-sdk --yes
+
+# Create "~/.boto" to enable access to "cimr-d" and "cimr-root" buckets in GCP "cimr" project
+cat > ~/.boto << EOF
+[Credentials]
+gs_access_key_id = ${GS_ACCESS_KEY}
+gs_secret_access_key = ${GS_SECRET}
+
+[Boto]
+https_validate_certificates = True
+
+[GSUtil]
+content_language = en
+default_api_version = 1
+EOF
 
 # Copy "processed_data" to "cimr-d" bucket (public).
 # "PR-<n>" is inserted in filenames to avoid duplicates.
 OUTPUT_FILES=$(find processed_data -type f)
 for f in ${OUTPUT_FILES}; do
     g=$(echo $f | cut -d'/' -f'2-')    # strip "processed_data/" from $f
-    S3DIR=$(dirname $g)                # S3 object's dir name
+    GS_DIR=$(dirname $g)               # Cloud object's dir name
 
     g_base=$(basename $g)              # base filename
     tokens=(${g_base//./ })            # split $g_base into an array using '/'
@@ -73,28 +96,28 @@ for f in ${OUTPUT_FILES}; do
 
     if [ $LEN -eq 1 ]; then
 	# "foo" will become "foo-PR-n"
-	S3BASE="${g_base}-${PR_STR}"
+	GS_BASE="${g_base}-${PR_STR}"
     elif [ $LEN -eq 2 ]; then
 	# "foo.ext1" will become "foo-PR-n.ext1"
-	S3BASE="${tokens[0]}-${PR_STR}.${tokens[1]}"
+	GS_BASE="${tokens[0]}-${PR_STR}.${tokens[1]}"
     else
 	# "foo.ext2.ext1" will become "foo-PR-n.ext2.ext1"
-	S3BASE="${tokens[0]}"
+	GS_BASE="${tokens[0]}"
 	for ((i = 1; i < $LEN - 2; i++)); do
-	    S3BASE="${S3BASE}.${tokens[$i]}"
+	    GS_BASE="${GS_BASE}.${tokens[$i]}"
 	done
 
 	LEN_m2=$(expr $LEN - 2)        # $LEN - 2
 	LEN_m1=$(expr $LEN - 1)        # $LEN - 1
-	S3BASE="$S3BASE-${PR_STR}.${tokens[$LEN_m2]}.${tokens[$LEN_m1]}"
+	GS_BASE="${GS_BASE}-${PR_STR}.${tokens[$LEN_m2]}.${tokens[$LEN_m1]}"
     fi
 
-    S3NAME="${S3DIR}/$S3BASE"
-    aws s3 cp $f s3://cimr-d/${S3NAME}
+    GS_NAME="${GS_DIR}/${GS_BASE}"
+    gsutil cp $f gs://cimr-d/${GS_NAME}
 done
 
 # Copy "submitted_data" to "cimr-root" bucket (private)
-aws s3 sync submitted_data/ s3://cimr-root/${PR_STR}/ --exclude "request.handled"
+gsutil rsync -r -x "^request\.handled$" submitted_data/ gs://cimr-root/${PR_STR}/
 
 function git_commit() {
     # Move submitted files in the PR to "processed/"
@@ -103,8 +126,8 @@ function git_commit() {
 	git mv $f processed/${PR_STR}/
     done
 
-    # Update "processed/README.md", which lists all files in "cimr-d" S3 bucket
-    aws s3 ls cimr-d --recursive --human-readable > processed/s3_list.txt
+    # Update "processed/README.md", which lists all files in "cimr-d" bucket
+    gsutil ls -rlh gs://cimr-d > processed/gs_list.txt
     python3 .circleci/txt2md.py
     git add processed/README.md
 
