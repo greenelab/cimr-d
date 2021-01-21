@@ -5234,7 +5234,6 @@ List of processed files (with links to Google Cloud Storage bucket):
     * [formatted_20180205-MA_overall-ALL-nstud_18-SumMac_400-PR-937.tsv.gz](https://storage.googleapis.com/cimr-d/gwas/formatted_20180205-MA_overall-ALL-nstud_18-SumMac_400-PR-937.tsv.gz): 230.97 MiB (updated on *2021-01-20T13:26:59Z*)
     * [formatted_20180517-UACR_overall-EA-nstud_18-SumMac_400-PR-937.tsv.gz](https://storage.googleapis.com/cimr-d/gwas/formatted_20180517-UACR_overall-EA-nstud_18-SumMac_400-PR-937.tsv.gz): 256.14 MiB (updated on *2021-01-20T13:26:14Z*)
     * [glgc_triglycerides-PR-35.txt.gz](https://storage.googleapis.com/cimr-d/gwas/glgc_triglycerides-PR-35.txt.gz): 49.74 MiB (updated on *2021-01-20T13:23:34Z*)
-    * [gwas-PR-961.txt.gz](https://storage.googleapis.com/cimr-d/gwas/gwas-PR-961.txt.gz): 55.07 KiB (updated on *2021-01-21T22:21:34Z*)
     * [whr.giant-ukbb.meta-analysis.combined.23May2018-PR-50.txt.gz](https://storage.googleapis.com/cimr-d/gwas/whr.giant-ukbb.meta-analysis.combined.23May2018-PR-50.txt.gz): 827.96 MiB (updated on *2021-01-20T13:30:03Z*)
     * [whr.giant-ukbb.meta-analysis.females.23May2018-PR-50.txt.gz](https://storage.googleapis.com/cimr-d/gwas/whr.giant-ukbb.meta-analysis.females.23May2018-PR-50.txt.gz): 830.66 MiB (updated on *2021-01-20T13:32:39Z*)
     * [whr.giant-ukbb.meta-analysis.males.23May2018-PR-50.txt.gz](https://storage.googleapis.com/cimr-d/gwas/whr.giant-ukbb.meta-analysis.males.23May2018-PR-50.txt.gz): 830.55 MiB (updated on *2021-01-20T13:32:46Z*)
