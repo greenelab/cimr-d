@@ -71,7 +71,9 @@ sudo apt-get install google-cloud-sdk --yes
 sudo apt-get install gcc python3-dev python3-setuptools --yes
 sudo pip3 install --no-cache-dir -U crcmod
 
-# Create "~/.boto" to enable access to "cimr-d" and "cimr-root" buckets in GCP "cimr" project
+# Create "~/.boto" to enable access to "cimr-d" and "cimr-root" buckets in
+# GCP "cimr" project. This is equivalent to running `gsutil config -a` command,
+# which would ask user to type in Google Cloud Storage access key and secret.
 cat > ~/.boto << EOF
 [Credentials]
 gs_access_key_id = ${GS_ACCESS_KEY}
