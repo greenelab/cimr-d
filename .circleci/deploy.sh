@@ -72,7 +72,6 @@ sudo apt-get install google-cloud-sdk --yes
 # Install crcmod to speed up "gsutil rsync" command
 # (see output of "gsutil help crcmod" command)
 sudo apt-get install gcc python3-dev python3-setuptools --yes
-sudo pip3 uninstall crcmod
 sudo pip3 install --no-cache-dir -U crcmod
 
 # Create "~/.boto" to enable access to "cimr-d" and "cimr-root" buckets in GCP "cimr" project
